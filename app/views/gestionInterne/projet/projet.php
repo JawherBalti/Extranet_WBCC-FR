@@ -52,7 +52,42 @@ $active = "red";
                                <div class="col-md-12">
                                     <label class="font-weight-bold" for="">Selectionner un Immeuble ou un lot</label>
                                 </div>
+                               <div class="col-md-12">
+                                    <label class="font-weight-bold" for="">Immeubles</label>
+                                </div>
                                 <table class="table table-bordered" id="dataTable16" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Code de l'immeuble</th>
+                                            <th>Type de l'immeuble</th>
+                                            <th>Adresse</th>
+                                            <th>Code postal</th>
+                                            <th>Ville</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            $i = 0;
+                                            foreach ($immeubles as $immeuble) {
+                                                $i++;
+                                        ?>
+                                        <tr class="p-0 m-0" onclick="selectRow(this)">
+                                            <td><?= $i ?></td>
+                                            <td><?= $immeuble->codeImmeuble ?></td>
+                                            <td><?= $immeuble->typeImmeuble ?></td>
+                                            <td><?= $immeuble->adresse ?></td>
+                                            <td><?= $immeuble->codePostal ?></td>
+                                            <td><?= $immeuble->ville ?></td>
+                                        </tr>
+                                        <?php    }
+                                        ?>
+                                    </tbody>                
+                                </table>
+                               <div class="col-md-12">
+                                    <label class="font-weight-bold" for="">Lots</label>
+                                </div>
+                                <table class="table table-bordered" id="dataTable17" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>#</th>
