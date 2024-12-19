@@ -355,3 +355,31 @@ $(document).ready(function () {
     "iDisplayLength": 100
   });
 });
+
+$(document).ready(function () {
+  $('#dataTable17').DataTable({
+
+    // dom:
+    //   "<'row'<'col-sm-8 col-md-8'l><'col-sm-4 col-md-4'f>>" +
+    //   "<'row'<'col-sm-5 col-md-5'i><'col-sm-7 col-md-7'p>>"
+    // ,
+    "colReorder": true,
+    "oLanguage": {
+      "sZeroRecords": "Aucune donnée !",
+      "sProcessing": "En cours...",
+      "sLengthMenu": "Nombre d'éléments _MENU_ ",
+      "sInfo": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+      "sInfoEmpty": "Affichage de 0 à 0 sur 0 entrée",
+      "sInfoFiltered": "(filtré à partir de _MAX_ total entrées)",
+      "sSearch": "Recherche",
+    },
+    "language": {
+      "paginate": {
+        "previous": "<<",
+        "next": ">>"
+      }
+    },
+    "aLengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "Tous"]],
+    "iDisplayLength": 100
+  });
+});
