@@ -8,12 +8,6 @@ class Projet extends Model
         $res = $this->db->resultSet();
         return $res;
     }
-    
-    public function saveProjet($idProjet,$nomProjet, $descriptionProjet) {
-        if ($idProjet != null && $idProjet != "" && $idProjet != "0") {
-
-        }
-    }
 
     public function findProjetByColumnValue($column, $value)
     {
@@ -21,6 +15,39 @@ class Projet extends Model
         $this->db->bind("value", $value);
         $res = $this->db->single();
         return $res;
+    }
+    
+    public function saveProjet($idProjet, $nomProjet, $descriptionProjet, $idImmeuble, $idApp) {
+        if (empty($idApp)) {
+            $idApp = NULL;
+        }
+        if (empty($idImmeuble)) {
+            $idImmeuble = NULL;
+        }
+
+        if ($idProjet != null && $idProjet != "" && $idProjet != "0") {
+            $this->db->query("UPDATE wbcc_projet SET nomProjet=:nomProjet, descriptionProjet=:descriptionProjet, idImmeuble=:idImmeuble, idApp=:idApp WHERE idProjet=:idProjet");
+            $this->db->bind("idProjet", $idProjet);
+
+        } else {
+            $this->db->query("INSERT INTO wbcc_projet(nomProjet, descriptionProjet, idImmeuble, idApp, createDate) VALUES (:nomProjet, :descriptionProjet, :idImmeuble, :idApp, :createDate)");
+            $this->db->bind("createDate", date("Y-m-d H:i:s"));
+        }
+        $this->db->bind("nomProjet", $nomProjet);
+        $this->db->bind("descriptionProjet", $descriptionProjet);
+        $this->db->bind("idImmeuble", $idImmeuble);
+        $this->db->bind("idApp", $idApp);
+        if ($this->db->execute()) {
+            $artisan = false;
+            if ($idProjet != null && $idProjet != "" && $idProjet != "0") {
+                $artisan =  $this->findProjetByColumnValue("idProjet", $idProjet);
+            }else{
+                $artisan =  $this->findProjetByColumnValue("nomProjet", $nomProjet);
+            }
+            return $artisan;
+        } else {
+            return false;
+        }
     }
 
     public function saveSubvention($idSubvention, $titreSubvention, $natureTravaux, $natureAide,  $montantSubvention, $taux, $idOrganisme, $idUser)
