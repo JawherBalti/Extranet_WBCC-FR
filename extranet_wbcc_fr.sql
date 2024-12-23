@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 18 déc. 2024 à 12:19
+-- Généré le : lun. 23 déc. 2024 à 18:00
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -86,6 +86,13 @@ CREATE TABLE `wbcc_appartement` (
   `idAgenceImmobiliere` int(11) DEFAULT NULL,
   `idCompanyCopro` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Déchargement des données de la table `wbcc_appartement`
+--
+
+INSERT INTO `wbcc_appartement` (`idApp`, `numeroApp`, `codeApp`, `etage`, `codePorte`, `escalier`, `batiment`, `lot`, `typeLot`, `libellePartieCommune`, `cote`, `digicode`, `interphone`, `idImmeubleF`, `etatApp`, `indexCompteur`, `numeroCompteur`, `photoCompteur`, `commentaire`, `nbPiece`, `surface`, `codeWBCC`, `codeImmeubleWBCC`, `proprietaire`, `occupant`, `typeOccupation`, `typeOccupant`, `compagnieAssuranceOccupant`, `courtierOccupant`, `refOccupant`, `numPoliceOccupant`, `dateEffetOccupant`, `dateEcheanceOccupant`, `copieOccupant`, `typeProprietaire`, `compagnieAssuranceProprietaire`, `numPoliceProprietaire`, `dateEffetProprietaire`, `dateEcheanceProprietaire`, `copieProprietaire`, `nomImmeubleSyndic`, `adresse`, `codePostal`, `ville`, `dateDebutContrat`, `dateFinContrat`, `createDate`, `editDate`, `departement`, `region`, `gererApp`, `guidOccupant`, `guidProprietaire`, `idOccupant`, `idProprietaire`, `idAgenceImmobiliere`, `idCompanyCopro`) VALUES
+(1, '11', '111', '1', '1111', NULL, NULL, NULL, 'PP', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'current_timestamp()', 'current_timestamp()', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -272,7 +279,13 @@ CREATE TABLE `wbcc_contact` (
 
 INSERT INTO `wbcc_contact` (`idContact`, `numeroContact`, `nomContact`, `prenomContact`, `fullName`, `telContact`, `emailContact`, `dateNaissance`, `adresseContact`, `codePostalContact`, `villeContact`, `statutContact`, `etatContact`, `civiliteContact`, `copieCNI`, `copieCA`, `copieTP`, `commentaireCNI`, `commentaireCA`, `commentaireTP`, `lienParente`, `age`, `fiscalementCharge`, `fileJustificatifOcc`, `idContactFContact`, `codeFiche`, `skype`, `whatsapp`, `commentaire`, `category`, `companyName`, `departement`, `mobilePhone`, `faxPhone`, `emailCollaboratif`, `businessLine2`, `businessState`, `businessCountryName`, `digicode1`, `codePorte`, `batiment`, `etage`, `source`, `referredBy`, `createDate`, `editDate`, `jobTitle`, `service`, `motifSuppressionCompte`, `isUser`, `isPersonnel`) VALUES
 (1, 'vdfgsdfsddfhdffgd', 'BALTI', 'Jawher', 'Jawher BALTI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'current_timestamp()', 'current_timestamp()', NULL, NULL, NULL, 0, 0),
-(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'current_timestamp()', 'current_timestamp()', NULL, NULL, NULL, 1, 1);
+(2, 'CON_05050404', 'nc1', 'pc1', 'npc1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'current_timestamp()', 'current_timestamp()', NULL, NULL, NULL, 1, 1),
+(100, 'CON_1', 'nabila', 'nabila', 'nabila nabila', NULL, 'nabila.nabila@gmail.com', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'current_timestamp()', 'current_timestamp()', NULL, NULL, NULL, 0, 0),
+(1998, 'CON_05050404202420242024115034', 'DRIDI', 'Hamza', 'Hamza DRIDI', '0766596464', 'jeanmarc.d@wbcc.fr', NULL, '', '', '', NULL, 1, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, '', '', '', '', 'jeanmarc.d@wbcc.fr', '', '', NULL, NULL, '', '', '', NULL, 'Extranet WBCC', '2024-04-05 11:50:34', '2024-08-30 08:50:33', '', '', NULL, 1, 0),
+(8462, 'CON_05050404202420242024115035', 'admin', 'admin', 'admin admin', NULL, 'admin.admin@wbcc.fr', NULL, '', '', '', 'Commercial', 1, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, '', '', '', '', NULL, '', '', NULL, NULL, '', '', '', NULL, 'Extranet WBCC', '', '', '', '', NULL, 1, 0),
+(8464, 'CON_05050404202420242024115034', 'MEHERZI', 'Mohamed Achref', 'Mohamed Achref MEHERZI', '0766596464', 'achref@wbcc.fr', NULL, '', '', '', NULL, 1, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, '', '', '', '', 'achref@wbcc.fr', '', '', NULL, NULL, '', '', '', NULL, 'Extranet WBCC', '2024-04-05 11:50:34', '2024-08-30 08:50:33', '', '', NULL, 1, 0),
+(8465, 'CON_4', 'TAGUEZ', 'nabila', 'nabila TAGUEZ', '0766596463', 'tagueznabila8@gmail.com', NULL, '', '', '', 'Commercial', 1, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, 'Commercial', '', '', '', '', 'test.test@wbcc.fr', '', '', NULL, NULL, '', '', '', NULL, 'Extranet WBCC', '2024-04-05 11:50:34', '2024-08-30 08:50:33', '', '', NULL, 1, 0),
+(8466, 'CON_4', 'OUESLATI', 'hend', 'hend OUESLATI', '0766596463', 'oueslatihend@wbcc.fr', NULL, '', '', '', 'Commercial', 1, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, '', '', '', '', '', '', '', '', NULL, NULL, '', '', '', NULL, 'Extranet WBCC', '2024-04-05 11:50:34', '2024-08-30 08:50:33', '', '', NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -366,6 +379,193 @@ CREATE TABLE `wbcc_document` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `wbcc_document_pointage`
+--
+
+CREATE TABLE `wbcc_document_pointage` (
+  `id` int(11) NOT NULL,
+  `idDocumentF` int(11) NOT NULL,
+  `idPointageF` int(11) NOT NULL,
+  `nomDocument` varchar(255) DEFAULT NULL,
+  `isArrive` tinyint(1) DEFAULT NULL,
+  `associationDate` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `wbcc_document_pointage`
+--
+
+INSERT INTO `wbcc_document_pointage` (`id`, `idDocumentF`, `idPointageF`, `nomDocument`, `isArrive`, `associationDate`) VALUES
+(1, 49372, 153, NULL, NULL, '2024-10-27 14:54:23'),
+(2, 49373, 153, NULL, NULL, '2024-10-27 14:54:23'),
+(3, 49377, 151, NULL, NULL, '2024-10-27 14:59:49'),
+(4, 49378, 151, NULL, NULL, '2024-10-27 14:59:49'),
+(5, 49379, 151, NULL, NULL, '2024-10-27 14:59:49'),
+(6, 49380, 151, NULL, NULL, '2024-10-27 14:59:49'),
+(7, 49381, 151, NULL, NULL, '2024-10-27 14:59:49'),
+(8, 49357, 161, NULL, NULL, '2024-10-28 09:43:36'),
+(9, 49382, 160, NULL, NULL, '2024-10-28 09:54:48'),
+(11, 49384, 167, NULL, NULL, '2024-10-30 11:15:03'),
+(12, 49385, 167, NULL, NULL, '2024-10-30 11:18:14'),
+(13, 49386, 167, NULL, NULL, '2024-10-30 11:18:14'),
+(14, 49387, 167, NULL, NULL, '2024-10-30 11:18:14'),
+(15, 49388, 167, NULL, NULL, '2024-10-30 11:18:14'),
+(16, 49389, 167, NULL, NULL, '2024-10-30 11:18:14'),
+(17, 49390, 167, NULL, NULL, '2024-10-30 11:18:14'),
+(22, 49392, 164, NULL, NULL, '2024-11-03 23:49:54'),
+(26, 49394, 169, NULL, NULL, '2024-11-04 00:25:17'),
+(27, 49395, 169, NULL, NULL, '2024-11-04 00:25:17'),
+(28, 49396, 163, NULL, NULL, '2024-11-04 00:29:34'),
+(29, 49397, 163, NULL, NULL, '2024-11-04 00:29:34'),
+(30, 49398, 169, NULL, NULL, '2024-11-04 09:03:12'),
+(31, 49398, 169, NULL, NULL, '2024-11-04 09:04:09'),
+(32, 49399, 162, NULL, NULL, '2024-11-04 09:29:31'),
+(33, 49400, 167, NULL, NULL, '2024-11-04 10:27:26'),
+(45, 49405, 173, NULL, NULL, '2024-11-06 23:19:16'),
+(46, 49405, 173, NULL, NULL, '2024-11-06 23:19:42'),
+(47, 49405, 173, NULL, NULL, '2024-11-06 23:24:22'),
+(48, 49405, 173, NULL, NULL, '2024-11-06 23:28:33'),
+(52, 49406, 190, NULL, NULL, '2024-11-07 19:34:57'),
+(53, 49404, 190, NULL, NULL, '2024-11-07 19:42:57'),
+(54, 49401, 190, NULL, NULL, '2024-11-07 19:52:31'),
+(55, 49405, 173, NULL, NULL, '2024-11-07 20:07:43'),
+(57, 49408, 213, NULL, NULL, '2024-11-09 18:05:51'),
+(59, 49410, 202, NULL, NULL, '2024-11-09 18:43:42'),
+(60, 49410, 202, NULL, NULL, '2024-11-09 18:46:26'),
+(63, 49413, 203, 'maladie', NULL, '2024-11-10 22:44:59'),
+(64, 49414, 203, 'maladie 2', NULL, '2024-11-10 22:52:10'),
+(65, 49415, 69, 'dossier manager de site', NULL, '2024-11-12 00:28:23'),
+(79, 49426, 216, 'test camer et select', NULL, '2024-11-12 23:36:30'),
+(80, 49427, 246, 'other test', NULL, '2024-11-12 23:52:35'),
+(81, 49428, 246, 'other test camera', NULL, '2024-11-12 23:55:51'),
+(82, 49429, 246, 'tt', NULL, '2024-11-13 09:07:23'),
+(83, 49429, 246, 'tt', NULL, '2024-11-13 09:24:50'),
+(84, 49430, 246, 'bbb', NULL, '2024-11-13 09:27:05'),
+(168, 49496, 251, 'test camera video', NULL, '2024-11-17 00:24:48'),
+(169, 49497, 251, 'Tt', NULL, '2024-11-17 16:39:52'),
+(170, 49498, 251, 'Tttvkbv', NULL, '2024-11-17 16:51:44'),
+(171, 49499, 251, 'Tttttttttttt', NULL, '2024-11-17 17:42:55'),
+(172, 49500, 251, 'Tttttttttttt6', NULL, '2024-11-17 17:44:08'),
+(173, 49501, 248, 'Jjj', NULL, '2024-11-17 17:56:31'),
+(174, 49502, 248, 'Jjj', NULL, '2024-11-17 17:56:31'),
+(175, 49503, 251, 'testvideo_video', NULL, '2024-11-18 00:10:09'),
+(176, 49504, 251, 'testvideoetpdf', NULL, '2024-11-18 00:11:36'),
+(177, 49505, 251, 'testvideoetpdf_video', NULL, '2024-11-18 00:11:36'),
+(184, 49512, 277, '123', NULL, '2024-11-18 14:18:00'),
+(185, 49513, 277, 'Dupont ', NULL, '2024-11-18 14:22:41'),
+(186, 49514, 277, 'Dupont ', NULL, '2024-11-18 14:22:41'),
+(187, 49515, 277, 'Jacquot ', NULL, '2024-11-18 14:44:28'),
+(188, 49516, 277, 'teeeesthettt', NULL, '2024-11-20 23:36:47'),
+(189, 49517, 303, 'azertyuio', NULL, '2024-11-22 00:44:24'),
+(190, 49518, 303, 'azertyhhhh', NULL, '2024-11-22 00:50:45'),
+(191, 49519, 303, 'wxcvbn', NULL, '2024-11-22 00:53:24'),
+(192, 49520, 303, 'fouleeen', NULL, '2024-11-22 00:56:23'),
+(193, 49521, 303, 'nabila nabila', NULL, '2024-11-22 01:03:08'),
+(194, 49522, 303, 'maladie dentaire', NULL, '2024-11-22 08:09:13'),
+(195, 49523, 304, 'testfortest', NULL, '2024-11-23 23:10:35'),
+(196, 49524, 304, '', NULL, '2024-11-23 23:57:27'),
+(197, 49525, 304, '', NULL, '2024-11-23 23:58:56'),
+(198, 49526, 304, 'testfortest', NULL, '2024-11-24 00:05:59'),
+(199, 49527, 304, '', NULL, '2024-11-24 00:07:40'),
+(200, 49528, 304, 'testtesta', NULL, '2024-11-24 00:08:47'),
+(201, 49529, 304, 'testhhh', NULL, '2024-11-24 00:10:38'),
+(202, 49530, 304, 'testtesttest', NULL, '2024-11-24 00:12:51'),
+(203, 49531, 304, 'testtesthhh', NULL, '2024-11-24 00:14:33'),
+(204, 49532, 304, 'testtesthhh11', NULL, '2024-11-24 00:14:52'),
+(205, 49533, 304, 'newtestupdate', NULL, '2024-11-24 00:18:08'),
+(206, 49534, 304, 'newgg', NULL, '2024-11-24 00:21:00'),
+(207, 49535, 304, 'newcc', NULL, '2024-11-24 00:24:07'),
+(208, 49536, 304, 'testhere', NULL, '2024-11-24 00:58:10'),
+(209, 49537, 304, 'timeout', NULL, '2024-11-24 00:59:19'),
+(210, 49538, 304, 'bienvenue', NULL, '2024-11-24 01:04:33'),
+(211, 49539, 304, 'bienvenue 2', NULL, '2024-11-24 01:07:21'),
+(212, 49540, 304, 'tunisia', NULL, '2024-11-24 01:20:57'),
+(213, 49541, 304, 'tunis', NULL, '2024-11-24 01:23:14'),
+(214, 49542, 304, 'tunis11', NULL, '2024-11-24 01:26:47'),
+(215, 49543, 304, 'tunisia2020', NULL, '2024-11-24 01:31:13'),
+(216, 49544, 304, 'tunisia2021', NULL, '2024-11-24 01:34:44'),
+(217, 49545, 304, 'forlast', NULL, '2024-11-24 01:43:53'),
+(218, 49546, 304, 'this', NULL, '2024-11-24 01:53:53'),
+(219, 49547, 304, 'finn', NULL, '2024-11-24 01:57:20'),
+(220, 49548, 304, 'testnabila', NULL, '2024-11-24 14:00:52'),
+(221, 49549, 304, 'hola', NULL, '2024-11-24 14:09:38'),
+(222, 49550, 304, 'hihi', NULL, '2024-11-24 14:13:14'),
+(223, 49551, 304, 'hihi2', NULL, '2024-11-24 14:22:55'),
+(231, 49559, 304, 'nomjustt', NULL, '2024-11-24 15:52:02'),
+(232, 49560, 304, 'testhh', NULL, '2024-11-24 23:40:27'),
+(233, 49561, 304, 'trrrht', NULL, '2024-11-24 23:43:31'),
+(235, 49563, 304, 'vvghff', NULL, '2024-11-24 23:49:02'),
+(239, 49567, 304, 'testdepart', NULL, '2024-11-25 00:39:00'),
+(240, 49568, 304, 'depar', NULL, '2024-11-25 00:44:07'),
+(250, 49584, 304, 'testarrrrivh', 1, '2024-11-25 01:44:39'),
+(251, 49585, 304, 'testarrfff', 1, '2024-11-25 01:56:50'),
+(258, 49587, 304, 'null', 1, '2024-11-25 02:18:23'),
+(267, 49596, 304, 'BonjourJusitfArrive', 1, '2024-11-25 08:16:39'),
+(268, 49597, 304, 'bonjj', 1, '2024-11-25 08:21:15'),
+(269, 49598, 304, 'bonjrDepart', 0, '2024-11-25 08:21:47'),
+(272, 49601, 303, 'testbj', 1, '2024-11-25 09:29:24'),
+(273, 49602, 304, 'test555', 1, '2024-11-25 09:30:50'),
+(274, 49603, 303, 'bnjdepart2', 0, '2024-11-25 09:32:16'),
+(275, 49604, 303, 'morning', 0, '2024-11-25 09:33:16'),
+(283, 49612, 316, 'testadminarrive', 1, '2024-11-25 11:00:35'),
+(287, 49616, 316, 'test new admin new', 1, '2024-11-25 11:52:50'),
+(290, 49619, 320, 'accident', 1, '2024-11-26 10:53:49'),
+(291, 49620, 320, 'urgence', 0, '2024-11-26 12:56:28'),
+(292, 49621, 320, 'cause urgente _video', 0, '2024-11-26 15:06:53'),
+(293, 49622, 319, 'frflllkk', 0, '2024-11-26 18:05:24'),
+(296, 49625, 320, 'Hhh_video', 1, '2024-11-27 08:43:03'),
+(297, 49626, 319, 'Ooo_video', 1, '2024-11-27 09:13:06'),
+(298, 49627, 319, 'Pppppp_video', 1, '2024-11-27 09:15:17'),
+(299, 49628, 319, 'Bbnj_video', 1, '2024-11-27 09:27:04'),
+(322, 49651, 319, 'Nnbb', 1, '2024-11-27 10:42:31'),
+(323, 49652, 319, 'Nnbb_video', 1, '2024-11-27 10:42:31'),
+(324, 49653, 317, 'Vvccxx', 1, '2024-11-27 10:47:51'),
+(325, 49654, 317, 'Vvccxx_video', 1, '2024-11-27 10:47:51'),
+(326, 49655, 317, 'Nounou', 1, '2024-11-27 10:57:44'),
+(327, 49656, 317, 'Nounou_video', 1, '2024-11-27 10:57:44'),
+(328, 49657, 303, 'Jjbbb', 1, '2024-11-27 11:03:23'),
+(329, 49658, 303, 'Jjbbb_video', 1, '2024-11-27 11:03:23'),
+(330, 49659, 305, 'Bjdjdjd', 1, '2024-11-27 11:05:28'),
+(331, 49660, 305, 'Bjdjdjd_video', 1, '2024-11-27 11:05:28'),
+(332, 49661, 305, 'Pppo', 0, '2024-11-27 11:06:35'),
+(333, 49662, 305, 'Pppo_video', 0, '2024-11-27 11:06:35'),
+(334, 49663, 317, 'nnb', 1, '2024-11-27 11:47:10'),
+(335, 49664, 319, 'Jjjjkkkl', 1, '2024-11-27 12:54:56'),
+(338, 49667, 321, 'Accident bus/metro', 1, '2024-11-27 13:21:18'),
+(339, 49668, 321, 'Mal du dos', 0, '2024-11-27 13:47:14'),
+(341, 49670, 321, 'Mal du dos et des pieds ', 0, '2024-11-27 13:52:29'),
+(387, 49716, 325, 'cas urg', 1, '2024-11-28 13:35:23'),
+(388, 49717, 325, 'cas urgent2', 1, '2024-11-28 13:36:02'),
+(389, 49718, 325, 'maladie hormonale_video', 0, '2024-11-28 13:41:35'),
+(390, 49719, 321, 'maladie hormonale', 0, '2024-11-28 23:35:46'),
+(391, 49720, 321, 'frflllkkcc', 0, '2024-11-28 23:36:57'),
+(392, 49721, 321, 'ddde', 0, '2024-11-28 23:39:39'),
+(393, 49722, 321, 'dezd', 0, '2024-11-28 23:44:57'),
+(394, 49723, 321, 'testtestliil', 0, '2024-11-29 00:17:09'),
+(396, 49725, 345, 'retard bus manouba', 1, '2024-11-29 07:39:20'),
+(399, 49728, 345, 'bureau d\'emploi', 0, '2024-11-29 07:50:32'),
+(401, 49730, 346, 'testhaho1', 1, '2024-11-29 09:47:20'),
+(402, 49731, 346, 'hihihihihohoho', 1, '2024-11-29 09:49:39'),
+(403, 49732, 346, 'ghanja', 1, '2024-11-29 09:52:09'),
+(450, 49779, 367, 'Metro', 1, '2024-12-05 10:04:40'),
+(451, 49780, 367, 'Metro2', 1, '2024-12-05 10:11:17'),
+(452, 49781, 367, 'Metro3', 0, '2024-12-05 10:32:06'),
+(453, 49782, 367, 'Metro4', 0, '2024-12-05 10:34:12'),
+(456, 49785, 367, 'xwcw', 1, '2024-12-07 11:43:18'),
+(457, 49786, 374, 'jjjj', 1, '2024-12-07 11:50:10'),
+(458, 49787, 418, 'maison', 1, '2024-12-09 07:42:29'),
+(479, 49808, 487, 'Pj_487_photo_1.jpg', 1, '2024-12-16 15:51:30'),
+(493, 49822, 511, 'nabila', 1, '2024-12-18 08:10:59'),
+(494, 49823, 517, 'nabila1', 1, '2024-12-19 13:12:23'),
+(495, 49824, 517, 'nabila2', 1, '2024-12-19 13:12:23'),
+(499, 49828, 538, 'tffeee', 1, '2024-12-23 00:27:08'),
+(500, 49829, 538, 'vrrs', 1, '2024-12-23 00:27:48'),
+(501, 49830, 545, 'bb1', 1, '2024-12-23 07:28:39'),
+(504, 49833, 545, 'bb1', 1, '2024-12-23 07:34:46');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `wbcc_document_requis`
 --
 
@@ -396,6 +596,53 @@ CREATE TABLE `wbcc_document_requis_subvention` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `wbcc_encaissement`
+--
+
+CREATE TABLE `wbcc_encaissement` (
+  `idEncaissement` int(11) NOT NULL,
+  `numeroEncaissement` varchar(50) DEFAULT NULL,
+  `dateEncaissement` varchar(25) DEFAULT NULL,
+  `dateEnreg` varchar(35) DEFAULT NULL,
+  `typeEncaissement` varchar(100) DEFAULT NULL COMMENT 'Devis ou Franchise ou ',
+  `montantEncaissement` varchar(100) DEFAULT NULL,
+  `tireur` varchar(255) DEFAULT NULL,
+  `donneurOrdre` varchar(255) DEFAULT NULL,
+  `artisan` varchar(255) DEFAULT NULL,
+  `idOPEncaissement` int(11) DEFAULT NULL,
+  `nameOPEncaissement` varchar(25) DEFAULT NULL,
+  `typeReglement` varchar(100) DEFAULT NULL COMMENT 'Virement ou Chèque',
+  `montantAEncaisser` varchar(100) DEFAULT NULL,
+  `idAuteurEncaissement` int(11) DEFAULT NULL,
+  `auteurEncaissement` varchar(255) DEFAULT NULL,
+  `modeReglement` varchar(100) DEFAULT NULL COMMENT 'En une seule fois / En deux temps',
+  `commentaireEncaissement` text DEFAULT NULL,
+  `journalFile` varchar(150) DEFAULT NULL,
+  `idDevisF` int(11) DEFAULT NULL,
+  `idChequeF` int(11) DEFAULT NULL,
+  `irregulariteImmediat` int(11) DEFAULT 0,
+  `mntIrreguraliteImmediat` varchar(100) DEFAULT NULL,
+  `irregulariteDiffere` int(11) DEFAULT 0,
+  `mntIrreguraliteDiffere` varchar(100) DEFAULT NULL,
+  `idCompteBancaireF` int(5) DEFAULT NULL,
+  `numeroCompteBancaire` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Déchargement des données de la table `wbcc_encaissement`
+--
+
+INSERT INTO `wbcc_encaissement` (`idEncaissement`, `numeroEncaissement`, `dateEncaissement`, `dateEnreg`, `typeEncaissement`, `montantEncaissement`, `tireur`, `donneurOrdre`, `artisan`, `idOPEncaissement`, `nameOPEncaissement`, `typeReglement`, `montantAEncaisser`, `idAuteurEncaissement`, `auteurEncaissement`, `modeReglement`, `commentaireEncaissement`, `journalFile`, `idDevisF`, `idChequeF`, `irregulariteImmediat`, `mntIrreguraliteImmediat`, `irregulariteDiffere`, `mntIrreguraliteDiffere`, `idCompteBancaireF`, `numeroCompteBancaire`) VALUES
+(1, 'ENC_4002_230720244', '2024-07-18', NULL, 'devis -Encaissement Immédiat -Encaissement Immédiat', '400', NULL, NULL, NULL, 4002, 'OP2024-01-19-0137', 'Chèque', '500', 4, 'Aicha Diagne', 'En Deux Temps', 'test encaissement chèque', NULL, 6, 14, 0, NULL, 1, '100', NULL, NULL),
+(2, 'ENC_4002_230720244', '2024-07-18', NULL, 'devis -Encaissement Immédiat -Encaissement Différé', '400', NULL, NULL, NULL, 4002, 'OP2024-01-19-0137', 'Chèque', '500', 4, 'Aicha Diagne', 'En Deux Temps', 'test encaissement chèque', NULL, 6, 14, 0, NULL, 0, NULL, NULL, NULL),
+(3, 'ENC_4002_230720244', '2024-07-16', '23-07-2024 15:06', 'devis -Encaissement Immédiat -Encaissement Différé', '400', NULL, NULL, NULL, 4002, 'OP2024-01-19-0137', 'Chèque', '500', 4, 'Aicha Diagne', 'En Deux Temps', 'test comment confirmation encaissement chèque', NULL, 6, 14, 0, NULL, 0, NULL, NULL, NULL),
+(4, 'ENC_3997_240720244', '2024-07-10', '24-07-2024 15:59', 'devis -Encaissement Immédiat', '500', NULL, NULL, NULL, 3997, 'OP2024-01-19-0136', 'Virement', '500', 4, 'Aicha Diagne', '', 'azdza', NULL, 9, 0, 0, NULL, 0, NULL, 5, 'FR7616958000018248503263004'),
+(5, 'ENC_4002_250720244', '2024-07-10', '25-07-2024 09:49', 'devis -Encaissement Différé', '500', 'AXAA', NULL, NULL, 4002, 'OP2024-01-19-0137', 'Virement', '100', 4, 'Aicha Diagne', 'En Deux Temps', 'tesr', NULL, 6, 0, 0, NULL, 1, '-400', 3, 'FR7616958000016448916615984'),
+(6, 'ENC_4002_250720244', '2024-07-16', '25-07-2024 10:58', 'devis -Encaissement Différé -Encaissement Différé', '100', 'AXAA', 'Aicha DUPONT', 'FRANCE TRAVAUX', 4002, 'OP2024-01-19-0137', 'Chèque', '100', 4, 'Aicha Diagne', 'En Deux Temps', 'rttr', NULL, 6, 18, 0, NULL, 0, NULL, 4, 'FR7616958000011154821882644');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `wbcc_historique`
 --
 
@@ -414,7 +661,120 @@ CREATE TABLE `wbcc_historique` (
 --
 
 INSERT INTO `wbcc_historique` (`idHistorique`, `action`, `nomComplet`, `dateAction`, `heureAction`, `idUtilisateurF`, `idOpportunityF`) VALUES
-(1, 'Connexion', 'Jawher BALTI', '2024-12-18 09:17:48', NULL, 1, NULL);
+(1, 'Connexion', 'Jawher BALTI', '2024-12-18 09:17:48', NULL, 1, NULL),
+(2, 'Déconnexion', 'Jawher BALTI', '2024-12-19 16:22:51', NULL, 1, NULL),
+(3, 'Connexion', 'Jawher BALTI', '2024-12-19 16:22:57', NULL, 1, NULL),
+(4, 'Déconnexion', 'Jawher BALTI', '2024-12-19 16:23:05', NULL, 1, NULL),
+(5, 'Connexion', 'Jawher BALTI', '2024-12-19 16:23:42', NULL, 1, NULL),
+(6, 'Déconnexion', 'Jawher BALTI', '2024-12-19 16:46:12', NULL, 1, NULL),
+(7, 'Connexion', 'Jawher BALTI', '2024-12-19 16:46:17', NULL, 1, NULL),
+(8, 'Déconnexion', 'Jawher BALTI', '2024-12-19 16:46:25', NULL, 1, NULL),
+(9, 'Connexion', 'Jawher BALTI', '2024-12-19 16:46:43', NULL, 1, NULL),
+(10, 'Déconnexion', 'Jawher BALTI', '2024-12-19 16:47:18', NULL, 1, NULL),
+(11, 'Connexion', 'Jawher BALTI', '2024-12-19 16:47:40', NULL, 1, NULL),
+(12, 'Déconnexion', 'Jawher BALTI', '2024-12-19 16:55:16', NULL, 1, NULL),
+(13, 'Connexion', 'Jawher BALTI', '2024-12-19 16:55:21', NULL, 1, NULL),
+(14, 'Déconnexion', 'Jawher BALTI', '2024-12-20 07:56:09', NULL, 1, NULL),
+(15, 'Connexion', 'Jawher BALTI', '2024-12-20 07:56:13', NULL, 1, NULL),
+(16, 'Déconnexion', 'Jawher BALTI', '2024-12-20 09:41:27', NULL, 1, NULL),
+(17, 'Connexion', 'Jawher BALTI', '2024-12-20 09:41:32', NULL, 1, NULL),
+(18, 'Déconnexion', 'Jawher BALTI', '2024-12-20 10:33:43', NULL, 1, NULL),
+(19, 'Connexion', 'Jawher BALTI', '2024-12-20 10:33:48', NULL, 1, NULL),
+(20, 'Déconnexion', 'Jawher BALTI', '2024-12-20 10:33:56', NULL, 1, NULL),
+(21, 'Connexion', 'Jawher BALTI', '2024-12-20 10:34:11', NULL, 1, NULL),
+(22, 'Déconnexion', 'Jawher BALTI', '2024-12-20 10:57:51', NULL, 1, NULL),
+(23, 'Connexion', 'Jawher BALTI', '2024-12-20 10:57:56', NULL, 1, NULL),
+(24, 'Déconnexion', 'Jawher BALTI', '2024-12-20 11:03:02', NULL, 1, NULL),
+(25, 'Connexion', 'Jawher BALTI', '2024-12-20 11:03:07', NULL, 1, NULL),
+(26, 'Déconnexion', 'Jawher BALTI', '2024-12-20 14:15:09', NULL, 1, NULL),
+(27, 'Connexion', 'Jawher BALTI', '2024-12-20 14:15:15', NULL, 1, NULL),
+(28, 'Déconnexion', 'Jawher BALTI', '2024-12-20 14:15:31', NULL, 1, NULL),
+(29, 'Connexion', 'Jawher BALTI', '2024-12-20 14:15:36', NULL, 1, NULL),
+(30, 'Déconnexion', 'Jawher BALTI', '2024-12-20 14:15:39', NULL, 1, NULL),
+(31, 'Connexion', 'Jawher BALTI', '2024-12-20 14:15:52', NULL, 1, NULL),
+(32, 'Déconnexion', 'Jawher BALTI', '2024-12-20 15:28:47', NULL, 1, NULL),
+(33, 'Connexion', 'Jawher BALTI', '2024-12-20 15:28:50', NULL, 1, NULL),
+(34, 'Déconnexion', 'Jawher BALTI', '2024-12-20 15:29:00', NULL, 1, NULL),
+(35, 'Connexion', 'Jawher BALTI', '2024-12-20 15:29:27', NULL, 1, NULL),
+(36, 'Déconnexion', 'Jawher BALTI', '2024-12-20 15:32:11', NULL, 1, NULL),
+(37, 'Connexion', 'Jawher BALTI', '2024-12-20 15:32:17', NULL, 1, NULL),
+(38, 'Déconnexion', 'Jawher BALTI', '2024-12-20 16:20:11', NULL, 1, NULL),
+(39, 'Connexion', 'Jawher BALTI', '2024-12-20 16:20:15', NULL, 1, NULL),
+(40, 'Déconnexion', 'Jawher BALTI', '2024-12-20 16:21:12', NULL, 1, NULL),
+(41, 'Connexion', 'Jawher BALTI', '2024-12-20 16:21:17', NULL, 1, NULL),
+(42, 'Connexion', 'Jawher BALTI', '2024-12-23 08:01:21', NULL, 1, NULL),
+(43, 'Déconnexion', 'Jawher BALTI', '2024-12-23 08:55:30', NULL, 1, NULL),
+(44, 'Connexion', 'Jawher BALTI', '2024-12-23 08:55:44', NULL, 1, NULL),
+(45, 'Déconnexion', 'Jawher BALTI', '2024-12-23 08:59:29', NULL, 1, NULL),
+(46, 'Connexion', 'Jawher BALTI', '2024-12-23 08:59:34', NULL, 1, NULL),
+(47, 'Déconnexion', 'Jawher BALTI', '2024-12-23 09:03:13', NULL, 1, NULL),
+(48, 'Connexion', 'Jawher BALTI', '2024-12-23 09:03:18', NULL, 1, NULL),
+(49, 'Déconnexion', 'Jawher BALTI', '2024-12-23 09:11:13', NULL, 1, NULL),
+(50, 'Connexion', 'Jawher BALTI', '2024-12-23 09:11:18', NULL, 1, NULL),
+(51, 'Déconnexion', 'Jawher BALTI', '2024-12-23 09:14:20', NULL, 1, NULL),
+(52, 'Connexion', 'Jawher BALTI', '2024-12-23 09:14:25', NULL, 1, NULL),
+(53, 'Déconnexion', 'Jawher BALTI', '2024-12-23 09:20:33', NULL, 1, NULL),
+(54, 'Connexion', 'Jawher BALTI', '2024-12-23 09:20:37', NULL, 1, NULL),
+(55, 'Déconnexion', 'Jawher BALTI', '2024-12-23 09:22:01', NULL, 1, NULL),
+(56, 'Connexion', 'Jawher BALTI', '2024-12-23 09:22:06', NULL, 1, NULL),
+(57, 'Déconnexion', 'Jawher BALTI', '2024-12-23 09:28:35', NULL, 1, NULL),
+(58, 'Connexion', 'Jawher BALTI', '2024-12-23 09:28:39', NULL, 1, NULL),
+(59, 'Déconnexion', 'Jawher BALTI', '2024-12-23 09:31:37', NULL, 1, NULL),
+(60, 'Connexion', 'Jawher BALTI', '2024-12-23 09:31:42', NULL, 1, NULL),
+(61, 'Déconnexion', 'Jawher BALTI', '2024-12-23 09:34:29', NULL, 1, NULL),
+(62, 'Connexion', 'Jawher BALTI', '2024-12-23 09:34:34', NULL, 1, NULL),
+(63, 'Déconnexion', 'Jawher BALTI', '2024-12-23 09:47:31', NULL, 1, NULL),
+(64, 'Connexion', 'Jawher BALTI', '2024-12-23 09:47:36', NULL, 1, NULL),
+(65, 'Déconnexion', 'Jawher BALTI', '2024-12-23 09:56:07', NULL, 1, NULL),
+(66, 'Connexion', 'Jawher BALTI', '2024-12-23 09:56:11', NULL, 1, NULL),
+(67, 'Déconnexion', 'Jawher BALTI', '2024-12-23 10:52:29', NULL, 1, NULL),
+(68, 'Connexion', 'Jawher BALTI', '2024-12-23 10:52:33', NULL, 1, NULL),
+(69, 'Déconnexion', 'Jawher BALTI', '2024-12-23 10:54:26', NULL, 1, NULL),
+(70, 'Connexion', 'Jawher BALTI', '2024-12-23 10:54:30', NULL, 1, NULL),
+(71, 'Déconnexion', 'Jawher BALTI', '2024-12-23 11:22:20', NULL, 1, NULL),
+(72, 'Connexion', 'Jawher BALTI', '2024-12-23 11:22:24', NULL, 1, NULL),
+(73, 'Déconnexion', 'Jawher BALTI', '2024-12-23 11:22:52', NULL, 1, NULL),
+(74, 'Connexion', 'Jawher BALTI', '2024-12-23 11:23:14', NULL, 1, NULL),
+(75, 'Déconnexion', 'Jawher BALTI', '2024-12-23 12:54:19', NULL, 1, NULL),
+(76, 'Connexion', 'Jawher BALTI', '2024-12-23 12:54:24', NULL, 1, NULL),
+(77, 'Déconnexion', 'Jawher BALTI', '2024-12-23 13:21:09', NULL, 1, NULL),
+(78, 'Connexion', 'Jawher BALTI', '2024-12-23 13:21:14', NULL, 1, NULL),
+(79, 'Déconnexion', 'Jawher BALTI', '2024-12-23 13:22:35', NULL, 1, NULL),
+(80, 'Connexion', 'Jawher BALTI', '2024-12-23 13:22:40', NULL, 1, NULL),
+(81, 'Déconnexion', 'Jawher BALTI', '2024-12-23 13:28:58', NULL, 1, NULL),
+(82, 'Connexion', 'Jawher BALTI', '2024-12-23 13:29:02', NULL, 1, NULL),
+(83, 'Déconnexion', 'Jawher BALTI', '2024-12-23 14:26:04', NULL, 1, NULL),
+(84, 'Connexion', 'Jawher BALTI', '2024-12-23 14:26:10', NULL, 1, NULL),
+(85, 'Déconnexion', 'Jawher BALTI', '2024-12-23 14:33:52', NULL, 1, NULL),
+(86, 'Connexion', 'Jawher BALTI', '2024-12-23 14:33:57', NULL, 1, NULL),
+(87, 'Déconnexion', 'Jawher BALTI', '2024-12-23 14:34:22', NULL, 1, NULL),
+(88, 'Connexion', 'Jawher BALTI', '2024-12-23 14:34:38', NULL, 1, NULL),
+(89, 'Déconnexion', 'Jawher BALTI', '2024-12-23 14:51:48', NULL, 1, NULL),
+(90, 'Connexion', 'Jawher BALTI', '2024-12-23 14:51:52', NULL, 1, NULL),
+(91, 'Déconnexion', 'Jawher BALTI', '2024-12-23 14:53:30', NULL, 1, NULL),
+(92, 'Connexion', 'Jawher BALTI', '2024-12-23 14:53:36', NULL, 1, NULL),
+(93, 'Déconnexion', 'Jawher BALTI', '2024-12-23 14:55:38', NULL, 1, NULL),
+(94, 'Connexion', 'Jawher BALTI', '2024-12-23 14:55:44', NULL, 1, NULL),
+(95, 'Déconnexion', 'Jawher BALTI', '2024-12-23 14:59:47', NULL, 1, NULL),
+(96, 'Connexion', 'Jawher BALTI', '2024-12-23 14:59:51', NULL, 1, NULL),
+(97, 'Déconnexion', 'Jawher BALTI', '2024-12-23 15:03:11', NULL, 1, NULL),
+(98, 'Connexion', 'Jawher BALTI', '2024-12-23 15:03:15', NULL, 1, NULL),
+(99, 'Déconnexion', 'Jawher BALTI', '2024-12-23 15:03:42', NULL, 1, NULL),
+(100, 'Connexion', 'Jawher BALTI', '2024-12-23 15:03:47', NULL, 1, NULL),
+(101, 'Déconnexion', 'Jawher BALTI', '2024-12-23 15:31:42', NULL, 1, NULL),
+(102, 'Connexion', 'Jawher BALTI', '2024-12-23 15:31:46', NULL, 1, NULL),
+(103, 'Déconnexion', 'Jawher BALTI', '2024-12-23 15:32:11', NULL, 1, NULL),
+(104, 'Connexion', 'Jawher BALTI', '2024-12-23 15:32:15', NULL, 1, NULL),
+(105, 'Déconnexion', 'Jawher BALTI', '2024-12-23 15:33:58', NULL, 1, NULL),
+(106, 'Connexion', 'Jawher BALTI', '2024-12-23 15:34:03', NULL, 1, NULL),
+(107, 'Déconnexion', 'Jawher BALTI', '2024-12-23 15:34:31', NULL, 1, NULL),
+(108, 'Connexion', 'Jawher BALTI', '2024-12-23 15:34:35', NULL, 1, NULL),
+(109, 'Déconnexion', 'Jawher BALTI', '2024-12-23 16:23:42', NULL, 1, NULL),
+(110, 'Connexion', 'Jawher BALTI', '2024-12-23 16:23:46', NULL, 1, NULL),
+(111, 'Déconnexion', 'Jawher BALTI', '2024-12-23 16:26:05', NULL, 1, NULL),
+(112, 'Connexion', 'Jawher BALTI', '2024-12-23 16:26:10', NULL, 1, NULL),
+(113, 'Déconnexion', 'Jawher BALTI', '2024-12-23 16:26:53', NULL, 1, NULL),
+(114, 'Connexion', 'Jawher BALTI', '2024-12-23 16:26:58', NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -475,6 +835,14 @@ CREATE TABLE `wbcc_immeuble` (
   `idCompagnieAssurance` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Déchargement des données de la table `wbcc_immeuble`
+--
+
+INSERT INTO `wbcc_immeuble` (`idImmeuble`, `numeroImmeuble`, `codeImmeuble`, `typeImmeuble`, `adresse`, `codePostal`, `ville`, `nomDO`, `idDO`, `guidDO`, `idProprietaire`, `nomProprietaire`, `guidProprietaire`, `typeProprietaire`, `createDate`, `idUserF`, `editDate`, `photoImmeuble`, `etatImmeuble`, `codeWBCC`, `codeImmeubleDO`, `nomImmeubleSyndic`, `idSyndic`, `guidSyndic`, `adresse2`, `departement`, `digicode1`, `digicode2`, `region`, `pays`, `nomInterphone`, `codeDO`, `refCourtier`, `numPolice`, `dateEffetContrat`, `dateEcheanceContrat`, `copieContrat`, `codeFiche`, `commentaire`, `nbreBatiment`, `libelleBatiment`, `nomPCS`, `nomGardien`, `nomCourtier`, `nomCompagnieAssurance`, `idChefSecteur`, `nomChefSecteur`, `idGardien`, `idCourtier`, `idCompagnieAssurance`) VALUES
+(1, '1', '111', 'HLM', 'addr1', '1111', 'ville1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'current_timestamp()', NULL, 'current_timestamp()', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2456, '2', '222', 'HLM', 'addr2', '2222', 'ville2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'current_timestamp()', NULL, 'current_timestamp()', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -532,6 +900,315 @@ CREATE TABLE `wbcc_parametres` (
 
 INSERT INTO `wbcc_parametres` (`id`, `numeroDemandeCloture`, `numeroDemandeValidation`, `numeroOpProvisoire`, `numeroBordereau`, `numeroOP`, `numeroOPamo`, `numeroBordereauCheque`, `numeroJournal`, `numeroFacture`, `numeroFactureProvisoire`, `numeroClient`, `numeroLotOP`) VALUES
 (1, 5, 0, 1267, 168, 1618, 591, 67, 1, 1, 1247, 2, 5002);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `wbcc_pointage`
+--
+
+CREATE TABLE `wbcc_pointage` (
+  `idPointage` int(11) NOT NULL,
+  `numeroPointage` varchar(50) DEFAULT NULL,
+  `datePointage` date DEFAULT NULL,
+  `heureDebutPointage` varchar(25) DEFAULT NULL,
+  `adressePointage` text DEFAULT NULL,
+  `heureDebutJour` varchar(25) DEFAULT NULL,
+  `heureFinJour` varchar(25) DEFAULT NULL,
+  `marge` int(11) DEFAULT 0,
+  `adresseProgramme` text DEFAULT NULL,
+  `anomalieDebutJour` int(11) DEFAULT 0,
+  `nbMinuteRetard` int(11) DEFAULT 0,
+  `retard` int(11) DEFAULT 0,
+  `absent` int(11) DEFAULT 0,
+  `motifRetard` text DEFAULT NULL,
+  `motifRetardDepart` text DEFAULT NULL,
+  `traite` int(11) DEFAULT 0,
+  `idTraiteF` int(11) DEFAULT NULL,
+  `auteurTraite` varchar(255) DEFAULT NULL,
+  `dateTraite` varchar(25) DEFAULT NULL,
+  `resultatTraite` varchar(255) DEFAULT NULL,
+  `heureFinPointage` varchar(25) DEFAULT NULL,
+  `nbMinuteDepart` int(11) DEFAULT 0,
+  `traiteDepart` int(11) DEFAULT 0,
+  `idTraiteDepartF` int(11) DEFAULT NULL,
+  `auteurTraiteDepart` varchar(255) DEFAULT NULL,
+  `dateTraiteDepart` varchar(25) DEFAULT NULL,
+  `resultatTraiteDepart` varchar(255) DEFAULT NULL,
+  `adresseFinPointage` text DEFAULT NULL,
+  `adresseProgrammeFin` text DEFAULT NULL,
+  `anomalieFinJour` int(11) DEFAULT 0,
+  `idUserF` int(11) DEFAULT NULL,
+  `idDocumentF` int(11) DEFAULT NULL,
+  `auteur` varchar(255) DEFAULT NULL,
+  `typeTraite` enum('Définitif','Temporaire') DEFAULT NULL,
+  `raisonRejet` text DEFAULT NULL,
+  `typeTraiteDepart` enum('Définitif','Temporaire') DEFAULT NULL,
+  `raisonRejetDepart` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Déchargement des données de la table `wbcc_pointage`
+--
+
+INSERT INTO `wbcc_pointage` (`idPointage`, `numeroPointage`, `datePointage`, `heureDebutPointage`, `adressePointage`, `heureDebutJour`, `heureFinJour`, `marge`, `adresseProgramme`, `anomalieDebutJour`, `nbMinuteRetard`, `retard`, `absent`, `motifRetard`, `motifRetardDepart`, `traite`, `idTraiteF`, `auteurTraite`, `dateTraite`, `resultatTraite`, `heureFinPointage`, `nbMinuteDepart`, `traiteDepart`, `idTraiteDepartF`, `auteurTraiteDepart`, `dateTraiteDepart`, `resultatTraiteDepart`, `adresseFinPointage`, `adresseProgrammeFin`, `anomalieFinJour`, `idUserF`, `idDocumentF`, `auteur`, `typeTraite`, `raisonRejet`, `typeTraiteDepart`, `raisonRejetDepart`) VALUES
+(1, 'PNTG001', '2024-09-16', '09:30:00', '123 Rue Principale, Tunis', '09:00:00', NULL, 30, 'Siège Social', 0, 30, 1, 0, NULL, NULL, 1, 101, 'John Doe', '2024-09-16', 'Traité', '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '456 Rue Secondaire, Tunis\n', 'Succursale', 0, 605, 49357, 'Jane Doe', NULL, NULL, NULL, NULL),
+(2, 'PNTG002', '2024-09-20', '09:00:00', '789 Rue Orme, Tunis', '09:00:00', NULL, 0, 'Entrepôt', 0, 0, 0, 0, NULL, NULL, 1, 102, 'Mary Smith', '2024-09-16', NULL, '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 605, NULL, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(3, 'PNTG003', '2024-09-18', '07:45:00', '456 Rue Pin, Tunis', '07:30:00', NULL, 15, 'Site Client', 0, 15, 0, 0, '', NULL, 0, NULL, NULL, NULL, 'Non traité', '15:30:00', 0, 0, NULL, NULL, NULL, NULL, '789 Rue Bouleau, Tunis', 'Bureau sur le terrain', 0, 1003, NULL, 'Michael Brown', NULL, NULL, NULL, NULL),
+(4, 'PNTG004', '2024-03-05', '00:00:00', '789 Rue Orme, Tunis', '09:00:00', NULL, 0, 'Entrepôt', 0, 0, 0, 1, 'test1', NULL, 1, 102, 'Mary Smith', '2024-09-16', NULL, '00:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 605, NULL, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(5, 'PNTG005', '2024-09-20', '09:00:00', '789 Rue Orme, Tunis', '09:00:00', NULL, 0, 'Entrepôt', 0, 0, 0, 0, NULL, NULL, 1, 102, 'Mary Smith', '2024-09-16', NULL, '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 3, NULL, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(6, 'PNTG006', '2024-09-24', '09:30:00', '123 Rue Principale, Tunis', '09:00:00', NULL, 30, 'Siège Social', 0, 30, 1, 0, 'test3', NULL, 1, 101, 'John Doe', '2024-09-24', 'Traité', '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '456 Rue Secondaire, Tunis\r\n', 'Succursale', 0, 605, NULL, 'Jane Doe', NULL, NULL, NULL, NULL),
+(7, 'PNTG006', '2024-09-23', '09:20:00', '123 Rue Principale, Dakar', '09:00:00', NULL, 30, 'Siège Social', 0, 20, 1, 0, 'testnabila', NULL, 1, 101, 'John Doe', '2024-09-24', 'Traité', '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '456 Rue Secondaire, Tunis\r\n', 'Succursale', 0, 605, NULL, 'Jane Doe', NULL, NULL, NULL, NULL),
+(9, 'PNTG006', '2024-09-19', '00:00:00', '123 Rue Principale, Paris', '09:00:00', NULL, 0, 'Siège Social', 0, 0, 0, 1, 'tttttt', NULL, 1, 101, 'John Doe', '2024-09-24', 'Traité', '00:00:00', 0, 0, NULL, NULL, NULL, NULL, '456 Rue Secondaire, Tunis\r\n', 'Succursale', 0, 605, NULL, 'Jane Doe', NULL, NULL, NULL, NULL),
+(14, 'PNTG005', '2024-09-21', '11:20:00', '789 Rue Orme, Tunis', '09:00:00', NULL, 0, 'Entrepôt', 0, 140, 1, 0, NULL, NULL, 1, 102, 'Mary Smith', '2024-09-16', NULL, '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 3, NULL, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(15, 'PNTG005', '2024-05-20', '00:00:00', '789 Rue Orme, Tunis', '09:00:00', NULL, 0, 'Entrepôt', 0, 0, 0, 1, NULL, NULL, 1, 102, 'Mary Smith', '2024-09-16', NULL, '00:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 3, NULL, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(17, 'PNTG002', '2024-09-25', '09:20:00', '789 Rue Orme, Tunis', '09:00:00', NULL, 20, 'Entrepôt', 0, 20, 1, 0, 'wbcc test', NULL, 1, 102, 'Mary Smith', '2024-09-16', NULL, '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 605, NULL, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(18, 'PNTG002', '2024-09-26', '09:10:00', '789 Rue Orme, Tunis', '09:00:00', NULL, 10, 'Entrepôt', 0, 10, 1, 0, 'retard métro', NULL, 1, 102, 'Mary Smith', '2024-09-16', NULL, '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 605, NULL, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(19, 'PNTG002', '2024-09-29', '13:10:00', '789 Rue Orme, Tunis', '09:00:00', NULL, 0, 'Entrepôt', 0, 190, 1, 0, 'retard bus', NULL, 1, 2, 'nabila taguez', '2024-09-29 21:28:23', 'Accepté', '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 605, 49343, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(20, 'PNTG002', '2024-09-30', '09:05:00', '789 Rue Orme, Tunis', '09:00:00', NULL, 5, 'Entrepôt', 0, 5, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, 'Non traité', '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 605, NULL, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(21, 'PNTG002', '2024-10-01', '09:05:00', '789 Rue Orme, Tunis', '09:00:00', NULL, 5, 'Entrepôt', 0, 5, 1, 0, 'retard bus', NULL, 1, 2, 'nabila taguez', '2024-10-01 15:23:22', 'Accepté', '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 605, 49344, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(23, 'PNTG002', '2024-10-03', '14:30:00', '789 Rue Orme, Tunis', '10:00:00', '15:00:00', 30, 'Entrepôt', 0, 30, 1, 0, 'retard metro', NULL, 1, 2, 'nabila taguez', '2024-10-03 15:28:03', 'Refusé', '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 605, 49351, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(24, 'PNTG002', '2024-10-04', '09:40:00', '789 Rue Orme, Tunis', '09:00:00', '15:00:00', 40, 'Entrepôt', 0, 40, 1, 0, 'retard bus', NULL, 1, 2, 'nabila taguez', '2024-10-04 16:16:39', 'Accepté', '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 605, 49352, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(25, 'PNTG002', '2024-10-07', '09:20:00', '789 Rue Orme, Tunis', '09:00:00', NULL, 0, 'Entrepôt', 0, 20, 1, 0, NULL, NULL, 1, 2, 'nabila taguez', '2024-10-07 23:27:02', 'Accepté', '15:00:00', 0, 0, NULL, NULL, NULL, NULL, '123 Rue Chêne, Tunis', 'Bureau Secondaire', 0, 605, 49353, 'Alex Johnson', NULL, NULL, NULL, NULL),
+(69, NULL, '2024-10-22', '08:11:14', '789 Rue Orme, Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 0, 'manager de site test', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, 49415, NULL, NULL, NULL, NULL, NULL),
+(70, NULL, '2024-10-22', '08:12:20', NULL, NULL, NULL, 0, NULL, 0, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(71, NULL, '2024-10-22', '08:15:07', NULL, NULL, NULL, 0, NULL, 0, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(72, NULL, '2024-10-22', '08:18:01', NULL, NULL, NULL, 0, NULL, 0, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(73, NULL, '2024-10-22', '08:41:53', NULL, NULL, NULL, 0, NULL, 0, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(137, NULL, '2024-10-23', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 1, 2, 'nabila taguez', '2024-10-29 01:42:30', 'Refusé', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(140, NULL, '2024-10-08', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(151, NULL, '2024-10-21', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, 'test 5', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, 49381, NULL, NULL, NULL, NULL, NULL),
+(152, NULL, '2024-10-22', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, 'test', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, 49360, NULL, NULL, NULL, NULL, NULL),
+(153, NULL, '2024-10-23', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, 'new test', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, 49376, NULL, NULL, NULL, NULL, NULL),
+(160, NULL, '2024-10-24', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, 'xx', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, 49382, NULL, NULL, NULL, NULL, NULL),
+(161, NULL, '2024-10-25', '10:29:20', NULL, '09:00', NULL, 0, NULL, 0, 89, 1, 0, 'Développer un module de gestion de présence intégré aux applications iOS,\nAndroid et Web existantes pour automatiser le suivi des heures de travail, des\nretards, des absences, et des demandes de congés des salariés, en utilisant les\ndonnées des lecteurs d\'empreintes digitales.\n2. Fonctionnalités Clés\n2.1. Intégration des Données\n• 2.1.1. Importation automatique des données de présence depuis les\nlecteurs d\'empreintes vers une base de données centralisée.\n• 2.1.2. Synchronisation en temps réel avec les applications existantes.\n2.2. Gestion de Présence\n• 2.2.1. Affichage des données de présence dans le module \"Gestion de\nprésence\" pour iOS, Android et Web.\n• 2.2.2. Visualisation en temps réel des arrivées, départs, et retards par\nsalarié et par groupe.\n• 2.2.3. Calcul et affichage des retards en minutes avec cumul journalier,\nhebdomadaire, mensuel, trimestriel, semestriel et annuel.\n• 2.2.4. Personnalisation des horaires de travail par salarié selon les contrats.', NULL, 1, 2, 'nabila taguez', '2024-10-28 22:12:41', 'Accepté', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, 49359, NULL, NULL, NULL, NULL, NULL),
+(162, NULL, '2024-10-26', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, 49399, NULL, NULL, NULL, NULL, NULL),
+(163, NULL, '2024-10-28', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, 'test Mo', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, 49397, NULL, NULL, NULL, NULL, NULL),
+(164, NULL, '2024-10-29', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, 'test', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, 49392, NULL, NULL, NULL, NULL, NULL),
+(167, NULL, '2024-10-30', '11:33:00', '123 Rue Principale, Paris', '09:00', NULL, 0, NULL, 0, 153, 1, 0, 'test', NULL, 1, 2, 'nabila taguez', '2024-10-30 13:18:58', 'Accepté', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, 49400, NULL, NULL, NULL, NULL, NULL),
+(169, NULL, '2024-10-31', '08:14:38', NULL, '09:00', NULL, 0, NULL, 0, 0, 1, 0, NULL, NULL, 1, 605, 'Jean-Marc DJOSSINOU', '2024-11-01 16:51:21', 'Retard Refusé', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, 49398, NULL, NULL, NULL, NULL, NULL),
+(170, NULL, '2024-11-01', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(171, NULL, '2024-11-02', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(172, NULL, '2024-11-04', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(173, NULL, '2024-11-05', '10:28:56', NULL, '09:00', NULL, 0, NULL, 0, 88, 1, 0, 'Ccc', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, 49405, NULL, NULL, NULL, NULL, NULL),
+(174, NULL, '2024-11-05', '17:01:39', NULL, '09:00', NULL, 0, NULL, 0, 481, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 608, NULL, NULL, NULL, NULL, NULL, NULL),
+(175, NULL, '2024-10-24', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(176, NULL, '2024-10-25', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(177, NULL, '2024-10-26', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(178, NULL, '2024-10-28', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(179, NULL, '2024-10-29', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(180, NULL, '2024-10-30', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(181, NULL, '2024-10-31', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(182, NULL, '2024-11-01', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(183, NULL, '2024-11-02', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(184, NULL, '2024-11-04', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(185, NULL, '2024-11-05', '17:09:05', NULL, '09:00', NULL, 0, NULL, 0, 489, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(186, NULL, '2024-11-05', '17:27:22', NULL, '09:00', NULL, 0, NULL, 0, 507, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 608, NULL, NULL, NULL, NULL, NULL, NULL),
+(190, NULL, '2024-11-06', '09:38:50', NULL, '09:00', NULL, 0, NULL, 0, 38, 1, 0, 'Test nabila', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49401, NULL, NULL, NULL, NULL, NULL),
+(191, NULL, '2024-11-06', '09:43:44', NULL, '09:00', NULL, 0, NULL, 0, 43, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(192, NULL, '2024-11-06', '09:44:42', NULL, '09:00', NULL, 0, NULL, 0, 44, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 612, NULL, NULL, NULL, NULL, NULL, NULL),
+(195, NULL, '2024-11-06', '17:14:57', NULL, '09:00', NULL, 0, NULL, 0, 494, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(196, NULL, '2024-11-06', '23:43:20', NULL, '09:00', '15:00', 0, NULL, 0, 883, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(197, NULL, '2024-11-07', '00:46:45', NULL, '09:00', '15:00', 0, NULL, 0, 0, 0, 0, NULL, NULL, 1, 2, 'nabila TAGUEZ', '2024-11-08 11:22:44', 'Accepté', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(198, NULL, '2024-11-07', '00:47:27', NULL, '09:00', '15:00', 0, NULL, 0, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(199, NULL, '2024-11-07', '21:55:49', NULL, '09:00', '15:00', 0, NULL, 0, 775, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(200, NULL, '2024-11-07', '21:57:12', NULL, '09:00', '15:00', 0, NULL, 0, 777, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(201, NULL, '2024-11-07', '22:01:18', NULL, '09:00', '15:00', 0, NULL, 0, 781, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(202, NULL, '2024-11-07', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, 'test', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49410, NULL, NULL, NULL, NULL, NULL),
+(203, NULL, '2024-11-08', '09:55:14', NULL, '09:00', '15:00', 0, NULL, 0, 55, 1, 0, 'test', NULL, 1, 2, 'nabila TAGUEZ', '2024-11-08 11:26:45', 'Accepté', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49414, NULL, NULL, NULL, NULL, NULL),
+(213, NULL, '2024-11-08', '14:57:29', NULL, '09:00', '15:00', 0, NULL, 0, 357, 1, 0, 'new test', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, 49408, NULL, NULL, NULL, NULL, NULL),
+(214, NULL, '2024-11-09', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(216, NULL, '2024-11-09', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, 'test', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49426, NULL, NULL, NULL, NULL, NULL),
+(221, NULL, '2024-10-24', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(222, NULL, '2024-10-25', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(223, NULL, '2024-10-26', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(224, NULL, '2024-10-28', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(225, NULL, '2024-10-29', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(226, NULL, '2024-10-30', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(227, NULL, '2024-10-31', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(228, NULL, '2024-11-01', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(229, NULL, '2024-11-02', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(230, NULL, '2024-11-04', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(231, NULL, '2024-11-05', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(232, NULL, '2024-11-06', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(233, NULL, '2024-11-07', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(234, NULL, '2024-11-08', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(235, NULL, '2024-11-09', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(242, NULL, '2024-11-11', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(246, NULL, '2024-11-12', '16:31:08', 'Tunis', '09:00', '15:00', 0, NULL, 0, 451, 1, 0, 'rrr', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, 49430, NULL, NULL, NULL, NULL, NULL),
+(247, NULL, '2024-11-11', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, 'malade', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49489, NULL, NULL, NULL, NULL, NULL),
+(248, NULL, '2024-11-12', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, 'Yyy', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49502, NULL, NULL, NULL, NULL, NULL),
+(249, NULL, '2024-11-13', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, 'ted', NULL, 1, 613, 'nabila TAGUEZ', '2024-11-14 15:31:46', 'Accepté', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49456, NULL, NULL, NULL, NULL, NULL),
+(251, NULL, '2024-11-14', '10:56:09', 'Tunis', '09:00', '15:00', 0, NULL, 0, 116, 1, 0, 'testvdpdf', NULL, 1, 2, 'nabila nabila', '2024-11-14 21:57:36', 'Accepté', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49505, NULL, NULL, NULL, NULL, NULL),
+(255, NULL, '2024-11-13', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(256, NULL, '2024-11-14', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, 'Utilisation d\'une Machine Virtuelle macOS sur PC :\nInstaller une machine virtuelle macOS sur mon PC pourrait me permettre d\'accéder à Xcode et de lancer l’émulateur iOS. Cependant, cela peut être assez exigeant en ressources et ne garantit pas toujours des performances optimales, notamment pour des tests en temps réel. De plus, la configuration de la VM nécessite une machine puissante et une gestion rigoureuse des deux environnements distincts (iOS et Android).', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(259, NULL, '2024-11-15', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(268, NULL, '2024-11-15', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(276, NULL, '2024-11-16', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(277, NULL, '2024-11-18', '16:03:01', 'Tunis', '09:00', '15:00', 0, NULL, 0, 423, 1, 0, 'testheeet', NULL, 1, 613, 'nabila TAGUEZ', '2024-11-18 16:30:13', 'Accepté', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49516, NULL, NULL, NULL, NULL, NULL),
+(278, NULL, '2024-11-16', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(279, NULL, '2024-11-18', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(283, NULL, '2024-11-19', '09:00', 'Tunis', '09:00', '15:00', 0, NULL, 0, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '22:13:08', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(284, NULL, '2024-11-19', '10:00', 'Tunis', '09:00', '15:00', 0, NULL, 0, 60, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '15:00', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(285, NULL, '2024-11-19', '20:17:11', 'Tunis', '09:00', '15:00', 0, NULL, 0, 677, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '22:13:08', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(286, NULL, '2024-11-19', '20:18:50', 'Tunis', '09:00', '15:00', 0, NULL, 0, 678, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '2024-11-19 22:13:08', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(287, NULL, '2024-11-19', '20:20:25', 'Tunis', '09:00', '15:00', 0, NULL, 0, 680, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '2024-11-19 22:13:08', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(288, NULL, '2024-11-19', '20:22:15', 'Tunis', '09:00', '15:00', 0, NULL, 0, 682, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '2024-11-19 22:13:08', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(289, NULL, '2024-11-19', '20:23:33', 'Tunis', '09:00', '15:00', 0, NULL, 0, 683, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '2024-11-19 22:13:08', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(300, NULL, '2024-11-20', '20:25:07', 'Tunis', '09:00', '22:00', 0, NULL, 0, 685, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '21:25:49', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(301, NULL, '2024-11-19', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(302, NULL, '2024-11-20', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, '', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49610, NULL, NULL, NULL, NULL, NULL),
+(303, NULL, '2024-11-21', '13:52:13', 'Tunis', '09:00', '18:00', 0, NULL, 0, 292, 1, 0, 'Jjj', 'bonj2', 1, 613, 'nabila TAGUEZ', '2024-11-22 10:10:50', 'Refusé', '17:52:50', 0, 0, 613, 'nabila TAGUEZ', '2024-11-25 11:34:55', 'Accepté', NULL, NULL, 0, 609, 49658, NULL, NULL, NULL, NULL, NULL),
+(304, NULL, '2024-11-22', '09:18:50', 'Tunis', '09:00', '18:00', 0, NULL, 0, 18, 1, 0, '', 'bonjjDepart', 1, 609, 'Hamza DRIDI', '2024-11-26 12:19:22', 'Refusé', '11:21:22', 0, 0, 613, 'nabila TAGUEZ', '2024-11-27 03:09:15', 'Accepté', NULL, NULL, 0, 609, 49606, NULL, NULL, NULL, NULL, NULL),
+(305, NULL, '2024-11-21', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, 'Hhhhkllskjz', 'Hjjj', 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, 49662, NULL, NULL, NULL, NULL, NULL),
+(313, NULL, '2024-11-22', '21:56:20', 'Tunis', '09:00', '15:00', 0, NULL, 0, 776, 1, 0, 'Ttt', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, 49641, NULL, NULL, NULL, NULL, NULL),
+(316, NULL, '2024-11-23', '18:56:50', 'Tunis', '10:00', '20:00', 0, NULL, 0, 536, 1, 0, '', NULL, 1, 613, 'nabila TAGUEZ', '2024-11-27 02:39:06', 'Accepté', '18:57:17', 0, 1, 613, 'nabila TAGUEZ', '2024-11-27 02:52:49', 'Refusé', NULL, NULL, 0, 613, 49637, NULL, NULL, NULL, NULL, NULL),
+(317, NULL, '2024-11-23', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, 'thte', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49663, NULL, NULL, NULL, NULL, NULL),
+(319, NULL, '2024-11-25', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, 'Ww', 'frfrf', 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49666, NULL, NULL, NULL, NULL, NULL),
+(320, NULL, '2024-11-26', '12:25:10', 'Tunis', '09:00', '15:00', 0, NULL, 0, 205, 1, 0, '', '', 1, 613, 'nabila TAGUEZ', '2024-11-26 20:11:16', 'Accepté', '14:52:14', 0, 1, 613, 'nabila TAGUEZ', '2024-11-25 22:11:34', 'Refusé', NULL, NULL, 0, 609, 49650, NULL, NULL, NULL, NULL, NULL),
+(321, NULL, '2024-11-27', '15:15:27', 'Tunis', '09:00', '15:00', 0, NULL, 0, 375, 1, 0, 'Uuhhhyhjvcggj', 'test', 1, 613, 'nabila TAGUEZ', '2024-11-27 15:40:50', 'Accepté', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49723, NULL, NULL, NULL, NULL, NULL),
+(325, NULL, '2024-11-28', '15:32:47', 'Tunis', '09:00', '18:00', 0, NULL, 0, 392, 1, 0, 'testttzzrrtt', '', 0, NULL, NULL, NULL, NULL, '15:40:29', 0, 1, 613, 'nabila TAGUEZ', '2024-11-28 16:13:47', 'Accepté', NULL, NULL, 0, 609, 49772, NULL, NULL, NULL, NULL, NULL),
+(326, NULL, '2024-11-07', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(327, NULL, '2024-11-08', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(328, NULL, '2024-11-09', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(329, NULL, '2024-11-11', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(330, NULL, '2024-11-12', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(331, NULL, '2024-11-13', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(332, NULL, '2024-11-14', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(333, NULL, '2024-11-15', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(334, NULL, '2024-11-16', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(335, NULL, '2024-11-18', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(336, NULL, '2024-11-19', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(337, NULL, '2024-11-20', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(338, NULL, '2024-11-21', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(339, NULL, '2024-11-22', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(340, NULL, '2024-11-23', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(341, NULL, '2024-11-25', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(342, NULL, '2024-11-26', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(343, NULL, '2024-11-27', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(344, NULL, '2024-11-28', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(345, NULL, '2024-11-29', '09:28:21', 'Tunis', '09:00', '15:00', 0, NULL, 0, 28, 1, 0, 'le but fait un retrad de 10 min\n\n', 'des photos du document du bureau d\'emploi', 0, NULL, NULL, NULL, NULL, '09:46:05', 0, 0, 613, 'nabila TAGUEZ', '2024-11-29 09:52:12', 'Accepté', NULL, NULL, 0, 611, 49728, NULL, NULL, NULL, NULL, NULL),
+(346, NULL, '2024-11-29', '10:42:11', 'Tunis', '09:00', '18:00', 0, NULL, 0, 102, 1, 0, 'deeeedaae', 'teddzz', 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, 49733, NULL, NULL, NULL, NULL, NULL),
+(347, NULL, '2024-11-29', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(350, NULL, '2024-11-25', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(351, NULL, '2024-11-26', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(352, NULL, '2024-11-27', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(353, NULL, '2024-11-28', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(354, NULL, '2024-11-29', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(362, NULL, '2024-11-30', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(363, NULL, '2024-12-02', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, '', '', 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49775, NULL, NULL, NULL, NULL, NULL),
+(365, NULL, '2024-12-03', NULL, 'Tunis', NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(366, NULL, '2024-12-04', '10:53:21', 'Tunis', '09:00', '18:00', 0, NULL, 0, 113, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '14:00:00', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(367, NULL, '2024-12-05', '11:36:25', 'Tunis', '09:00', '18:00', 0, NULL, 0, 156, 1, 0, 'fdvsv\n', 'Metro4', 0, NULL, NULL, NULL, NULL, '14:00', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49785, NULL, NULL, NULL, NULL, NULL),
+(368, NULL, '2024-12-06', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(370, NULL, '2024-12-06', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(371, NULL, '2024-12-06', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(372, NULL, '2024-12-06', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(373, NULL, '2024-12-06', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(374, NULL, '2024-12-06', NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0, 1, 'k,nojp,njoh', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49786, NULL, NULL, NULL, NULL, NULL),
+(394, NULL, '2024-12-07', NULL, NULL, '10:00', '14:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(395, NULL, '2024-12-07', NULL, NULL, '10:00', '14:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(396, NULL, '2024-12-07', NULL, NULL, '10:00', '14:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(397, NULL, '2024-12-07', NULL, NULL, '10:00', '14:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(398, NULL, '2024-12-07', NULL, NULL, '10:00', '20:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(399, NULL, '2024-12-07', NULL, NULL, '10:00', '18:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(401, NULL, '2024-12-08', NULL, NULL, '10:00', '14:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(402, NULL, '2024-12-08', NULL, NULL, '10:00', '14:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(416, NULL, '2024-12-09', NULL, NULL, '09:00', '15:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(417, NULL, '2024-12-09', NULL, NULL, '09:00', '15:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(418, NULL, '2024-12-09', '09:20:00', NULL, '09:00', '18:00', 0, NULL, 0, 20, 1, 0, 'bonjour ,je suis vraiment dsol pour ce retard c a cause d\'un probleme dans la maison', NULL, 1, 613, 'nabila TAGUEZ', '2024-12-09 21:13:25', 'Accepté', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49787, NULL, 'Définitif', NULL, NULL, NULL),
+(419, NULL, '2024-12-09', NULL, NULL, '09:00', '15:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(420, NULL, '2024-12-09', NULL, NULL, '09:00', '15:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(421, NULL, '2024-12-09', NULL, NULL, '09:00', '18:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(428, NULL, '2024-12-10', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(429, NULL, '2024-12-10', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(430, NULL, '2024-12-10', '09:30', 'TUNIS', '09:00', '15:00', 0, NULL, 0, 30, 1, 0, 'nkln', NULL, 1, 613, 'nabila TAGUEZ', '2024-12-10 15:21:44', 'Refusé', NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, '', 'njjjjjjjjjjjjjjj', NULL, NULL),
+(431, NULL, '2024-12-10', NULL, 'TUNIS', '09:00', '15:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(432, NULL, '2024-12-10', NULL, 'TUNIS', '09:00', '15:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(433, NULL, '2024-12-10', NULL, 'TUNIS', '09:00', '18:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(458, NULL, '2024-12-11', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(459, NULL, '2024-12-11', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(460, NULL, '2024-12-11', NULL, 'TUNIS', '09:00', '18:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(461, NULL, '2024-12-11', NULL, 'TUNIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(462, NULL, '2024-12-11', NULL, 'TUNIS', '09:00', '22:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '10:31:02', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(463, NULL, '2024-12-11', NULL, 'TUNIS', '09:00', '18:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(469, NULL, '2024-12-12', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(470, NULL, '2024-12-12', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(472, NULL, '2024-12-12', NULL, 'TUNIS', '09:00', '15:00', 0, NULL, 0, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(473, NULL, '2024-12-12', NULL, 'TUNIS', '09:00', '15:00', 0, NULL, 0, 0, 0, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(474, NULL, '2024-12-12', NULL, 'TUNIS', '09:00', '18:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(478, NULL, '2024-12-12', '23:58:02', 'TUNIS', '09:00', '18:00', 0, NULL, 0, 898, 1, 1, 'vwc cvcbcd', NULL, 0, NULL, NULL, NULL, NULL, '23:59:00', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(479, NULL, '2024-12-13', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(480, NULL, '2024-12-13', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(481, NULL, '2024-12-13', '09:24:25', 'TUNIS', '09:00', '18:00', 0, NULL, 0, 24, 1, 0, 'new test', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL),
+(482, NULL, '2024-12-13', NULL, 'TUNIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(483, NULL, '2024-12-13', NULL, 'TUNIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(484, NULL, '2024-12-13', NULL, 'TUNIS', '09:00', '18:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(485, NULL, '2024-12-14', NULL, 'PARIS', '10:00', '14:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(486, NULL, '2024-12-14', NULL, 'PARIS', '10:00', '14:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(487, NULL, '2024-12-14', NULL, 'TUNIS', '10:00', '14:00', 0, NULL, 0, 0, 0, 1, 'vbn v', NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49808, NULL, NULL, NULL, NULL, NULL),
+(488, NULL, '2024-12-14', NULL, 'TUNIS', '10:00', '14:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(489, NULL, '2024-12-14', NULL, 'TUNIS', '10:00', '20:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(490, NULL, '2024-12-14', NULL, 'TUNIS', '10:00', '18:00', 0, NULL, 0, 0, 0, 1, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(491, NULL, '2024-12-16', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(492, NULL, '2024-12-16', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(493, NULL, '2024-12-16', '11:15:51', 'TUNIS', '09:00', '18:00', 0, NULL, 0, 135, 1, 0, 'retard bus', NULL, 0, NULL, NULL, NULL, NULL, '20:29:12', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49815, NULL, NULL, NULL, NULL, NULL),
+(494, NULL, '2024-12-16', '17:16:12', 'TUNIS', '09:00', '15:00', 0, NULL, 0, 496, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '17:22:58', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(495, NULL, '2024-12-16', '17:23:07', 'TUNIS', '09:00', '15:00', 0, NULL, 0, 503, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '17:23:39', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(496, NULL, '2024-12-16', '17:23:44', 'TUNIS', '09:00', '18:00', 0, NULL, 0, 503, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '20:28:54', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(503, NULL, '2024-12-17', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(504, NULL, '2024-12-17', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(505, NULL, '2024-12-17', '17:10:44', 'TUNIS', '09:00', '18:00', 0, NULL, 0, 490, 1, 0, 'motif new', NULL, 0, NULL, NULL, NULL, NULL, '17:10:59', 130, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49810, NULL, NULL, NULL, NULL, NULL),
+(506, NULL, '2024-12-17', '17:10:50', 'TUNIS', '09:00', '18:00', 0, NULL, 0, 490, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '17:11:17', 131, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(507, NULL, '2024-12-17', '18:18:43', 'TUNIS', '09:00', '15:00', 0, NULL, 0, 558, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '18:18:51', 198, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(508, NULL, '2024-12-17', NULL, 'TUNIS', '09:00', '18:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(509, NULL, '2024-12-18', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(510, NULL, '2024-12-18', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(511, NULL, '2024-12-18', '09:29:28', 'TUNIS', '09:00', '18:00', 0, NULL, 0, 29, 1, 0, 'j\'ai passer par la bank attijari', NULL, 1, 613, 'nabila TAGUEZ', '2024-12-18 17:57:05', 'Refusé', '10:24:48', 455, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49822, NULL, '', 'FGBFGG', NULL, NULL),
+(512, NULL, '2024-12-18', '16:31:47', 'TUNIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, '16:31:52', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `wbcc_pointage` (`idPointage`, `numeroPointage`, `datePointage`, `heureDebutPointage`, `adressePointage`, `heureDebutJour`, `heureFinJour`, `marge`, `adresseProgramme`, `anomalieDebutJour`, `nbMinuteRetard`, `retard`, `absent`, `motifRetard`, `motifRetardDepart`, `traite`, `idTraiteF`, `auteurTraite`, `dateTraite`, `resultatTraite`, `heureFinPointage`, `nbMinuteDepart`, `traiteDepart`, `idTraiteDepartF`, `auteurTraiteDepart`, `dateTraiteDepart`, `resultatTraiteDepart`, `adresseFinPointage`, `adresseProgrammeFin`, `anomalieFinJour`, `idUserF`, `idDocumentF`, `auteur`, `typeTraite`, `raisonRejet`, `typeTraiteDepart`, `raisonRejetDepart`) VALUES
+(513, NULL, '2024-12-18', NULL, 'TUNIS', '09:00', '22:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(514, NULL, '2024-12-18', '01:57:48', 'TUNIS', '09:00', '18:00', 0, NULL, 0, 0, 0, 0, NULL, 'test', 0, NULL, NULL, NULL, NULL, '01:58:14', 961, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(515, NULL, '2024-12-19', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(516, NULL, '2024-12-19', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(517, NULL, '2024-12-19', '15:07:25', 'TUNIS', '09:00', '18:00', 0, NULL, 0, 0, 1, 0, 'retard bus', 'maladie', 1, 613, 'nabila TAGUEZ', '2024-12-19 15:20:55', 'Accepté', '15:15:45', 164, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, 49824, NULL, 'Définitif', NULL, NULL, NULL),
+(518, NULL, '2024-12-19', NULL, 'TUNIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(519, NULL, '2024-12-19', NULL, 'TUNIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(520, NULL, '2024-12-19', NULL, 'TUNIS', '09:00', '18:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(521, NULL, '2024-12-20', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(522, NULL, '2024-12-20', NULL, 'PARIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 605, NULL, NULL, NULL, NULL, NULL, NULL),
+(524, NULL, '2024-12-20', NULL, 'TUNIS', '11:30', '15:00', 0, NULL, 0, 182, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 611, NULL, NULL, NULL, NULL, NULL, NULL),
+(525, NULL, '2024-12-20', NULL, 'TUNIS', '09:00', '15:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 613, NULL, NULL, NULL, NULL, NULL, NULL),
+(526, NULL, '2024-12-20', NULL, 'TUNIS', '09:00', '18:00', 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, NULL, NULL, NULL, NULL, NULL, NULL),
+(530, NULL, '2024-12-20', '12:35:40', 'Tunis', NULL, NULL, 0, NULL, 0, 0, 1, 0, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 609, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `wbcc_projet`
+--
+
+CREATE TABLE `wbcc_projet` (
+  `idProjet` int(11) NOT NULL,
+  `nomProjet` varchar(255) DEFAULT NULL,
+  `descriptionProjet` varchar(255) DEFAULT NULL,
+  `createDate` varchar(25) DEFAULT NULL,
+  `idImmeuble` int(11) DEFAULT NULL,
+  `idApp` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Déchargement des données de la table `wbcc_projet`
+--
+
+INSERT INTO `wbcc_projet` (`idProjet`, `nomProjet`, `descriptionProjet`, `createDate`, `idImmeuble`, `idApp`) VALUES
+(26, 'qs', 'df', '2024-12-19 14:17:07', 2456, NULL),
+(27, 'aze', 'qsd', '2024-12-19 14:27:22', 2456, NULL),
+(28, 'aze', 'qsd', '2024-12-19 14:38:52', NULL, 1),
+(29, 'sdfgsd', 'sdfsdf', '2024-12-19 14:54:50', 2456, NULL),
+(30, 'aaaa', 'vdfsd', '2024-12-19 14:57:46', 1, NULL),
+(31, NULL, NULL, '2024-12-19 14:58:08', NULL, NULL),
+(32, 'bbbbb', 'sdfsdfsd', '2024-12-19 14:58:24', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -693,7 +1370,7 @@ INSERT INTO `wbcc_role_sous_module` (`idRoleSousModule`, `numeroRoleSousModule`,
 (93, '', 3, 13, 0),
 (94, '', 3, 14, 0),
 (95, '', 3, 15, 0),
-(96, '', 3, 16, 0),
+(96, '', 3, 16, 1),
 (97, '', 3, 17, 1),
 (98, '', 3, 18, 1),
 (99, '', 3, 19, 0),
@@ -1628,6 +2305,30 @@ INSERT INTO `wbcc_role_sous_module` (`idRoleSousModule`, `numeroRoleSousModule`,
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `wbcc_site`
+--
+
+CREATE TABLE `wbcc_site` (
+  `idSite` int(11) NOT NULL,
+  `numeroSite` varchar(50) DEFAULT NULL,
+  `nomSite` varchar(255) DEFAULT NULL,
+  `etatSite` int(11) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Déchargement des données de la table `wbcc_site`
+--
+
+INSERT INTO `wbcc_site` (`idSite`, `numeroSite`, `nomSite`, `etatSite`) VALUES
+(0, 'SITE170820240228325', '', 0),
+(1, 'SITE170820240208255', 'PARIS', 1),
+(2, 'SITE170820240208325', 'DAKAR', 1),
+(3, 'SITE170820240208395', 'TUNIS', 1),
+(4, 'SITE170820240208455', 'COTONOU', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `wbcc_sous_module`
 --
 
@@ -1662,7 +2363,7 @@ INSERT INTO `wbcc_sous_module` (`idSousModule`, `nomSousModule`, `numeroSousModu
 (13, 'Gestion Artisan', NULL, 'GestionInterne', 'indexArtisan', 'fa fa-solid fa-users', 1, 2),
 (14, ' Gestion Subvention', NULL, 'GestionInterne', 'indexSubvention', 'fa fa-solid fa-euro-sign', 1, 2),
 (15, 'Recrutement', NULL, 'Recrutement', 'index', 'fa fa-solid fa-users', 1, 2),
-(16, 'Gestion Personnel', NULL, 'GestionInterne', 'acceuiladmin', 'fa fa-solid fa-user', 1, 2),
+(16, 'Gestion Personnel', NULL, 'GestionInterne', 'indexPersonnel', 'fa fa-solid fa-user', 1, 2),
 (17, 'Rendez-Vous', NULL, 'RendezVous', 'index/expert', 'fas fa-fw fa-calendar', 1, 3),
 (18, 'Rendez-Vous', NULL, 'RendezVous', 'index/artisan', 'fas fa-fw fa-calendar', 1, 4),
 (19, 'Proposition Commerciale', NULL, 'VRP', 'index', 'fa fa-solid fa-handshake', 1, 5),
@@ -1716,7 +2417,14 @@ CREATE TABLE `wbcc_subvention` (
 --
 
 INSERT INTO `wbcc_subvention` (`idSubvention`, `numeroSubvention`, `titreSubvention`, `montantSubvention`, `taux`, `natureTravaux`, `natureAide`, `idOrganisme`, `createDate`, `editDate`, `idAuteur`, `etatSubvention`) VALUES
-(1, 'SUB181220241049261', 'tEST', '1000', 10, 'Collectif', 'Collectif', 1, '2024-12-18 10:49:26', '2024-12-18 10:49:26', 1, 1);
+(1, 'SUB181220241049261', 'tEST', '1000', 10, 'Collectif', 'Collectif', 1, '2024-12-18 10:49:26', '2024-12-18 10:49:26', 1, 1),
+(2, 'SUB191220241355581', 'aze', '1000', 1, 'Collectif', 'Collectif', 1, '2024-12-19 13:55:58', '2024-12-19 13:55:58', 1, 1),
+(3, 'SUB191220241409281', 'tEST', '1000', 1, '', '', 1, '2024-12-19 14:09:28', '2024-12-19 14:09:28', 1, 1),
+(4, 'SUB191220241412231', 'aze', '1000', 1, '', 'Collectif', 1, '2024-12-19 14:12:23', '2024-12-19 14:12:23', 1, 1),
+(5, 'SUB191220241413081', 'aze', '1000', 1, 'Privatif', 'Collectif', 1, '2024-12-19 14:13:08', '2024-12-19 14:13:08', 1, 1),
+(6, 'SUB191220241414371', 'aze', '1000', 1, 'Privatif', 'Collectif', 1, '2024-12-19 14:14:37', '2024-12-19 14:14:37', 1, 1),
+(7, 'SUB191220241423091', 'az', '1000', 0, '', 'Collectif', 1, '2024-12-19 14:23:09', '2024-12-19 14:23:09', 1, 1),
+(8, 'SUB191220241423511', 'tEST', '1000', 1, 'Collectif', '', 1, '2024-12-19 14:23:51', '2024-12-19 14:23:51', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1810,7 +2518,15 @@ CREATE TABLE `wbcc_utilisateur` (
 --
 
 INSERT INTO `wbcc_utilisateur` (`idUtilisateur`, `login`, `mdp`, `email`, `matricule`, `role`, `etatUser`, `idContactF`, `firstConnection`, `isVerified`, `token`, `tokenPwd`, `valideCompte`, `jourTravail`, `horaireTravail`, `margeTravail`, `cpZoneRV`, `villeZoneRV`, `adresseZoneRV`, `typeZoneRV`, `codeDepartement`, `commentaireConfig`, `moyenTransport`, `idGuidWbccGroup`, `jourTravailB2C`, `horaireTravailB2C`, `margeTravailB2C`, `commentaireConfigB2C`, `nbOpPrevuB2C`, `nbVisitePrevuB2C`, `nbGardienB2C`, `cpZoneB2C`, `villeZoneB2C`, `typeZoneB2C`, `codeDepartementB2C`, `dateDesactivation`, `isExpert`, `isAdmin`, `isCommercial`, `isDirecteurCommercial`, `isGestionnaire`, `isFormateur`, `idSiteF`, `isInterne`, `typeUser`, `isServiceTechnique`, `isAccessAllOP`) VALUES
-(1, 'jawher@wbcc.fr', '482f7629a2511d23ef4e958b13a5ba54bdba06f2', 'jawher@wbcc.fr', '', 1, 1, 1, 1, 11, NULL, NULL, 1, '', '', '', '', '', '', NULL, NULL, '', 'pied', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0);
+(1, 'jawher@wbcc.fr', '482f7629a2511d23ef4e958b13a5ba54bdba06f2', 'jawher@wbcc.fr', '', 1, 1, 1, 1, 11, NULL, NULL, 1, '', '', '', '', '', '', NULL, NULL, '', 'pied', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 3, 1, NULL, 0, 0),
+(2, 'nabila.nabila@gmail.com', 'b5103fcf2b47213b852e9004c5ba76a03656c0d0', 'nabila.nabila@gmail.com', 'nabila', 1, 1, 2, 1, 1, NULL, NULL, 1, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi', '09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;10:00-14:00', '', '', '', '', NULL, NULL, '', 'pied', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, 3, 0, NULL, 0, 0),
+(3, 'test.test@wbcc.fr', '482f7629a2511d23ef4e958b13a5ba54bdba06f2', 'test.test@wbcc.fr', 'tt', 33, 1, 3, 1, 1, '', NULL, 1, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi', '09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;10:00-14:00', '', '', '', '', NULL, '', '', 'voiture', NULL, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi', '16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00', NULL, NULL, '5', '40', NULL, '', '', 'Ville', '', NULL, 0, 1, 0, 0, 0, 0, 1, 0, NULL, 0, 0),
+(605, 'jeanmarc.d@wbcc.fr', '482f7629a2511d23ef4e958b13a5ba54bdba06f2', 'jeanmarc.d@wbcc.fr', 'cc', 3, 1, 8460, 1, 1, '', NULL, 1, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi;Dimanche', '09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;10:00-14:00;10:00-14:00', '', '', '', '', NULL, '', '', 'voiture', NULL, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi', '16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00', NULL, NULL, '5', '40', NULL, '', '', 'Ville', '', NULL, 0, 0, 0, 0, 1, 0, 1, 0, NULL, 0, 0),
+(607, 'admin.admin@wbcc.fr', '482f7629a2511d23ef4e958b13a5ba54bdba06f2', 'admin.admin@wbcc.fr', 'mm', 34, 1, 8462, 1, 1, '', NULL, 1, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi;Dimanche', '09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;09:00-15:00;10:00-14:00;10:00-14:00', '', '', '', '', NULL, '', '', 'voiture', NULL, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi', '16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00', NULL, NULL, '5', '40', NULL, '', '', 'Ville', '', NULL, NULL, 0, NULL, NULL, NULL, 0, 3, 0, NULL, 0, 0),
+(609, 'hamzatestwbcc@yopmail.com', '482f7629a2511d23ef4e958b13a5ba54bdba06f2', 'hamzatestwbcc@yopmail.com', 'cc', 3, 1, 1998, 1, 1, '', NULL, 1, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi;Dimanche', '09:00-18:00;09:00-18:00;09:00-18:00;09:00-18:00;09:00-12:50;10:00-14:00;10:00-14:00', '', '', '', '', NULL, '', '', 'voiture', NULL, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi', '16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00', NULL, NULL, '5', '40', NULL, '', '', 'Ville', '', NULL, 0, 0, 0, 0, 1, 0, 3, 0, NULL, 0, 0),
+(611, 'achref@wbcc.fr', '482f7629a2511d23ef4e958b13a5ba54bdba06f2', 'achref@wbcc.fr', 'cc', 3, 1, 8464, 1, 1, '', NULL, 1, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi;Dimanche', '09:00-15:00;09:00-18:00;09:00-15:00;09:00-15:00;11:30-15:00;10:00-14:00;10:00-14:00', '', '', '', '', NULL, '', '', 'voiture', NULL, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi', '16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00', NULL, NULL, '5', '40', NULL, '', '', 'Ville', '', NULL, 0, 0, 0, 0, 1, 0, 3, 0, NULL, 0, 0),
+(613, 'tagueznabila8@gmail.com', 'b5103fcf2b47213b852e9004c5ba76a03656c0d0', 'tagueznabila8@gmail.com', 'nabila', 33, 1, 8465, 1, 1, '', NULL, 1, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi', '09:00-15:00;09:00-15:00;09:00-22:00;09:00-15:00;09:00-15:00;10:00-20:00', '', '', '', '', NULL, '', '', 'voiture', NULL, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi', '16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00', NULL, NULL, '5', '40', NULL, '', '', 'Ville', '', NULL, 0, 1, 0, 0, 0, 0, 3, 0, NULL, 0, 0),
+(614, 'oueslatihend@wbcc.fr', 'b5103fcf2b47213b852e9004c5ba76a03656c0d0', 'oueslatihend@wbcc.fr', 'hend', 33, 1, 8466, 1, 1, '', NULL, 1, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi', '09:00-18:00;09:00-18:00;09:00-18:00;09:00-18:00;09:00-18:00;10:00-18:00', '', '', '', '', NULL, '', '', 'voiture', NULL, 'Lundi;Mardi;Mercredi;Jeudi;Vendredi;Samedi', '16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00;16:00-20:00', NULL, NULL, '5', '40', NULL, '', '', 'Ville', '', NULL, 0, 1, 0, 0, 0, 0, 3, 0, NULL, 0, 0);
 
 --
 -- Index pour les tables déchargées
@@ -1940,6 +2656,22 @@ ALTER TABLE `wbcc_parametres`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `wbcc_pointage`
+--
+ALTER TABLE `wbcc_pointage`
+  ADD PRIMARY KEY (`idPointage`),
+  ADD KEY `idUserF` (`idUserF`),
+  ADD KEY `idTraiteF` (`idTraiteF`);
+
+--
+-- Index pour la table `wbcc_projet`
+--
+ALTER TABLE `wbcc_projet`
+  ADD PRIMARY KEY (`idProjet`),
+  ADD KEY `wbcc_projet_ibfk_1` (`idImmeuble`),
+  ADD KEY `wbcc_projet_ibfk_2` (`idApp`);
+
+--
 -- Index pour la table `wbcc_roles`
 --
 ALTER TABLE `wbcc_roles`
@@ -1952,6 +2684,12 @@ ALTER TABLE `wbcc_role_sous_module`
   ADD PRIMARY KEY (`idRoleSousModule`),
   ADD KEY `idSousModuleF` (`idSousModuleF`),
   ADD KEY `idRoleF` (`idRoleF`);
+
+--
+-- Index pour la table `wbcc_site`
+--
+ALTER TABLE `wbcc_site`
+  ADD PRIMARY KEY (`idSite`);
 
 --
 -- Index pour la table `wbcc_sous_module`
@@ -1998,7 +2736,7 @@ ALTER TABLE `wbcc_utilisateur`
 -- AUTO_INCREMENT pour la table `wbcc_appartement`
 --
 ALTER TABLE `wbcc_appartement`
-  MODIFY `idApp` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idApp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `wbcc_appartement_contact`
@@ -2028,7 +2766,7 @@ ALTER TABLE `wbcc_condition_critere`
 -- AUTO_INCREMENT pour la table `wbcc_contact`
 --
 ALTER TABLE `wbcc_contact`
-  MODIFY `idContact` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idContact` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8467;
 
 --
 -- AUTO_INCREMENT pour la table `wbcc_contact_company`
@@ -2070,13 +2808,13 @@ ALTER TABLE `wbcc_document_requis_subvention`
 -- AUTO_INCREMENT pour la table `wbcc_historique`
 --
 ALTER TABLE `wbcc_historique`
-  MODIFY `idHistorique` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idHistorique` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT pour la table `wbcc_immeuble`
 --
 ALTER TABLE `wbcc_immeuble`
-  MODIFY `idImmeuble` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idImmeuble` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2458;
 
 --
 -- AUTO_INCREMENT pour la table `wbcc_module`
@@ -2091,6 +2829,18 @@ ALTER TABLE `wbcc_parametres`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT pour la table `wbcc_pointage`
+--
+ALTER TABLE `wbcc_pointage`
+  MODIFY `idPointage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=531;
+
+--
+-- AUTO_INCREMENT pour la table `wbcc_projet`
+--
+ALTER TABLE `wbcc_projet`
+  MODIFY `idProjet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
 -- AUTO_INCREMENT pour la table `wbcc_roles`
 --
 ALTER TABLE `wbcc_roles`
@@ -2103,6 +2853,12 @@ ALTER TABLE `wbcc_role_sous_module`
   MODIFY `idRoleSousModule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1027;
 
 --
+-- AUTO_INCREMENT pour la table `wbcc_site`
+--
+ALTER TABLE `wbcc_site`
+  MODIFY `idSite` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT pour la table `wbcc_sous_module`
 --
 ALTER TABLE `wbcc_sous_module`
@@ -2112,7 +2868,7 @@ ALTER TABLE `wbcc_sous_module`
 -- AUTO_INCREMENT pour la table `wbcc_subvention`
 --
 ALTER TABLE `wbcc_subvention`
-  MODIFY `idSubvention` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idSubvention` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `wbcc_type_condition`
@@ -2130,7 +2886,7 @@ ALTER TABLE `wbcc_user_access`
 -- AUTO_INCREMENT pour la table `wbcc_utilisateur`
 --
 ALTER TABLE `wbcc_utilisateur`
-  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6091;
 
 --
 -- Contraintes pour les tables déchargées
@@ -2194,6 +2950,13 @@ ALTER TABLE `wbcc_document_requis_subvention`
 --
 ALTER TABLE `wbcc_historique`
   ADD CONSTRAINT `wbcc_historique_ibfk_1` FOREIGN KEY (`idUtilisateurF`) REFERENCES `wbcc_utilisateur` (`idUtilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `wbcc_projet`
+--
+ALTER TABLE `wbcc_projet`
+  ADD CONSTRAINT `wbcc_projet_ibfk_1` FOREIGN KEY (`idImmeuble`) REFERENCES `wbcc_immeuble` (`idImmeuble`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `wbcc_projet_ibfk_2` FOREIGN KEY (`idApp`) REFERENCES `wbcc_appartement` (`idApp`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `wbcc_role_sous_module`
