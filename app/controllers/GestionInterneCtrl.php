@@ -16,7 +16,7 @@ class GestionInterneCtrl extends Controller
         $this->parametreModel = $this->model('Parametres');
         $this->projetModel = $this->model('Projet');
         $this->immeubleModel = $this->model('Immeuble');
-        // $this->pointageModel = $this->model('Pointage');
+        $this->pointageModel = $this->model('Pointage');
         // $this->roleModel = $this->model('Roles');
         // $this->congeModel = $this->model('Conge');
     }
@@ -256,14 +256,19 @@ class GestionInterneCtrl extends Controller
     {
         $idContact = Role::connectedUser()->idUtilisateur;
         $contacts =  $this->contactModel->getAllContacts();
+        $contactById =  $this->contactModel->findContactById($idContact);
         $matricules =  $this->userModel->getAll();
         $pointages =  $this->pointageModel->getAllWithFullName($idContact);
+        $pointagesById = $this->pointageModel->getAllWithidUser($idContact);
+
         $data = [
             "contacts"  => $contacts,
+            "contactById" => $contactById,
             "matricules"  => $matricules,
-            "pointages" => $pointages
+            "pointages" => $pointages,
+            "pointagesById" => $pointagesById
         ];
-        $this->view("gestionInterne/espaceAdmin/pointage", $data);
+        $this->view("gestionInterne/personnel/pointage", $data);
     }
 
     public function genererAvertissement()
@@ -322,7 +327,7 @@ class GestionInterneCtrl extends Controller
             "tbdPresence" => linkTo('GestionInterne', 'tbdPresence')
         ];
 
-        $this->view("gestionInterne/espaceAdmin/acceuilAdmin", $data);
+        $this->view("gestionInterne/personnel/acceuilAdmin", $data);
     }
 
 
@@ -380,7 +385,31 @@ class GestionInterneCtrl extends Controller
 
     //FIN NABILA
 
-  //debut jawher
+  //debut jawhar
+
+
+
+  public function indexPersonnel()
+  {
+      $projets = $this->projetModel->getProjets();
+      $users =  $this->userModel->getAll();
+  
+      $data = [
+        "gerepresence" => linkTo('GestionInterne', 'gerepresence'),
+        "genererAvertissement" => linkTo('GestionInterne', 'genererAvertissement'),
+        "gererPaie" => linkTo('GestionInterne', 'gererPaie'),
+        "gererConges" => linkTo('GestionInterne', 'gererConges'),
+        "tbdPresence" => linkTo('GestionInterne', 'tbdPresence'),
+        "Pointer" => linkTo('GestionInterne', 'Pointer'),
+        "DemanderConge" => linkTo('GestionInterne', 'DemanderConge'),
+        "avertir" => linkTo('GestionInterne', 'avertir'),
+        "dashbord" => linkTo('GestionInterne', 'dashbord'),
+          "projets" => $projets,
+          "users" => $users,
+          "titre" => 'Liste des utilisateurs "WBCC"'
+      ];
+      $this->view('gestionInterne/personnel/indexPersonnel', $data);
+  }
 
   public function indexProjet()
   {
@@ -394,15 +423,8 @@ class GestionInterneCtrl extends Controller
 
   public function projet($id = '')
   {
-    //   $projets = $this->projetModel->getProjets();
-    //   $data = [
-    //       "projets" => $projets,
-    //       "titre" => "Liste des projets"
-    //   ];
-    //   $this->view('gestionInterne/projet/projet', $data);
-      {
         $projet = false;
-        $num = "";
+        $nom = "";
         $description = "";
         $immeubles= [];
         $lots = [];
@@ -420,19 +442,29 @@ class GestionInterneCtrl extends Controller
             } else {
                 $this->redirectToMethod("GestionInterne", "indexProjet");
             }
-            // $documents = $this->subventionModel->getDocumentsRequisByIdSubvention($id);
-            // $allDocuments = $this->subventionModel->getDocumentsRequisNotInSubvention($id);
         }
-
         $data = [
             "projet"  => $projet,
             "immeubles" => $immeubles
-            // "nomProjet" => $nomProjet,
-            // "descriptionProjet"=>$descriptionProjet,
-            // "documents" => $documents,
-            // "allDocuments" => $allDocuments,
         ];
         $this->view('gestionInterne/projet/projet', $data);
-    }
+  }
+
+  public function saveProjet()
+  {
+    // print_r($_POST);
+    extract($_POST);
+    $idImmeuble = $_POST['idImmeuble'];  // Get the selected Immeuble ID
+    $idApp = $_POST['idApp'];  // Get the selected Immeuble ID
+echo "\idProjetCTRL = $idProjet";
+    
+    // echo "\nidApp = $idApp; \nidImmeuble = $idImmeuble; \nnomProjet = $nomProjet; \descriptionProjet = $descriptionProjet; \idProjet = $idProjet";
+      $projet = $this->projetModel->saveProjet($idProjet,$nomProjet, $descriptionProjet, $idImmeuble, $idApp);
+      
+      
+      if ($projet) {
+          $idProjet = $projet->idProjet;
+      }
+      $this->redirectToMethod("GestionInterne", "projet", $idProjet);
   }
 }
