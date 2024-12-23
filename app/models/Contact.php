@@ -72,6 +72,12 @@ class Contact extends Model
         return $this->db->single();
     }
 
+    public function findContactById($idContact)
+    {
+        $this->db->query("SELECT * FROM wbcc_contact WHERE idContact = $idContact");
+        return $this->db->resultSet();
+    }
+
     public function findByNumero($numero)
     {
         $this->db->query("SELECT * FROM wbcc_contact WHERE numeroContact = '$numero'");
