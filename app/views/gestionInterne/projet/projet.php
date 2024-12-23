@@ -17,6 +17,10 @@ $active = "red";
                 <form class="mt-0 p-0" id="msform" method="POST"
                     action="<?= linkTo("GestionInterne", "saveProjet") ?>">
                     <div class="col-md-12 px-0 mt-0">
+
+                    <input type="hidden" id="idImmeuble" name="idImmeuble" value="">
+                    <input type="hidden" id="idApp" name="idApp" value="">
+
                         <input type='text' id='idUtilisateur' class='form-control'
                             value='<?= $_SESSION['connectedUser']->idUtilisateur ?>' hidden>
                         <input type='text' id='auteur' class='form-control'
@@ -72,8 +76,8 @@ $active = "red";
                                             foreach ($immeubles as $immeuble) {
                                                 $i++;
                                         ?>
-                                        <tr class="p-0 m-0" onclick="selectRow(this)">
-                                            <td><?= $i ?></td>
+                                        <tr class="p-0 m-0" onclick="selectRow(this, 'immeuble')" data-id="<?= $immeuble->idImmeuble ?>">
+                                        <td><?= $i ?></td>
                                             <td><?= $immeuble->codeImmeuble ?></td>
                                             <td><?= $immeuble->typeImmeuble ?></td>
                                             <td><?= $immeuble->adresse ?></td>
@@ -104,7 +108,7 @@ $active = "red";
                                             foreach ($immeubles as $immeuble) {
                                                 $i++;
                                         ?>
-                                        <tr class="p-0 m-0" onclick="selectRow(this)">
+                                        <tr class="p-0 m-0" onclick="selectRow(this, 'lot')" data-id="<?= $immeuble->idImmeuble ?>">
                                             <td><?= $i ?></td>
                                             <td><?= $immeuble->codeImmeuble ?></td>
                                             <td><?= $immeuble->typeImmeuble ?></td>
@@ -141,26 +145,42 @@ $active = "red";
     let typeDelete = "";
     let idCondition = "";
 
-// // Sélectionner toutes les lignes du tableau
-    // Ensure the function is defined and the jQuery is loaded
-    // $(document).ready(function() {
-    //     // Function to handle row selection
-    //     window.selectRow = function(row) {
-    //         // Remove 'selecter-row' class from all rows
-    //         $('#dataTable16 tbody tr').removeClass('selecter-row');
-            
-    //         // Add 'selecter-row' class to the clicked row
-    //         $(row).addClass('selecter-row');
-    //     };
-    // });
+    function selectRow(row, table) {
+            // Deselect all rows in both tables
+    $('#dataTable16 tbody tr').removeClass('selected-row');  // Deselect rows in the first table
+    $('#dataTable17 tbody tr').removeClass('selected-row');  // Deselect rows in the second table
 
-    function selectRow(row) {
-        // Remove 'selecter-row' class from all rows
-        $('#dataTable16 tbody tr').removeClass('selected-row');
-        
-        // Add 'selecter-row' class to the clicked row
-        $(row).addClass('selected-row');
+            // Check which table was clicked
+    if (table === 'immeuble') {
+        // Reset the idApp field if an Immeuble row is selected
+        $('#idApp').val(null);
+    } else if (table === 'lot') {
+        // Reset the idImmeuble field if a Lot row is selected
+        $('#idImmeuble').val(null);
     }
+
+        // Remove the 'selected-row' class from all rows in the selected table
+        $(row).closest('table').find('tbody tr').removeClass('selected-row');
+
+    // // Remove the 'selected-row' class from all rows
+    // $('#dataTable16 tbody tr').removeClass('selected-row');
+
+    // Add the 'selected-row' class to the clicked row
+    $(row).addClass('selected-row');
+
+    // Get the idImmeuble from the clicked row's data-id attribute
+    var selectedId = $(row).data('id');
+
+    // Set the selected ID in the appropriate hidden input
+    if (table === 'immeuble') {
+        $('#idImmeuble').val(selectedId);
+    } else if (table === 'lot') {
+        $('#idApp').val(selectedId);
+    }
+
+    // Optional: Log the selected ID for debugging
+    console.log("Selected Immeuble ID: " + selectedId);
+}
     //CONDITION
     function onClickCondition(id, indexCritere) {
         idCritere = id;
