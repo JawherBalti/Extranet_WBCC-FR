@@ -607,7 +607,6 @@ function getModulesByRole($idRole)
     return $rolesModules;
 }
 
-
 function getModulesByIdUserAndIdRole($user, $idRole = null)
 {
     $db = new Database();
@@ -618,7 +617,9 @@ function getModulesByIdUserAndIdRole($user, $idRole = null)
     $db->query("SELECT * FROM wbcc_module");
     $modules = $db->resultSet();
 
+
     foreach ($modules as $key => $module) {
+
         $db->query("SELECT * FROM wbcc_sous_module WHERE idModuleF=$module->idModule");
         $sousModules = $db->resultSet();
         $j = 0;
@@ -1857,3 +1858,54 @@ function date_quarter($month)
 
 
 // FIN NABILA
+
+
+//DEVUT JAWHAR
+function calculerDifferenceHeures($heure1, $heure2) {
+    // Vérification des valeurs d'entrée
+    if (empty($heure1) || empty($heure2)) {
+        return "0 minutes"; // Si une des heures est vide
+    }
+
+    // Vérifiez le format des heures (ajout d'un format optionnel pour inclure les secondes)
+    if (!preg_match('/^\d{1,2}:\d{2}(:\d{2})?$/', $heure1) || !preg_match('/^\d{1,2}:\d{2}(:\d{2})?$/', $heure2)) {
+        return "Format invalide"; // Format incorrect
+    }
+
+    // Découpez les heures, minutes et secondes
+    $parts1 = explode(':', $heure1);
+    $parts2 = explode(':', $heure2);
+
+    // Ajoutez les secondes par défaut si elles ne sont pas spécifiées
+    $heures1 = (int)$parts1[0];
+    $minutes1 = (int)$parts1[1];
+    $secondes1 = isset($parts1[2]) ? (int)$parts1[2] : 0;
+
+    $heures2 = (int)$parts2[0];
+    $minutes2 = (int)$parts2[1];
+    $secondes2 = isset($parts2[2]) ? (int)$parts2[2] : 0;
+
+    // Conversion en secondes totales
+    $totalSecondes1 = $heures1 * 3600 + $minutes1 * 60 + $secondes1;
+    $totalSecondes2 = $heures2 * 3600 + $minutes2 * 60 + $secondes2;
+
+    // Calcul de la différence en secondes
+    $differenceEnSecondes = $totalSecondes1 - $totalSecondes2;
+
+    // Si aucune différence
+    if ($differenceEnSecondes === 0) {
+        return "-";
+    }
+
+    // Calcul des heures et minutes
+    $signe = $differenceEnSecondes < 0 ? "+" : "-";
+    $differenceAbsolue = abs($differenceEnSecondes);
+
+    // Convertir en heures, minutes et secondes
+    $heures = floor($differenceAbsolue / 3600);
+    $minutes = floor(($differenceAbsolue % 3600) / 60);
+
+    // Retourne le résultat formaté
+    return "{$signe}{$heures} heures {$minutes} minutes";
+}
+//FIN JAWHAR
