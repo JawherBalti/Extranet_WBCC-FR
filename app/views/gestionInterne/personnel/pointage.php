@@ -204,10 +204,10 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                 <button type="submit" id="filterButton" class="btn btn-primary form-control" style="background: #c00000; border-radius: 0px; color: white;">FILTRER</button>
                             </div> -->
 
-                                                <div class="col-md-4 offset-4 col-xs-12">
-                        <button type="submit" class="btn btn-primary form-control">FILTRER</button>
-                    </div>
                         </div>
+                        <div class="col-md-4 offset-4 col-xs-12">
+<button type="submit" class="btn btn-primary form-control">FILTRER</button>
+</div>
                     </form>
                 </div>
             </div>
@@ -218,7 +218,8 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 <div class="card">
     <div class="card-body">
         <h2 class="text-center" style="color: grey;">Liste de pointages des salariés</h2>
-        <br>
+        <h4 class="<?= $viewAdmin != '' ? $viewAdmin : 'text-center' ?>" style="color: grey;"><?=$totalMinuteRetard?> minutes de retard</h4>
+        <h4 class="<?= $viewAdmin == '' ? 'hidden' : 'text-center' ?>" style="color: grey;"><?=$totalMinuteRetardById?> minutes de retard</h4>
         <div class="table-responsive">
           <table id="dataTable16" class="table table-bordered"width="100%" cellspacing="0">
                 <thead class="thead">

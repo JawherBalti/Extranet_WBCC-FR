@@ -263,22 +263,34 @@ class GestionInterneCtrl extends Controller
         $dateFin = ''; // For 'Personnaliser'
         $matricule =  '';
         $idUtilisateur = ''; // For filtering by user
-
+        
         if (isset($_GET)) {
             extract($_GET);
         }
+        
+        $totalMinuteRetard =0;
+        $totalMinuteRetardById = 0;
 
         $idContact = Role::connectedUser()->idUtilisateur;
         $contacts =  $this->contactModel->getAllContacts();
         $contactById =  $this->contactModel->findContactById($idContact);
         $matricules =  $this->userModel->getAll();
         $pointages = null;
-        $pointagesById = $this->pointageModel->getFilteredPointageWithidUser(609,$Motifjustification,$etat, $periode, $dateOne, $dateDebut, $dateFin);
-
+        $pointagesById = $this->pointageModel->getFilteredPointageWithidUser($idContact, $Motifjustification,$etat, $periode, $dateOne, $dateDebut, $dateFin);
+        foreach($pointagesById as $index => $pointage) {
+            $totalMinuteRetardById += $pointage->nbMinuteRetard;
+        }
+       
         if ($Motifjustification == "" && $etat == "" && $site == "" && $periode == "" && $dateOne == "" && $dateDebut == "" && $dateFin == "" && $matricule == "" && $idUtilisateur == "") {
             $pointages =  $this->pointageModel->getAllWithFullName($idContact);
+            foreach($pointages as $index => $pointage) {
+                $totalMinuteRetard += $pointage->nbMinuteRetard;
+            }
         } else {
             $pointages = $this->pointageModel->getFilteredPointage($Motifjustification,$etat, $site, $periode, $dateOne, $dateDebut, $dateFin, $matricule, $idUtilisateur);
+            foreach($pointages as $index => $pointage) {
+                $totalMinuteRetard += $pointage->nbMinuteRetard;
+            }
         }
 
 
@@ -292,7 +304,9 @@ class GestionInterneCtrl extends Controller
             "contactById" => $contactById,
             "matricules"  => $matricules,
             "pointages" => $pointages,
-            "pointagesById" => $pointagesById
+            "pointagesById" => $pointagesById,
+            "totalMinuteRetard" => $totalMinuteRetard,
+            "totalMinuteRetardById" => $totalMinuteRetardById,
         ];
         $this->view("gestionInterne/personnel/pointage", $data);
     }
