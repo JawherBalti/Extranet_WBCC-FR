@@ -254,14 +254,40 @@ class GestionInterneCtrl extends Controller
     //DEBUT NABILA 
     public function gerepresence()
     {
+        $Motifjustification = '';
+        $etat = '';
+        $site = '';
+        $periode =  '';
+        $dateOne =  ''; // For single date 'A la date du'
+        $dateDebut =  ''; // For 'Personnaliser'
+        $dateFin = ''; // For 'Personnaliser'
+        $matricule =  '';
+        $idUtilisateur = ''; // For filtering by user
+
+        if (isset($_GET)) {
+            extract($_GET);
+        }
+
         $idContact = Role::connectedUser()->idUtilisateur;
         $contacts =  $this->contactModel->getAllContacts();
         $contactById =  $this->contactModel->findContactById($idContact);
         $matricules =  $this->userModel->getAll();
-        $pointages =  $this->pointageModel->getAllWithFullName($idContact);
-        $pointagesById = $this->pointageModel->getAllWithidUser($idContact);
+        $pointages = null;
+        $pointagesById = $this->pointageModel->getFilteredPointageWithidUser(609,$Motifjustification,$etat, $periode, $dateOne, $dateDebut, $dateFin);
+
+        if ($Motifjustification == "" && $etat == "" && $site == "" && $periode == "" && $dateOne == "" && $dateDebut == "" && $dateFin == "" && $matricule == "" && $idUtilisateur == "") {
+            $pointages =  $this->pointageModel->getAllWithFullName($idContact);
+        } else {
+            $pointages = $this->pointageModel->getFilteredPointage($Motifjustification,$etat, $site, $periode, $dateOne, $dateDebut, $dateFin, $matricule, $idUtilisateur);
+        }
+
 
         $data = [
+            "idUtilisateur" => $idUtilisateur,
+            "site" => $site,
+            "etat" => $etat,
+            "Motifjustification" =>$Motifjustification,
+            "periode" => $periode,
             "contacts"  => $contacts,
             "contactById" => $contactById,
             "matricules"  => $matricules,

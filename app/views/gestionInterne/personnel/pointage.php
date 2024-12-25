@@ -65,18 +65,18 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                 style="box-shadow: none !important;"
             >
                 <div class="accordion-body" style="box-shadow: none !important;">
-                    <form method="GET" id="filterForm" action="" style="border: none; margin: 0 !important; padding: 0 !important;margin: auto;" >
+                    <form method="GET" action="<?= linkTo('GestionInterne', 'gerepresence') ?>" style="border: none; margin: 0 !important; padding: 0 !important;margin: auto;" >
                         <div class="row" style="width: 100%;  margin: auto;">
 
                         <div class="<?= $viewAdmin!="" ? "hidden": "col-md-3 col-xs-12" ?> ">
                             <fieldset>
                             <legend class='text-white col-md-12 text-uppercase font-weight-bold text-center py-2 badge bg-dark mx-0'>
                             &nbsp;L'employé</legend>                           
-                                    <select name="contact" class="form-control" id="contactSelect">
+                                    <select name="idUtilisateur" class="form-control" id="contactSelect">
                                         <option value="">Tout</option>
                                         <?php if (!empty($contacts)): ?>
                                             <?php foreach ($contacts as $contact): ?>
-                                                <option value="<?php echo htmlspecialchars($contact->idContact); ?>">
+                                                <option <?= $idUtilisateur==$contact->idContact ? 'selected' : '' ?> value="<?php echo htmlspecialchars($contact->idContact); ?>">
                                                     <?php echo htmlspecialchars($contact->fullName); ?>
                                                 </option>
                                             <?php endforeach; ?>
@@ -92,11 +92,11 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                             <legend class='text-white col-md-12 text-uppercase font-weight-bold text-center py-2 badge bg-dark mx-0'>
                             &nbsp;Site</legend>
                                 <select id="site" name="site" class="form-control">
-                                    <option value="">Tout</option> 
-                                    <option value="Paris">Paris</option>
-                                    <option value="Tunis">Tunis</option>
-                                    <option value="Dakar">Dakar</option>
-                                    <option value="Cotonou">Cotonou</option>
+                                    <option <?= $site==='' ? 'selected' : '' ?> value="">Tout</option> 
+                                    <option <?= $site==='Paris' ? 'selected' : '' ?> value="Paris">Paris</option>
+                                    <option <?= $site==='Tunis' ? 'selected' : '' ?> value="Tunis">Tunis</option>
+                                    <option <?= $site==='Dakar' ? 'selected' : '' ?> value="Dakar">Dakar</option>
+                                    <option <?= $site==='Cotonou' ? 'selected' : '' ?> value="Cotonou">Cotonou</option>
                                 </select>
                             </fieldset>
                         </div>
@@ -107,16 +107,16 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                     Statut d'arrivée
                                 </legend>
                                 <div class="card ">
-                                    <select id="etat" name="etat" class="form-control"">
-                                        <option value="">Tout</option>
-                                        <option value="Present">À l'heure</option>
-                                        <option value="Retard">Retard</option>
-                                        <option value="Absent">Absent</option>
+                                    <select id="etat" name="etat" class="form-control">
+                                        <option <?= $etat==='' ? 'selected' : ''?> value="">Tout</option>
+                                        <option <?= $etat==='Present' ? 'selected' : ''?> value="Present">À l'heure</option>
+                                        <option <?= $etat==='Retard' ? 'selected' : ''?> value="Retard">Retard</option>
+                                        <option <?= $etat==='Absent' ? 'selected' : ''?> value="Absent">Absent</option>
                                     </select>
                                 </div>
                             </fieldset>
                         </div>
-                        <div class="col-md-3 col-xs-12 mb-3">
+                        <!-- <div class="col-md-3 col-xs-12 mb-3">
                                 <fieldset>
                                 <legend class='text-white col-md-12 text-uppercase font-weight-bold text-center py-2 badge bg-dark mx-0'>
                                     Statut de départ
@@ -130,7 +130,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                         </select>
                                     </div>
                                 </fieldset>
-                        </div>
+                        </div> -->
 
                         <div class="col-md-3 col-xs-12 mb-3">
                                 <fieldset>
@@ -139,16 +139,16 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                 </legend>
                                 <div class="card ">
                                     <select id="Motifjustification" name="Motifjustification" class="form-control">
-                                        <option value="">Tout</option>
-                                        <option value="justifie">Justifié</option>
-                                        <option value="injustifie">Injustifié</option>
-                                        <option value="injustifie">Non traité</option>
+                                        <option <?= $Motifjustification==='' ? 'selected' : ''?> value="">Tout</option>
+                                        <option <?= $Motifjustification==='justifie' ? 'selected' : ''?> value="justifie">Justifié</option>
+                                        <option <?= $Motifjustification==='injustifie' ? 'selected' : ''?> value="injustifie">Injustifié</option>
+                                        <option <?= $Motifjustification==='non-traite' ? 'selected' : ''?> value="non-traite">Non traité</option>
                                     </select>
                                 </div>
                                 </fieldset>
                             </div>
 
-                        <div class="col-md-3 col-xs-12 mb-3">
+                        <!-- <div class="col-md-3 col-xs-12 mb-3">
                                 <fieldset>
                                 <legend class='text-white col-md-12 text-uppercase font-weight-bold text-center py-2 badge bg-dark mx-0'>
                                 État de départ</legend>
@@ -161,7 +161,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                     </select>
                                 </div>
                                 </fieldset>
-                            </div>
+                            </div> -->
        
                             <div class="col-md-3 col-xs-12 mb-3">
                                 <fieldset>
@@ -169,15 +169,15 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                 &nbsp;Periode</legend>
                                         <div class="card ">
                                             <select name="periode" id="periode" class="form-control" onchange="dateCreationSelect(this.value)">
-                                                <option <?= (isset($_GET['periode']) && $_GET['periode']=='')?'Selected':''; ?> value="">Tout</option>
-                                                <option <?= (isset($_GET['periode']) && $_GET['periode']=='0')?'Selected':''; ?> value="today">Aujourd'hui</option>
-                                                <option <?= (isset($_GET['periode']) && $_GET['periode']=='1')?'Selected':''; ?> value="1">A la date du</option>
-                                                <option <?= (isset($_GET['periode']) && $_GET['periode']=='2')?'Selected':''; ?> value="2">Personnaliser</option>
-                                                <option <?= (isset($_GET['periode']) && $_GET['periode']=='3')?'Selected':''; ?> value="semaine">cette semaine</option>
-                                                <option <?= (isset($_GET['periode']) && $_GET['periode']=='4')?'Selected':''; ?> value="mois">ce mois</option>
-                                                <option <?= (isset($_GET['periode']) && $_GET['periode']=='5')?'Selected':''; ?> value="trimestre">Ce trimestre</option>
-                                                <option <?= (isset($_GET['periode']) && $_GET['periode']=='6')?'Selected':''; ?> value="semestre">Ce semestre</option>
-                                                <option <?= (isset($_GET['periode']) && $_GET['periode']=='6')?'Selected':''; ?> value="annuel">Cette année</option>
+                                                <option <?= $periode===''?'selected':''; ?> value="">Tout</option>
+                                                <option <?= $periode==='today'?'selected':''; ?> value="today">Aujourd'hui</option>
+                                                <option <?= $periode==='1'?'selected':''; ?> value="1">A la date du</option>
+                                                <option <?= $periode==='2'?'selected':''; ?> value="2">Personnaliser</option>
+                                                <option <?= $periode==='semaine'?'selected':''; ?> value="semaine">cette semaine</option>
+                                                <option <?= $periode==='mois'?'selected':''; ?> value="mois">ce mois</option>
+                                                <option <?= $periode==='trimestre'?'selected':''; ?> value="trimestre">Ce trimestre</option>
+                                                <option <?= $periode==='semestre'?'selected':''; ?> value="semestre">Ce semestre</option>
+                                                <option <?= $periode==='annuel'?'selected':''; ?> value="annuel">Cette année</option>
                                             </select>
                                         </div>
                                     <p id="datepairOne" style="display: none;">
@@ -205,7 +205,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                             </div> -->
 
                                                 <div class="col-md-4 offset-4 col-xs-12">
-                        <button type="submit" id="filterButton" class="btn btn-primary form-control">FILTRER</button>
+                        <button type="submit" class="btn btn-primary form-control">FILTRER</button>
                     </div>
                         </div>
                     </form>
