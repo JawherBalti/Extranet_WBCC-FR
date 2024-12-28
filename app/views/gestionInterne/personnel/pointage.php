@@ -634,7 +634,50 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
     </div>
 </div>
 
-<!-- modal Confirmation TRANSFERT -->
+<!-- modal de chargement -->
+<div class="modal fade" id="loadingModal" data-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg bg-white">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="spinner-border text-danger" style="width: 5vw; height: 10vh;">
+                </div>
+                <br><br><br>
+                <h3 id="msgLoading">Génération de délégation en cours...</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal success -->
+<div>
+    <div class="modal fade modal-center" id="successOperation" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-lg bg-white">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <h3 id="msgSuccess" class="" style="color:green">Email envoyé !!</h3>
+                    <button onclick="" id="buttonConfirmContact" class="btn btn-success"
+                        data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal ERROR -->
+<div>
+    <div class="modal fade modal-center" id="errorOperation" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-lg bg-white">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <h3 id="msgError" class="" style="color:red">Email envoyé !!</h3>
+                    <button onclick="" class="btn btn-danger" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal Confirmation EXPORT -->
 <div class="modal fade" id="modalConfirmExport" data-backdrop="static">
     <div class="modal-dialog modal-lg bg-white">
         <div class="modal-content">
@@ -648,7 +691,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                         <button class="btn btn-danger" data-dismiss="modal">Non</button>
                     </div>
                     <div class="col-md-6">
-                        <button class="btn btn-success" onclick="exporterFacture()">Oui</button>
+                        <button class="btn btn-success" onclick="onClickExporterTable()">Oui</button>
                     </div>
                 </div>
             </div>
@@ -844,7 +887,6 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
     </div>
 </div>
 
-
 <script  src="<?= URLROOT ?>/assets/ticket/vendor/libs/jquery/jquery.js"></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 
@@ -861,6 +903,103 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 
        
         selectedPointageId = $(row).data('id');
+    }
+
+    function onClickExporterTable() {
+    var table = $('#dataTable16').DataTable();
+
+    let value = "<table>";
+    // GET HEADER
+    var headers = table.columns().header().map(d => d.textContent).toArray();
+    value += "<tr>";
+    for (var i = 0; i < headers.length; i++) {
+        if (i > 3) {
+            let cell = headers[i];
+            value += "<th>" + cell.toString().trim() + "</th>";
+        }
+    }
+    value += "</tr>";
+
+    // GET SELECTED ROWS
+    let checkboxes = document.getElementsByName('check');
+    for (let index = 0; index < checkboxes.length; index++) {
+        const checkbox = checkboxes[index];
+        if (checkbox.checked) {
+            // Get the row corresponding to the checkbox
+            const row = checkbox.closest('tr');
+            const cells = row.querySelectorAll('td');
+            
+            value += "<tr>";
+            for (var i = 3; i < cells.length; i++) {
+                let cell = cells[i];
+                value += "<td>" + cell.textContent.trim() + "</td>";
+            }
+            value += "</tr>";
+        }
+    }
+
+    value += "</table>";
+
+    let post = {
+        htmlTable: value,
+        fileName: "pointages_" + Math.floor(new Date().getTime() / 1000)
+    };
+
+    // CALL FUNCTION TO SAVE
+    $.ajax({
+        url: `<?= URLROOT ?>/public/json/export/exportXLS.php`,
+        type: 'POST',
+        data: post,
+        dataType: "JSON",
+        beforeSend: function () {
+            $("#modalConfirmExport").modal("hide");
+            $("#msgLoading").text("Génération en cours...");
+            $("#loadingModal").modal("show");
+        },
+        success: function (response) {
+            console.log(response);
+            setTimeout(() => {
+                $("#loadingModal").modal("hide");
+            }, 500);
+            $("#msgSuccess").text("Données exportées avec succès !!!");
+            $('#successOperation').modal('show');
+            document.location.href = `<?= URLROOT ?>/public/json/export/` + response;
+        },
+        error: function (response) {
+            console.log(response);
+            setTimeout(() => {
+                $("#loadingModal").modal("hide");
+            }, 500);
+            $("#msgError").text("Impossible d'exporter les données !!!");
+            $('#errorOperation').modal('show');
+        },
+        complete: function () {},
+    });
+}
+
+
+    function onCheckAll() {
+        var all = document.getElementsByName('allChecked');
+        let checked = all[0].checked;
+        var one = document.getElementsByName('check');
+        one.forEach(element => {
+            element.checked = false;
+        });
+        let btnExporter = document.getElementById("btnExporter");
+        btnExporter.innerHTML = "<i class='fas fa-download' style='color: #ffffff'></i> Exporter (" + one.length + ")"
+        if (checked) {
+            //Check ALL
+            one.forEach(element => {
+                element.checked = true;
+            });
+            $("#divBtnExporter").removeAttr("hidden");
+
+        } else {
+            $("#divBtnExporter").attr("hidden", "hidden")
+            one.forEach(element => {
+                element.checked = false;
+            });
+        }
     }
 
     function onCheckOne() {
@@ -896,30 +1035,6 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 
     function onClickExporter() {
         $("#modalConfirmExport").modal("show");
-    }
-
-    function onCheckAll() {
-        var all = document.getElementsByName('allChecked');
-        let checked = all[0].checked;
-        var one = document.getElementsByName('check');
-        one.forEach(element => {
-            element.checked = false;
-        });
-        let btnExporter = document.getElementById("btnExporter");
-        btnExporter.innerHTML = "<i class='fas fa-download' style='color: #ffffff'></i> Exporter (" + one.length + ")"
-        if (checked) {
-            //Check ALL
-            one.forEach(element => {
-                element.checked = true;
-            });
-            $("#divBtnExporter").removeAttr("hidden");
-
-        } else {
-            $("#divBtnExporter").attr("hidden", "hidden")
-            one.forEach(element => {
-                element.checked = false;
-            });
-        }
     }
      
      $(document).ready(function () {
