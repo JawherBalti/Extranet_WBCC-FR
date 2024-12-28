@@ -238,7 +238,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 
                 <h2
                     class="<?= $viewAdmin != "" || sizeof($pointageListe) == 0  ? " col-md-12" : " col-md-10 " ?> font-weight-bold text-danger text-center h4">
-                    Liste de pointages des salariés <br>
+                    <?=$titre?> <br>
                     <?= $viewAdmin == '' ? "$totalMinuteRetard minutes de retard" : "$totalMinuteRetardById minutes de retard "?>
                 </h2>
  </div>

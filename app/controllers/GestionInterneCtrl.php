@@ -263,11 +263,18 @@ class GestionInterneCtrl extends Controller
         $dateFin = ''; // For 'Personnaliser'
         $matricule =  '';
         $idUtilisateur = ''; // For filtering by user
-        
+        $fullName = '';
+        $role = $_SESSION['connectedUser']->role;
+
         if (isset($_GET)) {
             extract($_GET);
         }
         
+
+        $idUtilisateur=='' ?
+        $titre = 'LISTE DES POINTAGES DE TOUS LES UTILISATEURS' : 
+        $titre ='LISTE DES POINTAGES';
+
         $totalMinuteRetard =0;
         $totalMinuteRetardById = 0;
 
@@ -277,6 +284,44 @@ class GestionInterneCtrl extends Controller
         $matricules =  $this->userModel->getAll();
         $pointages = null;
         $pointagesById = $this->pointageModel->getFilteredPointageWithidUser($idContact, $Motifjustification,$etat, $periode, $dateOne, $dateDebut, $dateFin);
+
+        if($role != 1 && $role != 2) {
+            $titre ='LISTE DES POINTAGES';
+            $fullName = $this->contactModel->findContactByIdUtilisateur($idContact)[0]->fullName;
+            $titre.=' DE '.$fullName;
+        }
+
+        if($site) {
+            $titre.= ' DU SITE DE '."'".$site."'";
+        }
+        
+        if($idUtilisateur) {
+            $fullName = $this->contactModel->findById($idUtilisateur)->fullName;
+            $titre.= ' DE '.$fullName;
+        }
+
+        if ($periode != "" && $periode != "2" && $periode != "1" && $periode != "today") {
+            $re = getPeriodDates("$periode", []);
+            if (sizeof($re) != 0) {
+                $dateOne = $re['startDate'];
+                $dateDebut = $re['startDate'];
+                $dateFin = $re['endDate'];
+            }
+            $titre .= " du " . date('d/m/Y', strtotime($dateDebut)) . " au " . date('d/m/Y', strtotime($dateFin));
+        } else {
+            if ($periode == "1") {
+                $titre .= " du " . date('d/m/Y', strtotime($dateOne));
+            } else {
+                if ($periode == "today") {
+                    $titre .= " Aujourd'hui";
+                } else {
+                    if ($periode == "2") {
+                        $titre .= " du " . date('d/m/Y', strtotime($dateDebut)) . " au " . date('d/m/Y', strtotime($dateFin));
+                    }
+                }
+            }
+        }
+
         foreach($pointagesById as $index => $pointage) {
             $totalMinuteRetardById += $pointage->nbMinuteRetard;
         }
@@ -296,6 +341,7 @@ class GestionInterneCtrl extends Controller
 
         $data = [
             "idUtilisateur" => $idUtilisateur,
+            "titre" => $titre,
             "site" => $site,
             "etat" => $etat,
             "Motifjustification" =>$Motifjustification,
