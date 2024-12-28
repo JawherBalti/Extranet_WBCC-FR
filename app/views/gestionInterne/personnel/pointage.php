@@ -703,7 +703,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                         <div id="modalJustification" class="motif-container"></div>
 
                 <div class="mt-0">
-                    <div class="form-group">
+                    <div class="<?= $viewAdmin != '' ? $viewAdmin : 'form-group' ?>">
                         <label for="confirmation" class="font-weight-bold">Êtes-vous sûr de vouloir valider la justification d'arrivée ?</label><br>
                        
                         <div class="row">
@@ -739,7 +739,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                         <p><i class="fas fa-comment"></i> <strong>Motif du départ:</strong></p>
                         <div id="modalJustificationDepart" class="motif-container"></div>
                         <div class="mt-0">
-                    <div class="form-group">
+                    <div class="<?= $viewAdmin != '' ? $viewAdmin : 'form-group' ?>">
                         <label for="confirmationDepart" class="font-weight-bold">Êtes-vous sûr de vouloir valider la justification du départ?</label><br>
                         
                         <div class="row">
