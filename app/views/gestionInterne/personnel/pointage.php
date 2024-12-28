@@ -216,14 +216,38 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 </div> 
 
 <div class="card">
-    <div class="card-body">
-        <h2 class="text-center" style="color: grey;">Liste de pointages des salariés</h2>
-        <h4 class="<?= $viewAdmin != '' ? $viewAdmin : 'text-center' ?>" style="color: grey;"><?=$totalMinuteRetard?> minutes de retard</h4>
-        <h4 class="<?= $viewAdmin == '' ? 'hidden' : 'text-center' ?>" style="color: grey;"><?=$totalMinuteRetardById?> minutes de retard</h4>
-        <div class="table-responsive">
+    <div class="modal-content mt-3">
+     <div class="card-header bg-light text-white">
+        <div class="row">
+            <div <?= sizeof($pointageListe) != 0 ? "" : "hidden"  ?>
+                     class="row  <?= $viewAdmin != "" ? "" : "col-md-2" ?> " <?= $viewAdmin ?>>
+                    <div class="col-md-4 text-left float-left">
+                        <input onclick="onCheckAll()" type="checkbox" class="form-control float-left" name="allChecked"
+                            id="allChecked" value="all">
+                    </div>
+                    <div id="divBtnExporter" class="mt-1" hidden>
+                        <button type="button" rel="tooltip"
+                                    title="Faire la déclaration de compagnie pour les  selectionnées"
+                                    onclick="onClickExporter()" class="btn btn-sm btn-info btn-simple" id="btnExporter">
+                            <i class="fas fa-download" style="color: #ffffff"></i> Exporter
+                        </button>
+                    </div>
+                </div>
+
+
+
+                <h2
+                    class="<?= $viewAdmin != "" || sizeof($pointageListe) == 0  ? " col-md-12" : " col-md-10 " ?> font-weight-bold text-danger text-center h4">
+                    Liste de pointages des salariés <br>
+                    <?= $viewAdmin == '' ? "$totalMinuteRetard minutes de retard" : "$totalMinuteRetardById minutes de retard "?>
+                </h2>
+ </div>
+    </div>
+    <div class="table-responsive">
           <table id="dataTable16" class="table table-bordered"width="100%" cellspacing="0">
                 <thead class="thead">
                     <tr>
+                        <th></th>
                         <th>#</th>
                         <th>Actions</th>
                         <th>Date</th>
@@ -273,6 +297,10 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                         
                     ?>
                     <tr data-id="<?= isset($pointage->idPointage) ? $pointage->idPointage : '' ?>" onclick="selectRow(this)">
+                        <td style="text-align : center" <?= $viewAdmin ?>>
+                <input onclick="onCheckOne()" type="checkbox" class="oneselection" name="check"
+                    value="<?= 1 ?>">
+            </td>
 
                     <td><?= $index + 1; ?></td>
 
@@ -643,28 +671,29 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                 <hr>
                 <p><i class="fas fa-comment"></i> <strong>État d'arrivée:</strong> <span id="modalMotifRetard"></span></p>
 
-                        <p>  <i class="fas fa-link"></i> 
+                        <p>  
+                            <i class="fas fa-link"></i> 
                             <strong id="modalpiecsejustification">Pièces justificatives d'arrivée:</strong>
-                        </p><div class="scrollable-container"> 
-
-                        <span id="modalurlJustification"></span> 
+                        </p>
+                        <div class="scrollable-container mb-3"> 
+                            <span id="modalurlJustification"></span> 
                         </div>
                         <p><i class="fas fa-comment"></i> <strong>Motif d'arrivée:</strong></p>
                         <div id="modalJustification" class="motif-container"></div>
 
                 <div class="mt-0">
                     <div class="form-group">
-                        <label for="confirmation">Êtes-vous sûr de vouloir valider la justification d'arrivée ?</label><br>
+                        <label for="confirmation" class="font-weight-bold">Êtes-vous sûr de vouloir valider la justification d'arrivée ?</label><br>
                        
                         <div class="row">
-                            <div class="form-check d-inline-block  ms-3">
+                            <div class="form-check d-inline-block  ml-3">
                                 <input type="radio" class="form-check-input" id="confirmOui" name="confirmation" value="oui">
-                                <label class="form-check-label" for="confirmOui">Oui</label>
+                                <label class="form-check-label font-weight-bold" for="confirmOui">Oui</label>
                             </div>
 
-                            <div class="form-check d-inline-block ms-3">
+                            <div class="form-check d-inline-block ml-3">
                                 <input type="radio" class="form-check-input" id="confirmNon" name="confirmation" value="non">
-                                <label class="form-check-label" for="confirmNon">Non</label>
+                                <label class="form-check-label font-weight-bold" for="confirmNon">Non</label>
                             </div>
 
                         
@@ -673,13 +702,16 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                         <input type="hidden" id="modalidUserF">
                         <input type="hidden" id="modalemailuser">
                     
-                    
+                        <div class="modal-footer">
+                        <button class="btn btn-success" type="button" id="confirmJustificationArriveeSubmit">Confirmer</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">Annuler</button>
+                    </div>
                 </div>
                 <hr>
                 <p><i class="fas fa-comment"></i> <strong>État du départ:</strong> <span id="modalMotifRetarddepart"></span></p>
                 <p>  <i class="fas fa-link"></i> 
                             <strong id="modalpiecsejustification">Pièces justificatives du départ:</strong>
-                        </p><div class="scrollable-container"> 
+                        </p><div class="scrollable-container mb-3"> 
 
                         <span id="modalurlJustificationDepart"></span> 
                         </div>
@@ -687,17 +719,17 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                         <div id="modalJustificationDepart" class="motif-container"></div>
                         <div class="mt-0">
                     <div class="form-group">
-                        <label for="confirmationDepart">Êtes-vous sûr de vouloir valider la justification du départ?</label><br>
+                        <label for="confirmationDepart" class="font-weight-bold">Êtes-vous sûr de vouloir valider la justification du départ?</label><br>
                         
                         <div class="row">
-                            <div class="form-check d-inline-block  ms-3">
+                            <div class="form-check d-inline-block ml-3">
                                 <input type="radio" class="form-check-input" id="confirmDepartOui" name="confirmationDepart" value="oui">
-                                <label class="form-check-label" for="confirmDepartOui">Oui</label>
+                                <label class="form-check-label font-weight-bold" for="confirmDepartOui">Oui</label>
                             </div>
 
-                            <div class="form-check d-inline-block ms-3">
+                            <div class="form-check d-inline-block ml-3">
                                 <input type="radio" class="form-check-input" id="confirmDepartNon" name="confirmationDepart" value="non">
-                                <label class="form-check-label" for="confirmDepartNon">Non</label>
+                                <label class="form-check-label font-weight-bold" for="confirmDepartNon">Non</label>
                             </div>
 
                         </div>
@@ -706,7 +738,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                         <input type="hidden" id="modalemailuser">
                     
                     <div class="modal-footer">
-                        <button class="btn btn-success" type="button" id="confirmJustificationSubmit">Confirmer</button>
+                        <button class="btn btn-success" type="button" id="confirmJustificationDepartSubmit">Confirmer</button>
                         <button class="btn btn-danger" type="button" data-dismiss="modal">Annuler</button>
                     </div>
                 </div>
@@ -717,6 +749,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
         </div>
     </div>
 </div>
+
 <!-- 
 <div class="modal fade" id="confirmJustificationModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -794,7 +827,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 
 <script>
-    const URLROOT = '<?= URLROOT; ?>';
+    // const URLROOT = '<?= URLROOT; ?>';
    
     let selectedPointageId = null; 
 
@@ -875,9 +908,9 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
     });
     }
 
-   const userId = '<?php echo $_SESSION['connectedUser']->idUtilisateur ?? 'undefined'; ?>';
+//    const userId = '<?php echo $_SESSION['connectedUser']->idUtilisateur ?? 'undefined'; ?>';
 
-   $('#confirmJustificationSubmit').on('click', function () {
+   $('#confirmJustificationArriveeSubmit').on('click', function () {
     // Récupération des ID nécessaires
     var selectid = $('#modalpointage_id').val();
     var userid_pointage = $('#modalidUserF').val();
@@ -885,8 +918,8 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 
     const confirmOui = document.getElementById("confirmOui").checked;
     const confirmNon = document.getElementById("confirmNon").checked;
-    const confirmDepartOui = document.getElementById("confirmDepartOui").checked;
-    const confirmDepartNon = document.getElementById("confirmDepartNon").checked;
+    // const confirmDepartOui = document.getElementById("confirmDepartOui").checked;
+    // const confirmDepartNon = document.getElementById("confirmDepartNon").checked;
 
     const datePointageElement = document.getElementById("modalDatePointage");
     const datePointage = datePointageElement ? datePointageElement.innerText : "-";
@@ -915,22 +948,22 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
     }
 
     // Déterminer le choix pour "départ"
-    if (confirmDepartOui || confirmDepartNon) {
-        const confirmationDepart = confirmDepartOui ? "oui" : "non";
-        titleNotificationToSend = `Justificatif ${confirmationDepart === "oui" ? "accepté" : "refusé"}`;
-        notificationTosend = `Votre justificatif de départ pour le ${datePointage} a été ${confirmationDepart === "oui" ? "approuvé" : "rejeté"} par votre manager.`;
-        emailSubject = `Justification ${confirmationDepart === "oui" ? "Acceptée" : "Rejetée"}`;
-        emailBody = `
-        Bonjour,<br /><br />
-        Votre manager a ${confirmationDepart === "oui" ? "accepté" : "rejeté"} le justificatif que vous avez soumis pour le ${datePointage}.<br /><br />
-        ${confirmationDepart === "oui" ? 
-            "Votre justificatif a été approuvé et enregistré avec succès. L'état du départ est maintenant 'justifié'." : 
-            "Malheureusement, votre justificatif a été refusé. L'état du départ reste 'injustifié'."}<br /><br />
-        Si vous avez des questions ou souhaitez obtenir plus d'informations, n'hésitez pas à contacter votre manager.<br /><br />
-        Cordialement,<br />
-        Votre équipe RH<br />
-        `;
-    }
+    // if (confirmDepartOui || confirmDepartNon) {
+    //     const confirmationDepart = confirmDepartOui ? "oui" : "non";
+    //     titleNotificationToSend = `Justificatif ${confirmationDepart === "oui" ? "accepté" : "refusé"}`;
+    //     notificationTosend = `Votre justificatif de départ pour le ${datePointage} a été ${confirmationDepart === "oui" ? "approuvé" : "rejeté"} par votre manager.`;
+    //     emailSubject = `Justification ${confirmationDepart === "oui" ? "Acceptée" : "Rejetée"}`;
+    //     emailBody = `
+    //     Bonjour,<br /><br />
+    //     Votre manager a ${confirmationDepart === "oui" ? "accepté" : "rejeté"} le justificatif que vous avez soumis pour le ${datePointage}.<br /><br />
+    //     ${confirmationDepart === "oui" ? 
+    //         "Votre justificatif a été approuvé et enregistré avec succès. L'état du départ est maintenant 'justifié'." : 
+    //         "Malheureusement, votre justificatif a été refusé. L'état du départ reste 'injustifié'."}<br /><br />
+    //     Si vous avez des questions ou souhaitez obtenir plus d'informations, n'hésitez pas à contacter votre manager.<br /><br />
+    //     Cordialement,<br />
+    //     Votre équipe RH<br />
+    //     `;
+    // }
 
     if (!selectid) {
         alert('ID de pointage introuvable.');
@@ -939,10 +972,10 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 
     // Obtenir les sélections pour les justifications d'arrivée et de départ
     var arriveeStatus = getSelectedStatus('confirmation'); // Radio group "confirmation"
-    var departStatus = getSelectedStatus('confirmationDepart'); // Radio group "confirmationDepart"
+    // var departStatus = getSelectedStatus('confirmationDepart'); // Radio group "confirmationDepart"
 
-    if (arriveeStatus === null && departStatus === null) {
-        alert('Veuillez sélectionner au moins une justification (arrivée ou départ).');
+    if (arriveeStatus === null) {
+        alert('Veuillez sélectionner une justification d\'arrivée');
         return;
     }
 
@@ -986,6 +1019,134 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
             `Le résultat de la justification d'arrivée est : ${arriveeStatus}`
         );
     }
+
+    // Mise à jour de la justification de départ si nécessaire
+    // if (departStatus !== null) {
+    //     updateJustification(
+    //         'updateJustificationsDepart',
+    //         { idPointage: selectid, idTraiteDepartF: userId, resultatTraiteDepart: departStatus },
+    //         `Le résultat de la justification de départ est : ${departStatus}`
+    //     );
+    // }
+
+    // Fermer le modal après l'update
+    $('#confirmJustificationModal').modal('hide');
+
+    // Optionnel : Rafraîchir la page après un délai pour attendre la fin des requêtes AJAX
+    setTimeout(function () {
+        window.location.reload();
+    }, 500);
+});
+
+   $('#confirmJustificationDepartSubmit').on('click', function () {
+    // Récupération des ID nécessaires
+    var selectid = $('#modalpointage_id').val();
+    var userid_pointage = $('#modalidUserF').val();
+    var email = $('#modalemailuser').val(); 
+
+    // const confirmOui = document.getElementById("confirmOui").checked;
+    // const confirmNon = document.getElementById("confirmNon").checked;
+    const confirmDepartOui = document.getElementById("confirmDepartOui").checked;
+    const confirmDepartNon = document.getElementById("confirmDepartNon").checked;
+
+    const datePointageElement = document.getElementById("modalDatePointage");
+    const datePointage = datePointageElement ? datePointageElement.innerText : "-";
+
+    let titleNotificationToSend = "";
+    let notificationTosend = "";
+    let emailSubject = "";
+    let emailBody = "";
+
+    // Déterminer le choix pour "arrivée"
+    // if (confirmOui || confirmNon) {
+    //     const confirmation = confirmOui ? "oui" : "non";
+    //     titleNotificationToSend = `Justificatif ${confirmation === "oui" ? "accepté" : "refusé"}`;
+    //     notificationTosend = `Votre justificatif d'arrivée pour le ${datePointage} a été ${confirmation === "oui" ? "approuvé" : "rejeté"} par votre manager.`;
+    //     emailSubject = `Justification ${confirmation === "oui" ? "Acceptée" : "Rejetée"}`;
+    //     emailBody = `
+    //     Bonjour,<br /><br />
+    //     Votre manager a ${confirmation === "oui" ? "accepté" : "rejeté"} le justificatif que vous avez soumis pour le ${datePointage}.<br /><br />
+    //     ${confirmation === "oui" ? 
+    //         "Votre justificatif a été approuvé et enregistré avec succès. L'état d'arrivée est maintenant 'justifié'." : 
+    //         "Malheureusement, votre justificatif a été refusé. L'état d'arrivée reste 'injustifié'."}<br /><br />
+    //     Si vous avez des questions ou souhaitez obtenir plus d'informations, n'hésitez pas à contacter votre manager.<br /><br />
+    //     Cordialement,<br />
+    //     Votre équipe RH<br />
+    //     `;
+    // }
+
+    // Déterminer le choix pour "départ"
+    if (confirmDepartOui || confirmDepartNon) {
+        const confirmationDepart = confirmDepartOui ? "oui" : "non";
+        titleNotificationToSend = `Justificatif ${confirmationDepart === "oui" ? "accepté" : "refusé"}`;
+        notificationTosend = `Votre justificatif de départ pour le ${datePointage} a été ${confirmationDepart === "oui" ? "approuvé" : "rejeté"} par votre manager.`;
+        emailSubject = `Justification ${confirmationDepart === "oui" ? "Acceptée" : "Rejetée"}`;
+        emailBody = `
+        Bonjour,<br /><br />
+        Votre manager a ${confirmationDepart === "oui" ? "accepté" : "rejeté"} le justificatif que vous avez soumis pour le ${datePointage}.<br /><br />
+        ${confirmationDepart === "oui" ? 
+            "Votre justificatif a été approuvé et enregistré avec succès. L'état du départ est maintenant 'justifié'." : 
+            "Malheureusement, votre justificatif a été refusé. L'état du départ reste 'injustifié'."}<br /><br />
+        Si vous avez des questions ou souhaitez obtenir plus d'informations, n'hésitez pas à contacter votre manager.<br /><br />
+        Cordialement,<br />
+        Votre équipe RH<br />
+        `;
+    }
+
+    if (!selectid) {
+        alert('ID de pointage introuvable.');
+        return;
+    }
+
+    // Obtenir les sélections pour les justifications d'arrivée et de départ
+    // var arriveeStatus = getSelectedStatus('confirmation'); // Radio group "confirmation"
+    var departStatus = getSelectedStatus('confirmationDepart'); // Radio group "confirmationDepart"
+
+    if (departStatus === null) {
+        alert('Veuillez sélectionner une justification de depart');
+        return;
+    }
+
+    // Fonction AJAX générique pour mettre à jour les justifications
+    function updateJustification(endpoint, data, successMessage) {
+        return $.ajax({
+            url: `${URLROOT}/public/json/pointage.php?action=${endpoint}`,
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    console.log(successMessage, response);
+
+                    // Appel de createNotification
+                    createNotification(userid_pointage, titleNotificationToSend, notificationTosend);
+
+                    // Appel de sendEmail avec l'email dynamique
+                    sendEmail(
+                        email, // Utilisation de l'email dynamique
+                        emailSubject,
+                        emailBody
+                    );
+                } else {
+                    console.error('Erreur lors de la mise à jour :', response.error);
+                    alert('Erreur: ' + response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Erreur AJAX :', error);
+                alert('Une erreur est survenue lors de la mise à jour.');
+            }
+        });
+    }
+
+    // Mise à jour de la justification d'arrivée si nécessaire
+    // if (arriveeStatus !== null) {
+    //     updateJustification(
+    //         'updateJustification',
+    //         { idPointage: selectid, idTraiteF: userId, resultatTraite: arriveeStatus },
+    //         `Le résultat de la justification d'arrivée est : ${arriveeStatus}`
+    //     );
+    // }
 
     // Mise à jour de la justification de départ si nécessaire
     if (departStatus !== null) {
@@ -1091,11 +1252,11 @@ function getSelectedStatus(groupName) {
                 }
                 let justificationElement = document.getElementById('modalJustification');
                 if (justificationElement) {
-                    justificationElement.innerText = response.motifRetard ;
+                    justificationElement.innerHTML = response.motifRetard ? `<p style="margin-left:20px; font-size:16px;">${response.motifRetard}</p>` :  `<p style=" font-size:16px;">Aucun motif trouvé</p>`;
                 }
                 let justificationDepartElement = document.getElementById('modalJustificationDepart');
                 if (justificationDepartElement) {
-                    justificationDepartElement.innerText = response.motifRetardDepart ;
+                    justificationDepartElement.innerHTML = response.motifRetardDepart ? `<p style="margin-left:20px; font-size:16px;">${response.motifRetardDepart}</p>` :  `<p style="font-size:16px;">Aucun motif trouvé</p>`;
                 }
 
                 let resultatTraiteText = '';
@@ -1173,7 +1334,7 @@ function getSelectedStatus(groupName) {
                 // Map the filtered documents to create HTML links
                 justificationLinks = filteredDocs
                     .map(doc => 
-                        `<a href="${URLROOT}/public/documents/justification/${doc.urlDocument}" target="_blank">${doc.nomDocument}</a>`
+                        `<a style="color:#13058f; text-decoration: none; font-size:16px; font-weight:bold; margin-left:20px;" href="${URLROOT}/public/documents/justification/${doc.urlDocument}" target="_blank">${doc.nomDocument}</a>`
                     )
                     .join('<br>'); // Add an HTML line break between the links
             } else {
@@ -1202,7 +1363,7 @@ function getSelectedStatus(groupName) {
                         // Map the filtered documents to create HTML links
                         justificationDepartLinks = filteredDocsDepart
                             .map(doc => 
-                                `<a href="${URLROOT}/public/documents/justification/${doc.urlDocument}" target="_blank">${doc.nomDocument}</a>`
+                                `<a style="color:#13058f; text-decoration: none;  font-size:16px; font-weight:bold; margin-left:20px;" href="${URLROOT}/public/documents/justification/${doc.urlDocument}" target="_blank">${doc.nomDocument}</a>`
                             )
                             .join('<br>'); // Add an HTML line break between the links
                     } else {
