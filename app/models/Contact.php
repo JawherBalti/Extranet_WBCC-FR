@@ -72,6 +72,17 @@ class Contact extends Model
         return $this->db->single();
     }
 
+
+    public function findContactByIdUtilisateur($idUtilisateur)
+    {
+        $this->db->query("SELECT c.* 
+          FROM wbcc_utilisateur u
+          INNER JOIN wbcc_contact c ON u.idContactF = c.idContact
+          WHERE u.idUtilisateur = $idUtilisateur
+          ");
+        return $this->db->resultSet();
+    }
+
     public function findContactById($idContact)
     {
         $this->db->query("SELECT * FROM wbcc_contact WHERE idContact = $idContact");
