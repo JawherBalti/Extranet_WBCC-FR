@@ -107,6 +107,10 @@ if ((isset($_SESSION['connectedUser']->typeCompany) && $_SESSION['connectedUser'
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-red-400"></i>
                     Historique
                 </a>
+                <button class="dropdown-item" id="notificationButton"  data-toggle="modal" data-target="#notificationModal">
+                <i class="fas fa-fw fa-bell fa-sm fa-fw mr-2 text-red-400"></i>
+                Notifications
+                </button>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?= $lien ?>">
                     <i class="<?= $icon ?> fa-sm fa-fw mr-2 text-red-400"></i>
@@ -127,4 +131,80 @@ if ((isset($_SESSION['connectedUser']->typeCompany) && $_SESSION['connectedUser'
     </span>
 
 </div>
+
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content shadow-lg rounded">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title font-weight-bold text-uppercase" id="notificationModalLabel">Notifications</h5>
+                <button class="close text-white" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body px-4 py-3">
+                <!-- Notification List Container with scrollable area -->
+                <div class="notification-list" style="max-height: 400px; overflow-y: auto;">
+                    <!-- Notification items will be populated here dynamically -->
+                </div>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+   const userId = '<?php echo $_SESSION['connectedUser']->idUtilisateur ?? 'undefined'; ?>';
+   const URLROOT = '<?= URLROOT; ?>';
+
+function fetchNotifications(idUtilisateur, is_read = null) {
+        // Build the URL dynamically based on `is_read` filter
+        let url = `${URLROOT}/public/json/pointage.php?action=getNotifications&idUtilisateur=${idUtilisateur}`;
+        if (is_read !== null) {
+            url += `&is_read=${is_read}`;
+        }
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    populateNotificationModal(data.notifications);
+                } else {
+                    console.error(data.message || "Error fetching notifications.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function populateNotificationModal(notifications) {
+        const notificationList = document.querySelector('.notification-list');
+        notificationList.innerHTML = ''; // Clear existing content
+
+        if (notifications.length === 0) {
+            notificationList.innerHTML = '<p class="text-center">No notifications available.</p>';
+            return;
+        }
+
+        notifications.forEach(notification => {
+            const notificationItem = document.createElement('div');
+            notificationItem.classList.add('notification-item', 'mb-3', 'p-3', 'border', 'rounded');
+            
+            notificationItem.innerHTML = `
+                <p><i class="fas fa-info-circle"></i> <strong>Title:</strong> ${notification.title}</p>
+                <p><i class="fas fa-calendar-alt"></i> <strong>Date:</strong> ${new Date(notification.created_at).toLocaleDateString()}</p>
+                <p><i class="fas fa-comment"></i> <strong>Description:</strong> ${notification.message}</p>
+            `;
+            notificationList.appendChild(notificationItem);
+        });
+    }
+
+document.getElementById('notificationButton').addEventListener('click', () => {
+      
+      fetchNotifications(userId);
+  });
+
+</script>
+
+
 <!-- End of Topbar -->
