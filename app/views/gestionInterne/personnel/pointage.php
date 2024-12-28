@@ -634,6 +634,27 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
     </div>
 </div>
 
+<!-- modal Confirmation TRANSFERT -->
+<div class="modal fade" id="modalConfirmExport" data-backdrop="static">
+    <div class="modal-dialog modal-lg bg-white">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h3 class="text-black font-weight-bold">Voulez-vous exporter les pointages selectionnés
+                    ?</h3>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-danger" data-dismiss="modal">Non</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success" onclick="exporterFacture()">Oui</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="detaillePointageModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -800,6 +821,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
         </div>
 </div>
 
+
 <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content shadow-lg rounded">
@@ -839,6 +861,65 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 
        
         selectedPointageId = $(row).data('id');
+    }
+
+    function onCheckOne() {
+        let postMail = {};
+        var one = document.getElementsByName('check');
+        let isChecked = false;
+        let checkAll = true;
+        let i = 0;
+        for (let index = 0; index < one.length; index++) {
+            const element = one[index];
+            if (element.checked) {
+                i++;
+                isChecked = true;
+            } else {
+                checkAll = false;
+            }
+        }
+
+        if (isChecked) {
+            $("#divBtnExporter").removeAttr("hidden");
+        } else {
+            $("#divBtnExporter").attr("hidden", "hidden")
+        }
+        var all = document.getElementsByName('allChecked');
+        let btnExporter = document.getElementById("btnExporter");
+        btnExporter.innerHTML = "<i class='fas fa-download' style='color: #ffffff'></i> Exporter (" + i + ")"
+        if (checkAll) {
+            all[0].checked = true;
+        } else {
+            all[0].checked = false;
+        }
+    }
+
+    function onClickExporter() {
+        $("#modalConfirmExport").modal("show");
+    }
+
+    function onCheckAll() {
+        var all = document.getElementsByName('allChecked');
+        let checked = all[0].checked;
+        var one = document.getElementsByName('check');
+        one.forEach(element => {
+            element.checked = false;
+        });
+        let btnExporter = document.getElementById("btnExporter");
+        btnExporter.innerHTML = "<i class='fas fa-download' style='color: #ffffff'></i> Exporter (" + one.length + ")"
+        if (checked) {
+            //Check ALL
+            one.forEach(element => {
+                element.checked = true;
+            });
+            $("#divBtnExporter").removeAttr("hidden");
+
+        } else {
+            $("#divBtnExporter").attr("hidden", "hidden")
+            one.forEach(element => {
+                element.checked = false;
+            });
+        }
     }
      
      $(document).ready(function () {
