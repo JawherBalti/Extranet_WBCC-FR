@@ -273,7 +273,7 @@ class GestionInterneCtrl extends Controller
 
         $idContact = Role::connectedUser()->idUtilisateur;
         $contacts =  $this->contactModel->getAllContacts();
-        $contactById =  $this->contactModel->findContactById($idContact);
+        $contactById =  $this->contactModel->findContactByIdUtilisateur($idContact);
         $matricules =  $this->userModel->getAll();
         $pointages = null;
         $pointagesById = $this->pointageModel->getFilteredPointageWithidUser($idContact, $Motifjustification,$etat, $periode, $dateOne, $dateDebut, $dateFin);
