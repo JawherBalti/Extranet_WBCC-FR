@@ -27,7 +27,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 
 
 
-<div class="section-title mb-0">
+<div class="section-title mb-0 d-flex justify-content-between align-items-center">
     <h2 class="mb-0">
         <button onclick="clearLocalStorageAndGoBack()">
             <i class="fas fa-fw fa-arrow-left" style="color: #c00000"></i>
@@ -40,7 +40,11 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
         <!-- <button id="notificationButton" style="background: none; border: none; margin-left: 700px;" data-toggle="modal" data-target="#notificationModal">
             <i class="fas fa-fw fa-bell" style="color: #c00000;"></i>
         </button> -->
+
     </h2>
+    <a href="<?= linkTo('GestionInterne', 'bilanComparatif') ?>" type="button" class="emp-btn btn btn-red btn-round">
+            Bilan Comparatif
+        </a>
 </div>
 <div class="mt-3" id="accordionFiltrea">
     <div class="table-responsive">
@@ -397,231 +401,6 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
         </div>
     </div>
 </div>
-
-<div class="mt-3" id="accordionFiltrea1">
-    <div class="table-responsive">
-        <div class="card accordion-item" style="border-radius: none !important; box-shadow: none !important;">
-            <!-- <h2 class="accordion-header" id="headingTwo">
-                <button
-                    type="button"
-                    class="accordion-button collapsed"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#bloc2"
-                    aria-expanded="false"
-                    aria-controls="bloc2"
-                    style="padding-top: 35px; padding-bottom: 35px; border-radius: 0px !important; box-shadow: none !important;"
-                >
-                    <strong>Filtres:</strong>
-                </button>
-            </h2> -->
-            <div
-                id="bloc2"
-                class="accordion-collapse collapse show"
-                data-bs-parent="#accordionFiltrea1"
-                style="box-shadow: none !important;"
-            >
-                <div class="accordion-body" style="box-shadow: none !important;">
-                    <form method="POST" id="filterForm" action="" style="border: none; margin: 0 !important; padding: 0 !important;margin: auto;">
-                        <div class="row" style="width: 100%; margin: auto;">
-                        <div class="<?=  $viewAdmin!= "" ? $viewAdmin : 'col-md-6 col-xs-12 mb-3'?>">
-                                <fieldset>
-                                    <legend class='text-white col-md-12 text-uppercase font-weight-bold text-center py-2 badge bg-dark mx-0'>
-                                    &nbsp;L'employé</legend>
-                                    <div class="card ">
-                                        <select name="contact1" class="form-control" id="contact1Select">
-                                            <option value="">Tout</option>
-
-                                            <?php if (!empty($contacts)): ?>
-                                                <?php foreach ($contacts as $contact): ?>
-                                                    <option value="<?= htmlspecialchars($contact->fullName); ?>" <?= (isset($_POST['contact1']) && $_POST['contact1'] == $contact->fullName) ? 'selected' : ''; ?>>
-                                                        <?= htmlspecialchars($contact->fullName); ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            <?php else: ?>
-                                                <option value="aucun">Aucun employé disponible</option>
-                                            <?php endif; ?>
-                                        </select>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <!-- Période -->
-                            <div class="col-md-6 col-xs-12 mb-3">
-                                <fieldset>
-                                    <legend class='text-white col-md-12 text-uppercase font-weight-bold text-center py-2 badge bg-dark mx-0'>
-                                    Période</legend>
-                                    <div class="card ">
-                                        <select name="periode1" class="form-control">
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'today') ? 'selected' : ''; ?> value="today">Aujourd'hui</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'semaine') ? 'selected' : ''; ?> value="semaine">Cette semaine</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'mois') ? 'selected' : ''; ?> value="mois">Ce mois</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'trimestre') ? 'selected' : ''; ?> value="trimestre">Ce trimestre</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'semestre') ? 'selected' : ''; ?> value="semestre">Ce semestre</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'annuel') ? 'selected' : ''; ?> value="annuel">Cette année</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'custom') ? 'selected' : ''; ?> value="custom">Personnaliser</option>
-                                        </select>
-                                    </div>
-                                    <p id="datepair1" style="<?= (isset($_POST['periode1']) && $_POST['periode1'] === 'custom') ? 'display: block;' : 'display: none;'; ?>">
-                                        <label for="defaultFormControlInput" class="form-label">Début période 1:</label>
-                                        <br>
-                                        <input name="dateDebut1" id="dateDebut1" readonly style="border: 1px solid black;" type="text" class="this-form-control col-xs-12 col-md-12 date start" value="<?= isset($_POST['dateDebut1']) ? $_POST['dateDebut1'] : ''; ?>" placeholder="Choisir..."/>
-                                        
-                                        <label for="defaultFormControlInput" class="form-label">Fin période 1:</label>
-                                        <input name="dateFin1" id="dateFin1" style="border: 1px solid black;" type="text" class="this-form-control col-xs-12 col-md-12 date end" value="<?= isset($_POST['dateFin1']) ? $_POST['dateFin1'] : ''; ?>" placeholder="Choisir..."/>
-                                        
-                                        <br><br>
-                                        <label for="defaultFormControlInput" class="form-label">Début période 2:</label>
-                                        <br>
-                                        <input name="dateDebut2" id="dateDebut2" readonly style="border: 1px solid black;" type="text" class="this-form-control col-xs-12 col-md-12 date start" value="<?= isset($_POST['dateDebut2']) ? $_POST['dateDebut2'] : ''; ?>" placeholder="Choisir..."/>
-                                        
-                                        <label for="defaultFormControlInput" class="form-label">Fin période 2:</label>
-                                        <input name="dateFin2" id="dateFin2" style="border: 1px solid black;" type="text" class="this-form-control col-xs-12 col-md-12 date end" value="<?= isset($_POST['dateFin2']) ? $_POST['dateFin2'] : ''; ?>" placeholder="Choisir..."/>
-                                    </p>
-                                </fieldset>
-                                </div>
-                            <div class="col-md-12 col-xs-12">
-                                <button type="submit" class="btn btn-primary form-control" style="background: #c00000; border-radius: 0px; color: white;">FILTRER</button>
-                            </div>
-                        
-                
-                    </form>
-                </div>
-            </div>
-</div>
-
-<div class="card-body">
-    <h2 class="text-center" style="color: grey;">Bilan comparatif</h2>
-    <br>
-    
-    <div class="table-responsive">
-        <table  class="simple-table" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th class=<?=$viewAdmin?>>L'employé</th>
-                    <th>Période</th>
-                    <th>Retard Total</th>
-                    <th>Écart Retard</th>
-                    <th>Absence Total</th>            
-                    <th>Écart Absence</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $index = 1;
-
-                $labels = [];
-                $retards = [];
-                $absences = [];
-   
-                if (!empty($selectedEmploye)) {
-                    
-                    $retardTotal = 0;
-                    $absenceTotal = 0;
-                    $retardTotalPrev = 0;
-                    $absenceTotalPrev = 0;
-                    $filteredPointages = filterPointagesByEmployeAndPeriod($selectedEmploye, $startDate, $endDate, $pointages, $retardTotal, $absenceTotal);
-                    $filteredPointagesPrev = filterPointagesByEmployeAndPeriod($selectedEmploye, $previousStartDate, $previousEndDate, $pointages, $retardTotalPrev, $absenceTotalPrev);    
-                    $ecartRetard = $retardTotal - $retardTotalPrev;
-                    $ecartAbsence = $absenceTotal - $absenceTotalPrev;
-                    ?>
-                    <tr>
-                        <th rowspan="2"><?= $index ?></th>
-                        <td rowspan="2"><?= htmlspecialchars($selectedEmploye) ?></td>
-                        <td><?= formatPeriod($startDate, $endDate, $selectedPeriod) ?></td>
-                        <td><?= convertMinutesToHours($retardTotal) ?></td>
-                        <td rowspan="2"><?= ($ecartRetard > 0 ? '+' : '') . convertMinutesToHours($ecartRetard) ?></td>
-                        <td><?= $absenceTotal ?> jours</td>
-                        <td rowspan="2"><?= ($ecartAbsence > 0 ? '+' : '') . $ecartAbsence ?> jours</td>
-                    </tr>
-                    <tr>
-                        <td><?= formatPeriod($previousStartDate, $previousEndDate, $selectedPeriod, true) ?></td>
-                        <td><?= convertMinutesToHours($retardTotalPrev) ?></td>
-                        <td><?= $absenceTotalPrev ?> jours</td>
-                    </tr>
-                    <?php
-                    $index++;
-                    $labels[] = htmlspecialchars($selectedEmploye);
-                    $retards[] = $retardTotal; 
-                    $absences[] = $absenceTotal;
-                    $retardsPrev[] = $retardTotalPrev;
-                    $absencesPrev[] = $absenceTotalPrev;
-                } else {
-                   
-                    if (!empty($contactListe) && is_array($contactListe)) {
-                        foreach ($contactListe as $employe) {
-                           
-                            $retardTotalEmploye = 0;
-                            $absenceTotalEmploye = 0;
-                            $retardTotalPrevEmploye = 0;
-                            $absenceTotalPrevEmploye = 0;
-                
-                            filterPointagesByEmployeAndPeriod(
-                               $viewAdmin=="" ? $employe->fullName : $user->fullName,
-                                $startDate,
-                                $endDate,
-                                $pointages,
-                                $retardTotalEmploye,
-                                $absenceTotalEmploye
-                            );
-                    
-                            filterPointagesByEmployeAndPeriod(
-                                $viewAdmin=="" ? $employe->fullName : $user->fullName,
-                                $previousStartDate,
-                                $previousEndDate,
-                                $pointages,
-                                $retardTotalPrevEmploye,
-                                $absenceTotalPrevEmploye
-                            );
-                    
-                            $ecartRetardEmploye = $retardTotalEmploye - $retardTotalPrevEmploye;
-                            $ecartAbsenceEmploye = $absenceTotalEmploye - $absenceTotalPrevEmploye;
-                    
-                            ?>
-                            <tr>
-                                <th rowspan="2"><?= $index ?></th>
-                                <td rowspan="2" class="<?=$viewAdmin?>"><?= htmlspecialchars($viewAdmin=="" ? $employe->fullName : $user->fullName) ?></td>
-                                <td><?= formatPeriod($startDate, $endDate, $selectedPeriod) ?></td>
-                                <td><?= convertMinutesToHours($retardTotalEmploye) ?></td>
-                                <td rowspan="2"><?= ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
-
-                                <td><?= $absenceTotalEmploye ?> jours</td>
-                                <td rowspan="2"><?= ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
-                            </tr>
-                            <tr>
-                                <td><?= formatPeriod($previousStartDate, $previousEndDate, $selectedPeriod, true) ?></td>
-                                <td><?= convertMinutesToHours($retardTotalPrevEmploye) ?></td>
-                                <td><?= $absenceTotalPrevEmploye ?> jours</td>
-                            </tr>
-                            <?php
-                            $index++;
-                            
-                            // Stocker les données pour le graphique
-                            $labels[] = htmlspecialchars($viewAdmin=="" ? $employe->fullName : $user->fullName);
-                            $retards[] = $retardTotalEmploye;
-                            $absences[] = $absenceTotalEmploye;
-                            $retardsPrev[] = $retardTotalPrevEmploye;
-                            $absencesPrev[] = $absenceTotalPrevEmploye;
-                        }
-                    } else {
-                        echo "<tr><td colspan='7' class='text-center'>Aucun employé trouvé.</td></tr>";
-                    }
-                }
-                ?>
-                
-            </tbody>
-        </table>
-    </div>
-   
-</div>
-<?php
-
-    $totalRetardCurrent = array_sum($retards);  
-    $totalAbsenceCurrent = array_sum($absences);
-    $totalRetardPrevious = array_sum($retardsPrev);  
-    $totalAbsencePrevious = array_sum($absencesPrev);  
-
-
-?>
 
 <div class="container">
     <div class="row mt-8 justify-content-center">
@@ -1722,23 +1501,23 @@ function getSelectedStatus(groupName) {
             applyFilters(savedFilters); 
         }
 
-        filterButton.addEventListener('click', function (e) {
-            e.preventDefault(); 
+        // filterButton.addEventListener('click', function (e) {
+        //     e.preventDefault(); 
 
-            const formData = new FormData(filterForm);
-            formData.append('userid', userId); 
+        //     const formData = new FormData(filterForm);
+        //     formData.append('userid', userId); 
 
-            const filterCriteria = {};
-            for (const [key, value] of formData.entries()) {
-                if (key !== 'userid') {
-                    filterCriteria[key] = value;
-                }
-            }
+        //     const filterCriteria = {};
+        //     for (const [key, value] of formData.entries()) {
+        //         if (key !== 'userid') {
+        //             filterCriteria[key] = value;
+        //         }
+        //     }
 
-            localStorage.setItem('filterCriteria', JSON.stringify(filterCriteria));
+        //     localStorage.setItem('filterCriteria', JSON.stringify(filterCriteria));
 
-            applyFilters(filterCriteria);
-        });
+        //     applyFilters(filterCriteria);
+        // });
 
         function applyFilters(filterCriteria) {
             const formData = new FormData();
@@ -1865,101 +1644,28 @@ function getSelectedStatus(groupName) {
     });
 
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const periodeSelect = document.querySelector('select[name="periode1"]');
-        const datepair = document.getElementById('datepair1');
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     const periodeSelect = document.querySelector('select[name="periode1"]');
+    //     const datepair = document.getElementById('datepair1');
 
       
-        function handleDateDisplay() {
-            if (periodeSelect.value === 'custom') {
-                datepair.style.display = 'block'; 
-            } else {
-                datepair.style.display = 'none'; 
-            }
-        }
+    //     function handleDateDisplay() {
+    //         if (periodeSelect.value === 'custom') {
+    //             datepair.style.display = 'block'; 
+    //         } else {
+    //             datepair.style.display = 'none'; 
+    //         }
+    //     }
 
-        handleDateDisplay();
+    //     handleDateDisplay();
 
         
-        periodeSelect.addEventListener('change', handleDateDisplay);
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-
-        const totalRetardCurrentHours = <?= $totalRetardCurrent ?> / 60;
-        const totalRetardPreviousHours = <?= $totalRetardPrevious ?> / 60;
-        const totalAbsenceCurrentHours = <?= $totalAbsenceCurrent ?> * 24; 
-        const totalAbsencePreviousHours = <?= $totalAbsencePrevious ?> * 24;
-
-        console.log("Total absence : ", totalAbsenceCurrentHours);
-
-        const retardData = {
-            labels: ['Retards Période Actuelle', 'Retards Période Précédente'],
-            datasets: [{
-                data: [totalRetardCurrentHours, totalRetardPreviousHours],
-                backgroundColor: ['#c00000', '#D3D3D3']
-            }]
-        };
-
-        const absenceData = {
-            labels: ['Absences Période Actuelle', 'Absences Période Précédente'],
-            datasets: [{
-                data: [totalAbsenceCurrentHours, totalAbsencePreviousHours],
-                backgroundColor: ['#c00000', '#D3D3D3']
-            }]
-        };
-
-        const displayRetardChart = totalRetardCurrentHours !== 0 || totalRetardPreviousHours !== 0;
-        const displayAbsenceChart = totalAbsenceCurrentHours !== 0 || totalAbsencePreviousHours !== 0;
-
-        if (displayRetardChart) {
-            const retardCtx = document.getElementById('retardPieChart').getContext('2d');
-            new Chart(retardCtx, {
-                type: 'pie',
-                data: retardData,
-                options: {
-                    responsive: true,
-                    title: { // Configuration pour le titre dans Chart.js 2.9.4
-                        display: true,
-                        text: 'Comparaison des Retards (heures)', // Titre du graphique
-                        fontSize: 16, // Taille de la police
-                        fontColor: '#333' // Couleur de la police
-                    },
-                    legend: {
-                        display: true,
-                        position: 'bottom'
-                    }
-                }
-            });
-        }
-
-        if (displayAbsenceChart) {
-            const absenceCtx = document.getElementById('absencePieChart').getContext('2d');
-            new Chart(absenceCtx, {
-                type: 'pie',
-                data: absenceData,
-                options: {
-                    responsive: true,
-                    title: { // Configuration pour le titre dans Chart.js 2.9.4
-                        display: true,
-                        text: 'Comparaison des Absences (heures)', // Titre du graphique
-                        fontSize: 16, // Taille de la police
-                        fontColor: '#333' // Couleur de la police
-                    },
-                    legend: {
-                        display: true,
-                        position: 'bottom'
-                    }
-                }
-            });
-        }
-    });
-
+    //     periodeSelect.addEventListener('change', handleDateDisplay);
+    // });
  
     function clearLocalStorageAndGoBack() {
-    
-        localStorage.clear();
-        
-    history.back(); 
+        localStorage.clear();   
+        history.back(); 
     }
     function fetchNotifications(idUtilisateur, is_read = null) {
         // Build the URL dynamically based on `is_read` filter
