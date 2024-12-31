@@ -356,6 +356,30 @@ class GestionInterneCtrl extends Controller
         ];
         $this->view("gestionInterne/personnel/pointage", $data);
     }
+    public function bilanComparatif()
+    {
+        $idUtilisateur = ''; // For filtering by user
+        if (isset($_GET)) {
+            extract($_GET);
+        }
+
+        $idContact = Role::connectedUser()->idUtilisateur;
+        $contacts =  $this->contactModel->getAllContacts();
+        $contactById =  $this->contactModel->findContactByIdUtilisateur($idContact);
+        $matricules =  $this->userModel->getAll();
+        $pointages = null;
+       
+        $pointages =  $this->pointageModel->getAllWithFullName($idContact);
+
+        $data = [
+            "idUtilisateur" => $idUtilisateur,
+            "contacts"  => $contacts,
+            "contactById" => $contactById,
+            "matricules"  => $matricules,
+            "pointages" => $pointages,
+        ];
+        $this->view("gestionInterne/personnel/bilan", $data);
+    }
 
     public function genererAvertissement()
     {
