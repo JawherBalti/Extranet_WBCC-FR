@@ -1908,4 +1908,29 @@ function calculerDifferenceHeures($heure1, $heure2) {
     // Retourne le résultat formaté
     return "{$signe}{$heures} heures {$minutes} minutes";
 }
+
+function timeStringToMinutes($timeStr) {
+
+    $parts = explode(':', $timeStr);
+    
+    if (count($parts) < 2 || count($parts) > 3) {
+return;
+    }
+    
+    $hours = trim($parts[0]);
+    $minutes = trim($parts[1]);
+    
+    if (!ctype_digit($hours) || !ctype_digit($minutes)) {
+        throw new InvalidArgumentException('Time values must be numeric');
+    }
+    
+    $hours = intval($hours);
+    $minutes = intval($minutes);
+    
+    if ($hours < 0 || $hours > 23 || $minutes < 0 || $minutes > 59) {
+        throw new OutOfRangeException('Invalid time range');
+    }
+    
+    return ($hours * 60) + $minutes;
+}
 //FIN JAWHAR
