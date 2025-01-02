@@ -138,7 +138,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
             <br>
 
             <div class="table-responsive">
-                <table id="dataTable18" class="simple-table" cellspacing="0">
+                <table id="dataTable13" class="simple-table" cellspacing="0">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -221,6 +221,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                     $ecartRetardEmploye = $retardTotalEmploye - $retardTotalPrevEmploye;
                                     $ecartAbsenceEmploye = $absenceTotalEmploye - $absenceTotalPrevEmploye;
                             ?>
+<!-- 
                                     <tr>
                                         <th rowspan="2"><?= $index ?></th>
                                         <td rowspan="2" class="<?= $viewAdmin ?>"><?= htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
@@ -232,14 +233,10 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                         <td rowspan="2"><?= ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
                                     </tr>
                                     <tr>
-                                    <th class="hidden" rowspan="2"><?= $index ?></th>
-                                        <td class="hidden" rowspan="2" class="<?= $viewAdmin ?>"><?= htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
                                         <td><?= formatPeriod($previousStartDate, $previousEndDate, $selectedPeriod, true) ?></td>
                                         <td><?= convertMinutesToHours($retardTotalPrevEmploye) ?></td>
-                                        <td class="hidden" rowspan="2"><?= ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
                                         <td><?= $absenceTotalPrevEmploye ?> jours</td>
-                                        <td class="hidden" rowspan="2"><?= ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
-                                    </tr>
+                                    </tr> -->
 
                                     <!-- <tr>
                                         <td rowspan="2"><?= $index ?></td>
@@ -261,7 +258,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                     </tr> -->
 
 
-                                     <!-- <tr>
+                                     <tr>
                                         <td rowspan=<?=($index - 3) % 5 === 0 ? "1" : "2"?>><?= $index ?></td>
                                         <td rowspan=<?=($index - 3) % 5 === 0 ? "1" : "2"?> class="<?= $viewAdmin ?>"><?= htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
                                         <td><?= formatPeriod($startDate, $endDate, $selectedPeriod) ?></td>
@@ -278,7 +275,28 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                         <td class="<?=($index - 3)%5=== 0 ? '' : 'hidden'?>"><?= ($index - 3)%5=== 0 ? '-' : ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
                                         <td><?= $absenceTotalPrevEmploye ?> jours</td>
                                         <td class="<?=($index - 3)%5=== 0 ? '' : 'hidden'?>"><?= ($index - 3)%5=== 0 ? '-' : ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
-                                    </tr> -->
+                                    </tr>
+
+
+                                    <!-- <tr>
+    <td><?= $index ?></td>
+    <td class="<?= $viewAdmin ?>"><?= htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
+    <td><?= formatPeriod($startDate, $endDate, $selectedPeriod) ?></td>
+    <td><?= convertMinutesToHours($retardTotalEmploye) ?></td>
+    <td><?= ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
+    <td><?= $absenceTotalEmploye ?> jours</td>
+    <td><?= ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
+</tr>
+<tr>
+    <td><?= $index ?></td>
+    <td class="<?= $viewAdmin ?>"><?= htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
+    <td><?= formatPeriod($previousStartDate, $previousEndDate, $selectedPeriod, true) ?></td>
+    <td><?= convertMinutesToHours($retardTotalPrevEmploye) ?></td>
+    <td><?= ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
+    <td><?= $absenceTotalPrevEmploye ?> jours</td>
+    <td><?= ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
+</tr> -->
+
                         <?php
                                     $index++;
 

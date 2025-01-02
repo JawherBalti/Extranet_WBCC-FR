@@ -7,17 +7,17 @@ class GestionInterneCtrl extends Controller
         $this->companyModel = $this->model('Company');
         $this->siteModel = $this->model('Site');
         $this->userModel = $this->model('Utilisateur');
-        // $this->equipementModel = $this->model('Equipement');
-        // $this->pieceModel = $this->model('Piece');
+        $this->equipementModel = $this->model('Equipement');
+        $this->pieceModel = $this->model('Piece');
         $this->contactModel = $this->model('Contact');
-        // $this->artisanModel = $this->model('Artisan');
+        $this->artisanModel = $this->model('Artisan');
         $this->subventionModel = $this->model('Subvention');
         $this->critereModel = $this->model('Critere');
         $this->parametreModel = $this->model('Parametres');
+        $this->pointageModel = $this->model('Pointage');
+        $this->roleModel = $this->model('Roles');
         $this->projetModel = $this->model('Projet');
         $this->immeubleModel = $this->model('Immeuble');
-        $this->pointageModel = $this->model('Pointage');
-        // $this->roleModel = $this->model('Roles');
         // $this->congeModel = $this->model('Conge');
     }
 
@@ -252,12 +252,64 @@ class GestionInterneCtrl extends Controller
     }
 
     //DEBUT NABILA 
+    public function indexPersonnel()
+    {
+
+        $type = "wbcc";
+        $idContact = Role::connectedUser()->idUtilisateur;
+        $personnels = $this->userModel->getUsersByType($type);
+        $roles = $this->roleModel->getRolesByType($type);
+        $sites = $this->siteModel->getAllSites();
+        $data = [
+            "gerepresence" => linkTo('GestionInterne', 'gerepresence'),
+            "genererAvertissement" => linkTo('GestionInterne', 'genererAvertissement'),
+            "gererPaie" => linkTo('GestionInterne', 'gererPaie'),
+            "gererConges" => linkTo('GestionInterne', 'gererConges'),
+            "tbdPresence" => linkTo('GestionInterne', 'tbdPresence'),
+            "Pointer" => linkTo('GestionInterne', 'Pointer'),
+            "DemanderConge" => linkTo('GestionInterne', 'DemanderConge'),
+            "avertir" => linkTo('GestionInterne', 'avertir'),
+            "dashbord" => linkTo('GestionInterne', 'dashbord'),
+            "sites" => $sites,
+            "personnels" => $personnels,
+            "roles" => $roles,
+            "idContact" => $idContact,
+            "titre" => 'Liste des utilisateurs'
+        ];
+        $this->view('gestionInterne/personnel/indexPersonnel', $data);
+    }
+
+    public function bilanComparatif()
+    {
+        $idUtilisateur = ''; // For filtering by user
+        if (isset($_GET)) {
+            extract($_GET);
+        }
+
+        $idContact = Role::connectedUser()->idUtilisateur;
+        $contacts =   $this->userModel->getUsersByType("wbcc", 1);
+        $contactById =   $this->userModel->findUserByIdContact($idContact);
+        $matricules =   $this->userModel->getUsersByType("wbcc", 1);
+        $pointages = null;
+
+        $pointages =  $this->pointageModel->getAllWithFullName($idContact);
+
+        $data = [
+            "idUtilisateur" => $idUtilisateur,
+            "contacts"  => $contacts,
+            "contactById" => $contactById,
+            "matricules"  => $matricules,
+            "pointages" => $pointages,
+        ];
+        $this->view("gestionInterne/personnel/bilan", $data);
+    }
+
     public function gerepresence()
     {
         $Motifjustification = '';
         $etat = '';
         $site = '';
-        $periode =  '';
+        $periode =  'today';
         $dateOne =  ''; // For single date 'A la date du'
         $dateDebut =  ''; // For 'Personnaliser'
         $dateFin = ''; // For 'Personnaliser'
@@ -269,35 +321,35 @@ class GestionInterneCtrl extends Controller
         if (isset($_GET)) {
             extract($_GET);
         }
-        
 
-        $idUtilisateur=='' ?
-        $titre = 'LISTE DES POINTAGES DE TOUS LES UTILISATEURS' : 
-        $titre ='LISTE DES POINTAGES';
 
-        $totalMinuteRetard =0;
+        $idUtilisateur == '' ?
+            $titre = 'LISTE DES POINTAGES DE TOUS LES UTILISATEURS' :
+            $titre = 'LISTE DES POINTAGES';
+
+        $totalMinuteRetard = 0;
         $totalMinuteRetardById = 0;
 
         $idContact = Role::connectedUser()->idUtilisateur;
-        $contacts =  $this->contactModel->getAllContacts();
-        $contactById =  $this->contactModel->findContactByIdUtilisateur($idContact);
-        $matricules =  $this->userModel->getAll();
+        $contacts =   $this->userModel->getUsersByType("wbcc", 1);
+        $contactById =  $this->userModel->findUserByIdContact($idContact);
+        $matricules =  $this->userModel->getUsersByType("wbcc", 1);
         $pointages = null;
-        $pointagesById = $this->pointageModel->getFilteredPointageWithidUser($idContact, $Motifjustification,$etat, $periode, $dateOne, $dateDebut, $dateFin);
+        $pointagesById = $this->pointageModel->getFilteredPointageWithidUser($idContact, $Motifjustification, $etat, $periode, $dateOne, $dateDebut, $dateFin);
 
-        if($role != 1 && $role != 2) {
-            $titre ='LISTE DES POINTAGES';
-            $fullName = $this->contactModel->findContactByIdUtilisateur($idContact)[0]->fullName;
-            $titre.=' DE '.$fullName;
+        if ($role != 1 && $role != 2) {
+            $titre = 'LISTE DES POINTAGES';
+            $fullName = $this->userModel->findUserByIdContact($idContact)[0]->fullName;
+            $titre .= ' DE ' . $fullName;
         }
 
-        if($site) {
-            $titre.= ' DU SITE DE '."'".$site."'";
+        if ($site) {
+            $titre .= ' DU SITE DE ' . "'" . $site . "'";
         }
-        
-        if($idUtilisateur) {
+
+        if ($idUtilisateur) {
             $fullName = $this->contactModel->findById($idUtilisateur)->fullName;
-            $titre.= ' DE '.$fullName;
+            $titre .= ' DE ' . $fullName;
         }
 
         if ($periode != "" && $periode != "2" && $periode != "1" && $periode != "today") {
@@ -322,18 +374,18 @@ class GestionInterneCtrl extends Controller
             }
         }
 
-        foreach($pointagesById as $index => $pointage) {
+        foreach ($pointagesById as $index => $pointage) {
             $totalMinuteRetardById += $pointage->nbMinuteRetard;
         }
-       
+
         if ($Motifjustification == "" && $etat == "" && $site == "" && $periode == "" && $dateOne == "" && $dateDebut == "" && $dateFin == "" && $matricule == "" && $idUtilisateur == "") {
             $pointages =  $this->pointageModel->getAllWithFullName($idContact);
-            foreach($pointages as $index => $pointage) {
+            foreach ($pointages as $index => $pointage) {
                 $totalMinuteRetard += $pointage->nbMinuteRetard;
             }
         } else {
-            $pointages = $this->pointageModel->getFilteredPointage($Motifjustification,$etat, $site, $periode, $dateOne, $dateDebut, $dateFin, $matricule, $idUtilisateur);
-            foreach($pointages as $index => $pointage) {
+            $pointages = $this->pointageModel->getFilteredPointage($Motifjustification, $etat, $site, $periode, $dateOne, $dateDebut, $dateFin, $matricule, $idUtilisateur);
+            foreach ($pointages as $index => $pointage) {
                 $totalMinuteRetard += $pointage->nbMinuteRetard;
             }
         }
@@ -344,7 +396,7 @@ class GestionInterneCtrl extends Controller
             "titre" => $titre,
             "site" => $site,
             "etat" => $etat,
-            "Motifjustification" =>$Motifjustification,
+            "Motifjustification" => $Motifjustification,
             "periode" => $periode,
             "contacts"  => $contacts,
             "contactById" => $contactById,
@@ -355,30 +407,6 @@ class GestionInterneCtrl extends Controller
             "totalMinuteRetardById" => $totalMinuteRetardById,
         ];
         $this->view("gestionInterne/personnel/pointage", $data);
-    }
-    public function bilanComparatif()
-    {
-        $idUtilisateur = ''; // For filtering by user
-        if (isset($_GET)) {
-            extract($_GET);
-        }
-
-        $idContact = Role::connectedUser()->idUtilisateur;
-        $contacts =  $this->contactModel->getAllContacts();
-        $contactById =  $this->contactModel->findContactByIdUtilisateur($idContact);
-        $matricules =  $this->userModel->getAll();
-        $pointages = null;
-       
-        $pointages =  $this->pointageModel->getAllWithFullName($idContact);
-
-        $data = [
-            "idUtilisateur" => $idUtilisateur,
-            "contacts"  => $contacts,
-            "contactById" => $contactById,
-            "matricules"  => $matricules,
-            "pointages" => $pointages,
-        ];
-        $this->view("gestionInterne/personnel/bilan", $data);
     }
 
     public function genererAvertissement()
@@ -437,7 +465,7 @@ class GestionInterneCtrl extends Controller
             "tbdPresence" => linkTo('GestionInterne', 'tbdPresence')
         ];
 
-        $this->view("gestionInterne/personnel/acceuilAdmin", $data);
+        $this->view("gestionInterne/espaceAdmin/acceuilAdmin", $data);
     }
 
 
@@ -493,88 +521,92 @@ class GestionInterneCtrl extends Controller
         $this->view("gestionInterne/espaceSalarie/acceuilSalarie", $data);
     }
 
+
+
     //FIN NABILA
 
-  //debut jawhar
+    public function indexProjet()
+    {
+        $projets = $this->projetModel->getProjets();
+        $data = [
+            "projets" => $projets,
+            "titre" => "Liste des projets"
+        ];
+        $this->view('gestionInterne/projet/indexProjet', $data);
+    }
 
 
 
-  public function indexPersonnel()
-  {
-      $projets = $this->projetModel->getProjets();
-      $users =  $this->userModel->getAll();
-  
-      $data = [
-        "gerepresence" => linkTo('GestionInterne', 'gerepresence'),
-        "genererAvertissement" => linkTo('GestionInterne', 'genererAvertissement'),
-        "gererPaie" => linkTo('GestionInterne', 'gererPaie'),
-        "gererConges" => linkTo('GestionInterne', 'gererConges'),
-        "tbdPresence" => linkTo('GestionInterne', 'tbdPresence'),
-        "Pointer" => linkTo('GestionInterne', 'Pointer'),
-        "DemanderConge" => linkTo('GestionInterne', 'DemanderConge'),
-        "avertir" => linkTo('GestionInterne', 'avertir'),
-        "dashbord" => linkTo('GestionInterne', 'dashbord'),
-          "projets" => $projets,
-          "users" => $users,
-          "titre" => 'Liste des utilisateurs "WBCC"'
-      ];
-      $this->view('gestionInterne/personnel/indexPersonnel', $data);
-  }
-
-  public function indexProjet()
-  {
-      $projets = $this->projetModel->getProjets();
-      $data = [
-          "projets" => $projets,
-          "titre" => "Liste des projets"
-      ];
-      $this->view('gestionInterne/projet/indexProjet', $data);
-  }
-
-  public function projet($id = '')
-  {
-        $projet = false;
-        $nom = "";
-        $description = "";
-        $immeubles= [];
-        $lots = [];
-
-        $id = $id == '' ? 0 : $id;
-        $allDocuments = [];
-
+    public function projet($id = '')
+    {
+        // Initialiser les variables
+        $projet = null;  // Changer false par null
         $immeubles = $this->immeubleModel->getAllImmeubles();
+        $sommaire = null;
+        $immeuble = null;
+        // Vérifier si l'ID est valide
+        $id = !empty($id) ? $id : 0;
 
-        if ($id != 0 && $id != "") {
+        if ($id != 0) {
             $projet = $this->projetModel->findProjetByColumnValue("idProjet", $id);
+            $immeuble = $this->immeubleModel->findImmeubleById($projet->idImmeuble);
             if ($projet) {
-                $nom =$projet ->nomProjet;
-                $description =$projet ->descriptionProjet;
+                // Charger le sommaire associé au projet
+                $sommaireModel = $this->model('Sommaire');
+                $sommaire = $sommaireModel->getSommaireByProjet($id);
             } else {
+                $_SESSION['error'] = "Projet introuvable";
                 $this->redirectToMethod("GestionInterne", "indexProjet");
+                return;
             }
         }
-        $data = [
-            "projet"  => $projet,
-            "immeubles" => $immeubles
-        ];
-        $this->view('gestionInterne/projet/projet', $data);
-  }
 
-  public function saveProjet()
-  {
-    // print_r($_POST);
-    extract($_POST);
-    $idImmeuble = $_POST['idImmeuble'];  // Get the selected Immeuble ID
-    $idApp = $_POST['idApp'];  // Get the selected Immeuble ID
-echo "\idProjetCTRL = $idProjet";
-    
-    // echo "\nidApp = $idApp; \nidImmeuble = $idImmeuble; \nnomProjet = $nomProjet; \descriptionProjet = $descriptionProjet; \idProjet = $idProjet";
-      $projet = $this->projetModel->saveProjet($idProjet,$nomProjet, $descriptionProjet, $idImmeuble, $idApp);
-      
-      
-      if ($projet) {
-          $idProjet = $projet->idProjet;
-      }
-      $this->redirectToMethod("GestionInterne", "projet", $idProjet);
-  }
+        // Préparer les données pour la vue
+        $data = [
+            "projet" => $projet ?? null,
+            "immeubles" => $immeubles,
+            "sommaire" => $sommaire,
+            "immeuble" => $immeuble,
+            "title" => "Gestion du projet"
+        ];
+
+        // Vérifier quelle vue doit être chargée
+        $view = isset($_GET['view']) && $_GET['view'] === 'sommaire'
+            ? 'gestionInterne/projet/sommaire'
+            : 'gestionInterne/projet/projet';
+
+        // Afficher la vue
+        $this->view($view, $data);
+    }
+
+    public function saveProjet()
+    {
+        // print_r($_POST);
+        extract($_POST);
+        $idImmeuble = $_POST['idImmeuble'];  // Get the selected Immeuble ID
+        echo "\idProjetCTRL = $idProjet";
+        $idUser = Role::connectedUser()->idUtilisateur;
+
+        $projet = $this->projetModel->saveProjet($idProjet, $nomProjet, $descriptionProjet, $idImmeuble, $idUser);
+
+        if ($projet) {
+            $idProjet = $projet->idProjet;
+        }
+
+        $this->redirectToMethod("GestionInterne", "projet", $idProjet);
+    }
+
+    /**
+     * Supprime un projet par son ID
+     * @param int $id l'ID du projet à supprimer
+     * @return void
+     */
+    public function deleteProjetById($id)
+    {
+        // Suppression du projet
+        $this->projetModel->deleteProjetById($id);
+
+        // Redirection vers la liste des projets
+        $this->redirectToMethod("GestionInterne", "indexProjet");
+    }
 }
