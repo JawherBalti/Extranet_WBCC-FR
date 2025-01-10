@@ -10,9 +10,35 @@
 class Utilisateur extends Model
 {
 
-    public function getUsersBySite($id)
+    //********************************************************************** */
+public function getUsersByManagerSiteId($id) {
+    $req = "SELECT * FROM wbcc_contact c, wbcc_utilisateur u, wbcc_roles r, wbcc_site s WHERE c.idContact = u.idContactF AND u.idSiteF=s.idSite AND u.idSiteF=$id AND u.role = r.idRole AND isInterne=1 ORDER BY c.fullName ASC";
+    $this->db->query($req);
+    return $this->db->resultSet();
+}
+
+    public function getFilteredUsers($id, $idUtilisateur, $etat="") {
+        $req = "SELECT * FROM wbcc_contact c, wbcc_utilisateur u, wbcc_roles r WHERE c.idContact = u.idContactF AND u.role = r.idRole";
+        if ($etat != "") {
+            $req .= " AND etatUser = $etat";
+        }
+        if($id!=""){
+            $req .= " AND idSiteF = $id";
+        }
+        if($idUtilisateur !=""){
+            $req .= " AND c.idContact = $idUtilisateur";
+        }
+        $this->db->query($req);
+        return $this->db->resultSet();
+    }
+
+    public function getUsersBySite($id, $etat = "")
     {
-        $this->db->query("SELECT * FROM wbcc_contact c, wbcc_utilisateur u, wbcc_roles r WHERE c.idContact = u.idContactF AND u.role = r.idRole AND idSiteF=$id ");
+        $req = "";
+        if ($etat != "") {
+            $req .= " AND etatUser = $etat ";
+        }
+        $this->db->query("SELECT * FROM wbcc_contact c, wbcc_utilisateur u, wbcc_roles r WHERE c.idContact = u.idContactF AND u.role = r.idRole AND idSiteF=$id $req ");
         return $this->db->resultSet();
     }
 
@@ -74,7 +100,9 @@ class Utilisateur extends Model
         return $this->db->resultSet();
     }
 
-    public function getUsersByType($type = "")
+
+    //*********************************************************** */
+    public function getUsersByType($type = "", $etat = "")
     {
         if ($type == 'particulier') {
             $this->db->query("
@@ -89,9 +117,13 @@ class Utilisateur extends Model
                     SELECT * FROM wbcc_contact WHERE LOWER(statutContact) like '%locataire%' ");
                 } else {
                     if ($type == "wbcc") {
+                        $req = "";
+                        if ($etat != "") {
+                            $req .= " AND etatUser = $etat ";
+                        }
                         $this->db->query("
                         SELECT * FROM wbcc_contact c, wbcc_utilisateur u, wbcc_roles r, wbcc_site s
-                        WHERE c.idContact = u.idContactF AND u.idSiteF=s.idSite AND u.role = r.idRole AND isInterne=1 ORDER BY c.fullName ASC");
+                        WHERE c.idContact = u.idContactF AND u.idSiteF=s.idSite AND u.role = r.idRole AND isInterne=1 $req  ORDER BY c.fullName ASC");
                     }
                 }
             }
