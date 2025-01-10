@@ -731,6 +731,69 @@ if (isset($_GET['action'])) {
                 echo json_encode(['error' => 'Paramètres manquants.']);
             }
         }
+        if ($action == 'updateJustificationsAbsence') {
+            if (isset($_POST['idPointage']) && isset($_POST['idTraiteDepartF']) && isset($_POST['resultatTraiteDepart'])) {
+                // Récupérer les paramètres nécessaires depuis la requête POST
+                $idPointage = $_POST['idPointage'];
+                $idTraiteDepartF = $_POST['idTraiteDepartF'];
+                $resultatTraiteDepart = $_POST['resultatTraiteDepart'];
+                $dateTraiteDepart = date('Y-m-d H:i:s');  // Date et heure actuelle
+        
+                    // Step 1: Get idContactF from wbcc_utilisateur using idTraiteF (idUtilisateur)
+                $db->query("SELECT idContactF FROM wbcc_utilisateur WHERE idUtilisateur = :idTraiteDepartF");
+                $db->bind(":idTraiteDepartF", $idTraiteDepartF);
+                $idContactResult = $db->single();
+        
+                if ($idContactResult) {
+                    $idContactF = $idContactResult->idContactF; // Accéder à la propriété de l'objet
+        
+                      // Step 2: Get fullName from wbcc_contact using idContactF
+                      $db->query("SELECT fullName FROM wbcc_contact WHERE idContact = :idContactF");
+                      $db->bind(":idContactF", $idContactF);
+                      $contactResult = $db->single();
+          
+        
+                    if ($contactResult) {
+                        $auteurTraiteDepart = $contactResult->fullName; // Accéder à la propriété de l'objet
+        
+                        // Étape 3 : Mettre à jour la table wbcc_pointage avec les valeurs appropriées
+                        $db->query("UPDATE wbcc_pointage 
+                                    SET traiteAbsent = 1, 
+                                        idTraiteAbsentF = :idTraiteDepartF, 
+                                        auteurTraiteAbsent = :auteurTraiteDepart,
+                                        dateTraiteAbsent = :dateTraiteDepart, 
+                                        resultatTraiteAbsent = :resultatTraiteDepart 
+                                    WHERE idPointage = :idPointage");
+        
+                        // Lier les paramètres à la requête
+                        $db->bind(":idTraiteDepartF", $idTraiteDepartF);
+                        $db->bind(":auteurTraiteDepart", $auteurTraiteDepart);
+                        $db->bind(":dateTraiteDepart", $dateTraiteDepart);
+                        $db->bind(":resultatTraiteDepart", $resultatTraiteDepart);
+                        $db->bind(":idPointage", $idPointage);
+        
+                        // Exécuter la requête
+                        if ($db->execute()) {
+                            // Retourner un message de succès
+                            echo json_encode(['success' => 'Justification d\'absence mise à jour avec succès.']);
+                        } else {
+                            // Retourner un message d'erreur en cas d'échec
+                            echo json_encode(['error' => 'Échec de la mise à jour de la justification d\'absence.']);
+                        }
+                    } else {
+                        // Retourner un message d'erreur si le contact n'est pas trouvé
+                        echo json_encode(['error' => 'Aucun contact trouvé pour cet utilisateur.']);
+                    }
+                } else {
+                    // Retourner un message d'erreur si l'utilisateur n'est pas trouvé
+                    echo json_encode(['error' => 'Aucun utilisateur trouvé avec cet ID.']);
+                }
+            } else {
+                // Retourner un message d'erreur si les paramètres sont manquants
+                echo json_encode(['error' => 'Paramètres manquants.']);
+            }
+        }
+
         if ($action == 'updateJustificationsDepart') {
             if (isset($_POST['idPointage']) && isset($_POST['idTraiteDepartF']) && isset($_POST['resultatTraiteDepart'])) {
                 // Récupérer les paramètres nécessaires depuis la requête POST
@@ -1200,119 +1263,222 @@ if (isset($_GET['action'])) {
             echo json_encode($results);
         }
         
-        if ($action == 'saveJustification') {
+if ($action == 'saveJustification') {
             if (isset($_POST['pointage_id'], $_POST['type'])) {
                 $pointage_id = $_POST['pointage_id'];
                 $motif = $_POST['motif'];
-                $type = $_POST['type']; // "Arrivé" or "Départs"
-                $nomDocuments = isset($_POST['nomDocument']) ? $_POST['nomDocument'] : []; // Retrieve nomDocument array
-                $comments = isset($_POST['comments']) ? $_POST['comments'] : []; // Retrieve comments array
-        
+                $type = $_POST['type'];
+                $nomDocuments = isset($_POST['nomDocument']) ? $_POST['nomDocument'] : [];
+                $comments = isset($_POST['comments']) ? $_POST['comments'] : [];
                 $errorMessages = [];
                 $successCount = 0;
         
-                // Define column and flag
-                $motifColumn = $type === "Arrivé" ? "motifRetard" : "motifRetardDepart";
-                $isArrive = $type === "Arrivé" ? 1 : 0;
+                $motifColumn = $type === "Arrivé" ? "motifRetard" : ($type === "Départs" ? "motifRetardDepart" : "motifAbsent");
+                $isArrive = $type === "Arrivé" ? 1 : ($type === "Départs" ? 0 : null);
+                $isAbsent = $type === "Absence" ? 1 : 0;
         
-                // Check if attachments exist
-                if (isset($_FILES['attachments']) && count($_FILES['attachments']['name']) > 0) {
-                    $uploadDir = "../documents/pointage/justification/";
+                if (isset($_POST['modify']) && $_POST['modify'] == true) {
+                    $db->query("UPDATE wbcc_pointage SET $motifColumn = :motif WHERE idPointage = :idPointage");
+                    $db->bind("motif", $motif);
+                    $db->bind("idPointage", $pointage_id);
         
-                    if (!is_dir($uploadDir)) {
-                        mkdir($uploadDir, 0755, true);
+                    if (!$db->execute()) {
+                        $errorMessages[] = "Failed to update motif: " . $db->errorInfo();
                     }
+                } else {
+                    if (isset($_FILES['file']) && count($_FILES['file']['name']) > 0) {
+                        $uploadDir = "../documents/justification/";
+                        if (!is_dir($uploadDir)) {
+                            mkdir($uploadDir, 0755, true);
+                        }
         
-                    // Iterate through files
-                    for ($i = 0; $i < count($_FILES['attachments']['name']); $i++) {
-                        if ($_FILES['attachments']['error'][$i] == UPLOAD_ERR_OK) {
-                            $uploadedFile = $_FILES['attachments']['tmp_name'][$i];
-                            $originalFileName = $_FILES['attachments']['name'][$i];
-                            $fileType = mime_content_type($uploadedFile);
-                            $fileExtension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+                        for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
+                            if ($_FILES['file']['error'][$i] == UPLOAD_ERR_OK) {
+                                $uploadedFile = $_FILES['file']['tmp_name'][$i];
+                                $originalFileName = $_FILES['file']['name'][$i];
+                                $fileExtension = pathinfo($originalFileName, PATHINFO_EXTENSION);
         
-                            // Validate file type
-                            if (!in_array($fileExtension, ['pdf', 'mp4', 'jpg', 'jpeg', 'png'])) {
-                                $errorMessages[] = "Unsupported file type for $originalFileName";
-                                continue;
-                            }
+                                if (!in_array($fileExtension, ['pdf', 'mp4', 'jpg', 'jpeg', 'png'])) {
+                                    $errorMessages[] = "Unsupported file type for $originalFileName";
+                                    continue;
+                                }
         
-                            // Create document variables
-                            $numeroDocument = "DOC" . date('dmYHis') . $pointage_id . $i;
-                            
-                            $nomDocument = isset($nomDocuments[$i]) ? $nomDocuments[$i] : "Unnamed_Document_$i";
-                            // Sanitize the nomDocument to remove special characters
-                            $nomDocumentSanitized = preg_replace('/[^a-zA-Z0-9._-]/', '_', $nomDocument);
+                                $numeroDocument = "DOC" . date('dmYHis') . $pointage_id . $i;
+                                $nomDocumentSanitized = preg_replace('/[^a-zA-Z0-9.-]/', '', $nomDocuments[$i] ?? "Unnamed_Document_$i");
+                                $dateNow = date('YmdHis');
+                                $urlDocument = 'Pj_' . $pointage_id . '' . $nomDocumentSanitized . '' . $dateNow . '.' . $fileExtension;
         
-                            // Create the desired URL format: Pj_idpointage_nomDocument_date.extension
-                            $dateNow = date('YmdHis'); // Current date-time in the format YYYYMMDDHHMMSS
-                            $urlDocument = 'Pj_' . $pointage_id . '_' . $nomDocumentSanitized . '_' . $dateNow . '.' . $fileExtension;
+                                if (move_uploaded_file($uploadedFile, $uploadDir . $urlDocument)) {
+                                    $db->query("INSERT INTO wbcc_document (numeroDocument, nomDocument, urlDocument, commentaire, createDate, source, publie) 
+                                                VALUES (:numeroDocument, :nomDocument, :urlDocument, :commentaire, NOW(), :source, :publie)");
+                                    $db->bind("numeroDocument", $numeroDocument);
+                                    $db->bind("nomDocument", $nomDocuments ?? "Unnamed_Document_$i");
+                                    $db->bind("urlDocument", $urlDocument);
+                                    $db->bind("commentaire", $comments[$i] ?? null);
+                                    $db->bind("source", 'EXTRANET');
+                                    $db->bind("publie", 1);
         
-                            // Use corresponding nomDocument and comment
-                            $nomDocument = isset($nomDocuments[$i]) ? $nomDocuments[$i] : "Unnamed_Document_$i";
-                            $comment = isset($comments[$i]) ? $comments[$i] : null;
+                                    if (!$db->execute()) {
+                                        $errorMessages[] = "Failed to save document $originalFileName: " . $db->errorInfo();
+                                        continue;
+                                    }
         
-                            if (move_uploaded_file($uploadedFile, $uploadDir . $urlDocument)) {
-                                // Insert into wbcc_document
-                                $db->query("INSERT INTO wbcc_document (numeroDocument, nomDocument, urlDocument, commentaire, createDate, source, publie) 
-                                            VALUES (:numeroDocument, :nomDocument, :urlDocument, :commentaire, NOW(), :source, :publie)");
-                                $db->bind("numeroDocument", $numeroDocument);
-                                $db->bind("nomDocument", $nomDocument);
-                                $db->bind("urlDocument", $urlDocument);
-                                $db->bind("commentaire", $comment);
-                                $db->bind("source", 'EXTRANET');
-                                $db->bind("publie", 1);
-        
-                                if ($db->execute()) {
                                     $idDocument = $db->lastInsertId();
         
-                                    // Update wbcc_pointage
-                                    $db->query("UPDATE wbcc_pointage 
-                                                SET idDocumentF = :idDocumentF, $motifColumn = :motif 
-                                                WHERE idPointage = :idPointage");
+                                    $db->query("INSERT INTO wbcc_document_pointage (idDocumentF, idPointageF, nomDocument, isArrive, isAbsent) 
+                                                VALUES (:idDocumentF, :idPointageF, :nomDocument, :isArrive, :isAbsent)");
                                     $db->bind("idDocumentF", $idDocument);
-                                    $db->bind("motif", $motif);
-                                    $db->bind("idPointage", $pointage_id);
+                                    $db->bind("idPointageF", $pointage_id);
+                                    $db->bind("nomDocument", $nomDocuments[$i] ?? "Unnamed_Document_$i");
+                                    $db->bind("isArrive", $isArrive);
+                                    $db->bind("isAbsent", $isAbsent);
         
-                                    if ($db->execute()) {
-                                        // Insert into wbcc_document_pointage
-                                        $db->query("INSERT INTO wbcc_document_pointage (idDocumentF, idPointageF, nomDocument, isArrive) 
-                                                    VALUES (:idDocumentF, :idPointageF, :nomDocument, :isArrive)");
-                                        $db->bind("idDocumentF", $idDocument);
-                                        $db->bind("idPointageF", $pointage_id);
-                                        $db->bind("nomDocument", $nomDocument);
-                                        $db->bind("isArrive", $isArrive);
-        
-                                        if ($db->execute()) {
-                                            $successCount++;
-                                        } else {
-                                            $errorMessages[] = "Failed to link document $originalFileName to pointage.";
-                                        }
-                                    } else {
-                                        $errorMessages[] = "Failed to update pointage for document $originalFileName.";
+                                    if (!$db->execute()) {
+                                        $errorMessages[] = "Failed to link document $originalFileName: " . $db->errorInfo();
+                                        continue;
                                     }
+        
+                                    $successCount++;
                                 } else {
-                                    $errorMessages[] = "Failed to save document $originalFileName.";
+                                    $errorMessages[] = "Failed to move uploaded file $originalFileName.";
                                 }
                             } else {
-                                $errorMessages[] = "Failed to move uploaded file $originalFileName.";
+                                $errorMessages[] = "Error uploading file $i: " . $_FILES['attachments']['error'][$i];
                             }
-                        } else {
-                            $errorMessages[] = "Error uploading file $i: " . $_FILES['attachments']['error'][$i];
                         }
+                    }
+        
+                    $db->query("UPDATE wbcc_pointage SET $motifColumn = :motif WHERE idPointage = :idPointage");
+                    $db->bind("motif", $motif);
+                    $db->bind("idPointage", $pointage_id);
+        
+                    if (!$db->execute()) {
+                        $errorMessages[] = "Failed to update pointage motif: " . $db->errorInfo();
                     }
                 }
         
-                // Final response
                 if (empty($errorMessages)) {
                     echo json_encode(['success' => true, 'message' => "Request processed successfully. Total uploads: $successCount"]);
                 } else {
-                    echo json_encode(['success' => false, 'errors' => $errorMessages]);
+                    echo json_encode(['success' => false, 'message' => implode(", ", $errorMessages)]);
                 }
             } else {
-                echo json_encode(['error' => 'Required parameters are missing.']);
+                echo json_encode("0");
             }
         }
+        // if ($action == 'saveJustification') {
+        //     if (isset($_POST['pointage_id'], $_POST['type'])) {
+        //         $pointage_id = $_POST['pointage_id'];
+        //         $motif = $_POST['motif'];
+        //         $type = $_POST['type']; // "Arrivé" or "Départs"
+        //         $nomDocuments = isset($_POST['nomDocument']) ? $_POST['nomDocument'] : []; // Retrieve nomDocument array
+        //         $comments = isset($_POST['comments']) ? $_POST['comments'] : []; // Retrieve comments array
+        
+        //         $errorMessages = [];
+        //         $successCount = 0;
+        
+        //         // Define column and flag
+        //         $motifColumn = $type === "Arrivé" ? "motifRetard" : "motifRetardDepart";
+        //         $isArrive = $type === "Arrivé" ? 1 : 0;
+        
+        //         // Check if attachments exist
+        //         if (isset($_FILES['attachments']) && count($_FILES['attachments']['name']) > 0) {
+        //             $uploadDir = "../documents/pointage/justification/";
+        
+        //             if (!is_dir($uploadDir)) {
+        //                 mkdir($uploadDir, 0755, true);
+        //             }
+        
+        //             // Iterate through files
+        //             for ($i = 0; $i < count($_FILES['attachments']['name']); $i++) {
+        //                 if ($_FILES['attachments']['error'][$i] == UPLOAD_ERR_OK) {
+        //                     $uploadedFile = $_FILES['attachments']['tmp_name'][$i];
+        //                     $originalFileName = $_FILES['attachments']['name'][$i];
+        //                     $fileType = mime_content_type($uploadedFile);
+        //                     $fileExtension = pathinfo($originalFileName, PATHINFO_EXTENSION);
+        
+        //                     // Validate file type
+        //                     if (!in_array($fileExtension, ['pdf', 'mp4', 'jpg', 'jpeg', 'png'])) {
+        //                         $errorMessages[] = "Unsupported file type for $originalFileName";
+        //                         continue;
+        //                     }
+        
+        //                     // Create document variables
+        //                     $numeroDocument = "DOC" . date('dmYHis') . $pointage_id . $i;
+                            
+        //                     $nomDocument = isset($nomDocuments[$i]) ? $nomDocuments[$i] : "Unnamed_Document_$i";
+        //                     // Sanitize the nomDocument to remove special characters
+        //                     $nomDocumentSanitized = preg_replace('/[^a-zA-Z0-9._-]/', '_', $nomDocument);
+        
+        //                     // Create the desired URL format: Pj_idpointage_nomDocument_date.extension
+        //                     $dateNow = date('YmdHis'); // Current date-time in the format YYYYMMDDHHMMSS
+        //                     $urlDocument = 'Pj_' . $pointage_id . '_' . $nomDocumentSanitized . '_' . $dateNow . '.' . $fileExtension;
+        
+        //                     // Use corresponding nomDocument and comment
+        //                     $nomDocument = isset($nomDocuments[$i]) ? $nomDocuments[$i] : "Unnamed_Document_$i";
+        //                     $comment = isset($comments[$i]) ? $comments[$i] : null;
+        
+        //                     if (move_uploaded_file($uploadedFile, $uploadDir . $urlDocument)) {
+        //                         // Insert into wbcc_document
+        //                         $db->query("INSERT INTO wbcc_document (numeroDocument, nomDocument, urlDocument, commentaire, createDate, source, publie) 
+        //                                     VALUES (:numeroDocument, :nomDocument, :urlDocument, :commentaire, NOW(), :source, :publie)");
+        //                         $db->bind("numeroDocument", $numeroDocument);
+        //                         $db->bind("nomDocument", $nomDocument);
+        //                         $db->bind("urlDocument", $urlDocument);
+        //                         $db->bind("commentaire", $comment);
+        //                         $db->bind("source", 'EXTRANET');
+        //                         $db->bind("publie", 1);
+        
+        //                         if ($db->execute()) {
+        //                             $idDocument = $db->lastInsertId();
+        
+        //                             // Update wbcc_pointage
+        //                             $db->query("UPDATE wbcc_pointage 
+        //                                         SET idDocumentF = :idDocumentF, $motifColumn = :motif 
+        //                                         WHERE idPointage = :idPointage");
+        //                             $db->bind("idDocumentF", $idDocument);
+        //                             $db->bind("motif", $motif);
+        //                             $db->bind("idPointage", $pointage_id);
+        
+        //                             if ($db->execute()) {
+        //                                 // Insert into wbcc_document_pointage
+        //                                 $db->query("INSERT INTO wbcc_document_pointage (idDocumentF, idPointageF, nomDocument, isArrive) 
+        //                                             VALUES (:idDocumentF, :idPointageF, :nomDocument, :isArrive)");
+        //                                 $db->bind("idDocumentF", $idDocument);
+        //                                 $db->bind("idPointageF", $pointage_id);
+        //                                 $db->bind("nomDocument", $nomDocument);
+        //                                 $db->bind("isArrive", $isArrive);
+        
+        //                                 if ($db->execute()) {
+        //                                     $successCount++;
+        //                                 } else {
+        //                                     $errorMessages[] = "Failed to link document $originalFileName to pointage.";
+        //                                 }
+        //                             } else {
+        //                                 $errorMessages[] = "Failed to update pointage for document $originalFileName.";
+        //                             }
+        //                         } else {
+        //                             $errorMessages[] = "Failed to save document $originalFileName.";
+        //                         }
+        //                     } else {
+        //                         $errorMessages[] = "Failed to move uploaded file $originalFileName.";
+        //                     }
+        //                 } else {
+        //                     $errorMessages[] = "Error uploading file $i: " . $_FILES['attachments']['error'][$i];
+        //                 }
+        //             }
+        //         }
+        
+        //         // Final response
+        //         if (empty($errorMessages)) {
+        //             echo json_encode(['success' => true, 'message' => "Request processed successfully. Total uploads: $successCount"]);
+        //         } else {
+        //             echo json_encode(['success' => false, 'errors' => $errorMessages]);
+        //         }
+        //     } else {
+        //         echo json_encode(['error' => 'Required parameters are missing.']);
+        //     }
+        // }
 
         if ($action == 'deleteDocuments') {
             if (isset($_GET['idDocument'])) {
