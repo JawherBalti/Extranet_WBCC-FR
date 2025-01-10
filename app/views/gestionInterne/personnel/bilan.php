@@ -1,26 +1,9 @@
 <?php
-
-$selectedEmploye = $_POST['contact1'] ?? '';
-
-$selectedPeriod = $_POST['periode1'] ?? 'today';
-
-$getParams = $_POST;
-
-$dates = getPeriodDates($selectedPeriod, $getParams);
-$startDate = $dates['startDate'];
-$endDate = $dates['endDate'];
-$previousStartDate = $dates['previousStartDate'];
-$previousEndDate = $dates['previousEndDate'];
-
-$user = $_SESSION["connectedUser"];
-$role = $user->idRole;
-
-$contactListe = $role == 1 || $role == 2 ? $contacts : (array) $contactById;
-
+$selectedPeriod = $periode ? $periode : "today";
 $idRole = $_SESSION["connectedUser"]->role;
 $viewAdmin = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole == "9" ||  $_SESSION["connectedUser"]->isAccessAllOP == "1")) ? "" : "hidden";
 $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole == "9" || $idRole == 25 ||  $_SESSION["connectedUser"]->isAccessAllOP == "1")) ? "" : "hidden";
-
+$contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (array) $contactById;
 ?>
 
 
@@ -66,21 +49,21 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                 data-bs-parent="#accordionFiltrea1"
                 style="box-shadow: none !important;">
                 <div class="accordion-body" style="box-shadow: none !important;">
-                    <form method="POST" id="filterForm" action="" style="border: none; margin: 0 !important; padding: 0 !important;margin: auto;">
+                    <form method="GET" id="filterForm" action="<?= linkTo('GestionInterne', 'bilanComparatif') ?>" style="border: none; margin: 0 !important; padding: 0 !important;margin: auto;">
                         <div class="row" style="width: 100%; margin: auto;">
-                            <div class="<?= $viewAdmin != "" ? $viewAdmin : 'col-md-6 col-xs-12 mb-3' ?>">
+                            <div class="<?= $viewAdmin2 != "" ? $viewAdmin2 : 'col-md-3 col-xs-12 mb-3' ?>">
                                 <fieldset>
                                     <legend class='text-white col-md-12 text-uppercase font-weight-bold text-center py-2 badge bg-dark mx-0'>
                                         &nbsp;L'employé</legend>
                                     <div class="card ">
-                                        <select name="contact1" class="form-control" id="contact1Select">
+                                        <select name="idUtilisateur" class="form-control" id="contact1Select">
                                             <option value="">Tout</option>
 
-                                            <?php if (!empty($contacts)): ?>
-                                                <?php foreach ($contacts as $contact): ?>
-                                                    <option value="<?= htmlspecialchars($contact->fullName); ?>" <?= (isset($_POST['contact1']) && $_POST['contact1'] == $contact->fullName) ? 'selected' : ''; ?>>
-                                                        <?= htmlspecialchars($contact->fullName); ?>
-                                                    </option>
+                                            <?php if (!empty($contactsList)): ?>
+                                                <?php foreach ($contactsList as $contact): ?>
+                                                    <option <?= $idUtilisateur == $contact->idContact ? 'selected' : '' ?> value="<?php echo htmlspecialchars($contact->idContact); ?>">
+                                                    <?php echo htmlspecialchars($contact->fullName); ?>
+                                                </option>
                                                 <?php endforeach; ?>
                                             <?php else: ?>
                                                 <option value="aucun">Aucun employé disponible</option>
@@ -89,45 +72,76 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                     </div>
                                 </fieldset>
                             </div>
+                            <div class="<?= $viewAdmin2 != "" ? $viewAdmin2 : "col-md-3 col-xs-12" ?> ">
+                                <fieldset>
+                                    <legend class='text-white col-md-12 text-uppercase font-weight-bold text-center py-2 badge bg-dark mx-0'>
+                                        &nbsp;Site</legend>
+                                    <select id="site" name="site" class="form-control">
+                                        <option <?= $site === '' ? 'selected' : '' ?> value="">Tout</option>
+                                    <!-- LISTE SITE -->
+                                    <?php
+                                    foreach ($sites as $sit) {
+                                        if ((($idRole == "1" || $idRole == "2"  || $idRole == "9" || $idRole == "8" ||  $_SESSION["connectedUser"]->isAccessAllOP == "1") || (($idRole == "3" || $idRole == "25") && $_SESSION["connectedUser"]->nomSite == $sit->nomSite))) {
+                                    ?>
+                                            <option <?= $site == $sit->idSite ? "selected" : "" ?> value="<?= $sit->idSite ?>">
+                                            <?= $sit->nomSite ?>
+                                        </option>
+                                        
+                                    <?php
+                                        }
+                                    } ?>
+                                    </select>
+                                </fieldset>
+                            </div>
+
                             <!-- Période -->
-                            <div class="col-md-6 col-xs-12 mb-3">
+                            <div class="col-md-3 col-xs-12 mb-3">
                                 <fieldset>
                                     <legend class='text-white col-md-12 text-uppercase font-weight-bold text-center py-2 badge bg-dark mx-0'>
                                         Période</legend>
                                     <div class="card ">
-                                        <select name="periode1" class="form-control">
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'today') ? 'selected' : ''; ?> value="today">Aujourd'hui</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'semaine') ? 'selected' : ''; ?> value="semaine">Cette semaine</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'mois') ? 'selected' : ''; ?> value="mois">Ce mois</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'trimestre') ? 'selected' : ''; ?> value="trimestre">Ce trimestre</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'semestre') ? 'selected' : ''; ?> value="semestre">Ce semestre</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'annuel') ? 'selected' : ''; ?> value="annuel">Cette année</option>
-                                            <option <?= (isset($_POST['periode1']) && $_POST['periode1'] === 'custom') ? 'selected' : ''; ?> value="custom">Personnaliser</option>
+                                        <select name="periode" id="periode" class="form-control" onchange="onChangePeriode()">
+                                            <option value="today" <?= $periode == "today" ? "selected" : "" ?>>Aujourd'hui
+                                            </option>
+                                            <option value="semaine" <?= $periode == "semaine" ? "selected" : "" ?>>Semaine en
+                                                cours
+                                            </option>
+                                            <option value="mois" <?= $periode == "mois" ? "selected" : "" ?>>Mois en cours
+                                            </option>
+                                            <option value="trimestre" <?= $periode == "trimestre" ? "selected" : "" ?>>
+                                                Trismestre en cours
+                                            </option>
+                                            <option value="semestre" <?= $periode == "semestre" ? "selected" : "" ?>>Semestre en
+                                                cours
+                                            </option>
+                                            <option value="annuel" <?= $periode == "annuel" ? "selected" : "" ?>>Année en cours
+                                            </option>
+                                            <option value="custom" <?= $periode == "custom" ? "selected" : "" ?>>Personnaliser
+                                            </option>
                                         </select>
                                     </div>
-                                    <p id="datepair1" style="<?= (isset($_POST['periode1']) && $_POST['periode1'] === 'custom') ? 'display: block;' : 'display: none;'; ?>">
-                                        <label for="defaultFormControlInput" class="form-label">Début période 1:</label>
-                                        <br>
-                                        <input name="dateDebut1" id="dateDebut1" readonly style="border: 1px solid black;" type="text" class="this-form-control col-xs-12 col-md-12 date start" value="<?= isset($_POST['dateDebut1']) ? $_POST['dateDebut1'] : ''; ?>" placeholder="Choisir..." />
-
-                                        <label for="defaultFormControlInput" class="form-label">Fin période 1:</label>
-                                        <input name="dateFin1" id="dateFin1" style="border: 1px solid black;" type="text" class="this-form-control col-xs-12 col-md-12 date end" value="<?= isset($_POST['dateFin1']) ? $_POST['dateFin1'] : ''; ?>" placeholder="Choisir..." />
-
-                                        <br><br>
-                                        <label for="defaultFormControlInput" class="form-label">Début période 2:</label>
-                                        <br>
-                                        <input name="dateDebut2" id="dateDebut2" readonly style="border: 1px solid black;" type="text" class="this-form-control col-xs-12 col-md-12 date start" value="<?= isset($_POST['dateDebut2']) ? $_POST['dateDebut2'] : ''; ?>" placeholder="Choisir..." />
-
-                                        <label for="defaultFormControlInput" class="form-label">Fin période 2:</label>
-                                        <input name="dateFin2" id="dateFin2" style="border: 1px solid black;" type="text" class="this-form-control col-xs-12 col-md-12 date end" value="<?= isset($_POST['dateFin2']) ? $_POST['dateFin2'] : ''; ?>" placeholder="Choisir..." />
-                                    </p>
-                                </fieldset>
+                            </fieldset>
+                            <fieldset id="changeperso" <?= $periode == "custom" ||  $periode == "day" ? "" : "hidden" ?>>
+                                <legend
+                                    class='text-white col-md-12 text-uppercase font-weight-bold text-center py-2 badge bg-dark mx-0'>
+                                    Personnaliser </legend>
+                                <div class="card">
+                                    <div class="row">
+                                        <div class="col-md-6" id="date1">
+                                            <input type="date" name="startDate" id="date1Input" value="<?= $date1 ?>"
+                                                class="form-control">
+                                        </div>
+                                        <div class="col-md-6" id="date2" <?= $periode == "day" ? "hidden" : "" ?>>
+                                            <input type="date" name="endDate" id="date2Input" value="<?= $date2  ?>"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
                             </div>
                             <div class="col-md-12 col-xs-12">
                                 <button type="submit" class="btn btn-primary form-control" style="background: #c00000; border-radius: 0px; color: white;">FILTRER</button>
                             </div>
-
-
                     </form>
                 </div>
             </div>
@@ -142,7 +156,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th class=<?= $viewAdmin ?>>L'employé</th>
+                            <th class=<?= $viewAdmin2 ?>>L'employé</th>
                             <th>Période</th>
                             <th>Retard Total</th>
                             <th>Écart Retard</th>
@@ -201,7 +215,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                     $absenceTotalPrevEmploye = 0;
 
                                     filterPointagesByEmployeAndPeriod(
-                                        $viewAdmin == "" ? $employe->fullName : $user->fullName,
+                                        $viewAdmin2 == "" ? $employe->fullName :$selectedEmploye,
                                         $startDate,
                                         $endDate,
                                         $pointages,
@@ -210,7 +224,7 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                     );
 
                                     filterPointagesByEmployeAndPeriod(
-                                        $viewAdmin == "" ? $employe->fullName : $user->fullName,
+                                        $viewAdmin2 == "" ? $employe->fullName : $selectedEmploye,
                                         $previousStartDate,
                                         $previousEndDate,
                                         $pointages,
@@ -221,46 +235,9 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                     $ecartRetardEmploye = $retardTotalEmploye - $retardTotalPrevEmploye;
                                     $ecartAbsenceEmploye = $absenceTotalEmploye - $absenceTotalPrevEmploye;
                             ?>
-<!-- 
-                                    <tr>
-                                        <th rowspan="2"><?= $index ?></th>
-                                        <td rowspan="2" class="<?= $viewAdmin ?>"><?= htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
-                                        <td><?= formatPeriod($startDate, $endDate, $selectedPeriod) ?></td>
-                                        <td><?= convertMinutesToHours($retardTotalEmploye) ?></td>
-                                        <td rowspan="2"><?= ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
-
-                                        <td><?= $absenceTotalEmploye ?> jours</td>
-                                        <td rowspan="2"><?= ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
-                                    </tr>
-                                    <tr>
-                                        <td><?= formatPeriod($previousStartDate, $previousEndDate, $selectedPeriod, true) ?></td>
-                                        <td><?= convertMinutesToHours($retardTotalPrevEmploye) ?></td>
-                                        <td><?= $absenceTotalPrevEmploye ?> jours</td>
-                                    </tr> -->
-
-                                    <!-- <tr>
-                                        <td rowspan="2"><?= $index ?></td>
-                                        <td rowspan="2" class="<?= $viewAdmin ?>"><?= htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
-                                        <td><?= formatPeriod($startDate, $endDate, $selectedPeriod) ?></td>
-                                        <td><?= convertMinutesToHours($retardTotalEmploye) ?></td>
-                                        <td rowspan="2"><?= ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
-                                        <td><?= $absenceTotalEmploye ?> jours</td>
-                                        <td rowspan="2"><?= ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
-                                    </tr>
-                                    <tr>
-                                        <td><?= ($index - 3) % 5 === 0 ? '-' : $index ?></td>
-                                        <td><?= ($index - 3) % 5 === 0 ? '-' : htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
-                                        <td><?= formatPeriod($previousStartDate, $previousEndDate, $selectedPeriod, true) ?></td>
-                                        <td><?= convertMinutesToHours($retardTotalPrevEmploye) ?></td>
-                                        <td><?= ($index - 3) % 5 === 0 ? '-' : ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
-                                        <td><?= $absenceTotalPrevEmploye ?> jours</td>
-                                        <td><?= ($index - 3) % 5 === 0 ? '-' : ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
-                                    </tr> -->
-
-
                                      <tr>
                                         <td rowspan=<?=($index - 3) % 5 === 0 ? "1" : "2"?>><?= $index ?></td>
-                                        <td rowspan=<?=($index - 3) % 5 === 0 ? "1" : "2"?> class="<?= $viewAdmin ?>"><?= htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
+                                        <td rowspan=<?=($index - 3) % 5 === 0 ? "1" : "2"?> class="<?= $viewAdmin2 ?>"><?= htmlspecialchars($viewAdmin2 == "" ? $employe->fullName : $user->fullName) ?></td>
                                         <td><?= formatPeriod($startDate, $endDate, $selectedPeriod) ?></td>
                                         <td><?= convertMinutesToHours($retardTotalEmploye) ?></td>
                                         <td rowspan=<?=($index - 3) % 5 === 0 ? "1" : "2"?>><?= ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
@@ -269,39 +246,18 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
                                     </tr>
                                     <tr>
                                         <td class="<?=($index - 3)%5=== 0 ? '' : 'hidden'?>"><?= $index ?></td>
-                                        <td class="<?=($index - 3)%5=== 0 ? '' : 'hidden'?>"><?= ($index - 3)%5=== 0 ? '-' : htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
+                                        <td class="<?=($index - 3)%5=== 0 ? '' : 'hidden'?>"><?= ($index - 3)%5=== 0 ? '-' : htmlspecialchars($viewAdmin2 == "" ? $employe->fullName : $user->fullName) ?></td>
                                         <td><?= formatPeriod($previousStartDate, $previousEndDate, $selectedPeriod, true) ?></td>
                                         <td><?= convertMinutesToHours($retardTotalPrevEmploye) ?></td>
                                         <td class="<?=($index - 3)%5=== 0 ? '' : 'hidden'?>"><?= ($index - 3)%5=== 0 ? '-' : ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
                                         <td><?= $absenceTotalPrevEmploye ?> jours</td>
                                         <td class="<?=($index - 3)%5=== 0 ? '' : 'hidden'?>"><?= ($index - 3)%5=== 0 ? '-' : ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
                                     </tr>
-
-
-                                    <!-- <tr>
-    <td><?= $index ?></td>
-    <td class="<?= $viewAdmin ?>"><?= htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
-    <td><?= formatPeriod($startDate, $endDate, $selectedPeriod) ?></td>
-    <td><?= convertMinutesToHours($retardTotalEmploye) ?></td>
-    <td><?= ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
-    <td><?= $absenceTotalEmploye ?> jours</td>
-    <td><?= ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
-</tr>
-<tr>
-    <td><?= $index ?></td>
-    <td class="<?= $viewAdmin ?>"><?= htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName) ?></td>
-    <td><?= formatPeriod($previousStartDate, $previousEndDate, $selectedPeriod, true) ?></td>
-    <td><?= convertMinutesToHours($retardTotalPrevEmploye) ?></td>
-    <td><?= ($ecartRetardEmploye > 0 ? '+' : '') . convertMinutesToHours($ecartRetardEmploye) ?></td>
-    <td><?= $absenceTotalPrevEmploye ?> jours</td>
-    <td><?= ($ecartAbsenceEmploye > 0 ? '+' : '') . $ecartAbsenceEmploye ?> jours</td>
-</tr> -->
-
                         <?php
                                     $index++;
 
                                     // Stocker les données pour le graphique
-                                    $labels[] = htmlspecialchars($viewAdmin == "" ? $employe->fullName : $user->fullName);
+                                    $labels[] = htmlspecialchars($viewAdmin2 == "" ? $employe->fullName : $selectedEmploye);
                                     $retards[] = $retardTotalEmploye;
                                     $absences[] = $absenceTotalEmploye;
                                     $retardsPrev[] = $retardTotalPrevEmploye;
@@ -321,8 +277,11 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 
         $totalRetardCurrent = array_sum($retards);
         $totalAbsenceCurrent = array_sum($absences);
-        $totalRetardPrevious = array_sum($retardsPrev);
-        $totalAbsencePrevious = array_sum($absencesPrev);
+        //********************************************* */
+        if(isset($retardsPrev) && isset($absencesPrev)) {
+            $totalRetardPrevious = array_sum($retardsPrev);
+            $totalAbsencePrevious = array_sum($absencesPrev);
+        }
 
 
         ?>
@@ -343,6 +302,24 @@ $viewAdmin2 = (($idRole == "1" || $idRole == "2" || $idRole == "8" || $idRole ==
 
         <script>
             // const URLROOT = '<?= URLROOT; ?>';
+
+            function onChangePeriode() {
+                if ($("#periode option:selected").val() == "custom" || $("#periode option:selected").val() == "day") {
+                    $("#changeperso").removeAttr("hidden");
+                    if ($("#periode option:selected").val() == "custom") {
+                        $("#date2").removeAttr("hidden");
+
+                        $("#date1").removeClass("col-md-12");
+                        $("#date1").addClass("col-md-6");
+                    } else {
+                        $("#date2").attr("hidden", "hidden");
+                        $("#date1").removeClass("col-md-6");
+                        $("#date1").addClass("col-md-12");
+                    }
+                } else {
+                    $("#changeperso").attr("hidden", "hidden");
+                }
+            }
 
             function convertMinutesToHours(minutes) {
                 const sign = minutes < 0 ? '-' : '';
