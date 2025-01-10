@@ -7,10 +7,10 @@ class GestionInterneCtrl extends Controller
         $this->companyModel = $this->model('Company');
         $this->siteModel = $this->model('Site');
         $this->userModel = $this->model('Utilisateur');
-        $this->equipementModel = $this->model('Equipement');
-        $this->pieceModel = $this->model('Piece');
+        // $this->equipementModel = $this->model('Equipement');
+        // $this->pieceModel = $this->model('Piece');
         $this->contactModel = $this->model('Contact');
-        $this->artisanModel = $this->model('Artisan');
+        // $this->artisanModel = $this->model('Artisan');
         $this->subventionModel = $this->model('Subvention');
         $this->critereModel = $this->model('Critere');
         $this->parametreModel = $this->model('Parametres');
@@ -254,10 +254,14 @@ class GestionInterneCtrl extends Controller
     //DEBUT NABILA 
     public function indexPersonnel()
     {
-
+        $role = $_SESSION['connectedUser']->role;
         $type = "wbcc";
         $idContact = Role::connectedUser()->idUtilisateur;
-        $personnels = $this->userModel->getUsersByType($type);
+        if($role==25) {
+            $personnels = $this->userModel->getUsersBySite(($_SESSION['connectedUser'])->idSiteF, 1);
+        } else {
+            $personnels = $this->userModel->getUsersByType($type);
+        }
         $roles = $this->roleModel->getRolesByType($type);
         $sites = $this->siteModel->getAllSites();
         $data = [
@@ -281,25 +285,81 @@ class GestionInterneCtrl extends Controller
 
     public function bilanComparatif()
     {
+
+        $site = "";
+        $periode = 'today';
+        $date1 = "";
+        $date2 = "";
+        $startDate = "";
+        $endDate = "";
+        $previousStartDate = "";
+        $previousEndDate = "";
         $idUtilisateur = ''; // For filtering by user
+        $selectedEmploye ="";
+        $role = $_SESSION['connectedUser']->role;
+        $re = getPeriodDates("$periode", []);
+          
         if (isset($_GET)) {
             extract($_GET);
         }
 
-        $idContact = Role::connectedUser()->idUtilisateur;
-        $contacts =   $this->userModel->getUsersByType("wbcc", 1);
-        $contactById =   $this->userModel->findUserByIdContact($idContact);
-        $matricules =   $this->userModel->getUsersByType("wbcc", 1);
-        $pointages = null;
+        if ($periode != "all" && $periode != "custom" && $periode != "day" && $periode != "today") {
+            $re = getPeriodDates("$periode", []);
+            if (sizeof($re) != 0) {
+                $date1 = $re['startDate'];
+                $date2 = $re['endDate'];
+                $startDate = $re['startDate'];
+                $endDate = $re['endDate'];
+                $previousStartDate = $re['previousStartDate'];
+                $previousEndDate = $re['previousEndDate'];
+            }
+        }
+        
+        if($periode==="today") {
+            if (sizeof($re) != 0) {
+                $startDate = $re['startDate'];
+                $endDate = $re['endDate'];
+                $previousStartDate = $re['previousStartDate'];
+                $previousEndDate = $re['previousEndDate'];
+            }
+        }     
 
+        $idContact = Role::connectedUser()->idUtilisateur;
+        if($selectedEmploye) {
+            $selectedEmploye = $this->contactModel->findById($idUtilisateur);
+        }
+        $sites = $this->siteModel->getAllSites();
+        $contactsList =   $this->userModel->getUsersByType("wbcc", "1");
+
+        if($role == 25) {
+            $contactsList =   $this->userModel->getUsersBySite($_SESSION['connectedUser']->idSiteF, 1);
+        }
+        if($idUtilisateur=="" && $site=="") {
+            $contacts =   $contactsList;
+        } else {
+            $contacts = $this->userModel->getFilteredUsers($site, $idUtilisateur);
+        }
+
+        $contactById =   $this->userModel->findUserByIdContact($idContact);
+        $pointages = null;
         $pointages =  $this->pointageModel->getAllWithFullName($idContact);
 
         $data = [
             "idUtilisateur" => $idUtilisateur,
+            "selectedEmploye" => $selectedEmploye,
             "contacts"  => $contacts,
+            "contactsList" => $contactsList,
             "contactById" => $contactById,
-            "matricules"  => $matricules,
+            "site" => $site,
+            "sites" => $sites,
             "pointages" => $pointages,
+            "periode" => $periode,
+            "date1" => $date1,
+            "date2" => $date2,
+            "startDate"=> $startDate,
+            "endDate"=> $endDate,
+            'previousStartDate' => $previousStartDate,
+            'previousEndDate' => $previousEndDate
         ];
         $this->view("gestionInterne/personnel/bilan", $data);
     }
@@ -318,10 +378,16 @@ class GestionInterneCtrl extends Controller
         $fullName = '';
         $role = $_SESSION['connectedUser']->role;
 
+
+
         if (isset($_GET)) {
             extract($_GET);
         }
 
+        if($role == 25) {
+            $managerSiteId = $_SESSION['connectedUser']->idSiteF;
+            $managerNomSite = $this->siteModel->findById($managerSiteId)->nomSite;
+        }
 
         $idUtilisateur == '' ?
             $titre = 'LISTE DES POINTAGES DE TOUS LES UTILISATEURS' :
@@ -331,15 +397,31 @@ class GestionInterneCtrl extends Controller
         $totalMinuteRetardById = 0;
 
         $idContact = Role::connectedUser()->idUtilisateur;
-        $contacts =   $this->userModel->getUsersByType("wbcc", 1);
+        $sites = $this->siteModel->getAllSites();
+
         $contactById =  $this->userModel->findUserByIdContact($idContact);
-        $matricules =  $this->userModel->getUsersByType("wbcc", 1);
+        $contacts = [];
+        $matricules = [];
+        if ($role == 1 || $role == 2) {
+            $contacts =   $this->userModel->getUsersByType("wbcc", 1);
+            $matricules =  $this->userModel->getUsersByType("wbcc", 1);
+        } else {
+            if ($role == 25) {
+                $contacts =   $this->userModel->getUsersBySite($_SESSION['connectedUser']->idSiteF, 1);
+                $matricules =  $this->userModel->getUsersBySite($_SESSION['connectedUser']->idSiteF, 1);
+            } else {
+                // $fullName = $this->userModel->findUserByIdContact(Role::connectedUser()->idContactF)[0]->fullName;
+                $fullName = $this->userModel->findUserByIdContact(Role::connectedUser()->idContactF)->fullName;
+                $titre .= ' DE ' . $fullName;
+            }
+        }
+
         $pointages = null;
         $pointagesById = $this->pointageModel->getFilteredPointageWithidUser($idContact, $Motifjustification, $etat, $periode, $dateOne, $dateDebut, $dateFin);
 
-        if ($role != 1 && $role != 2) {
+        if ($role != 1 && $role != 2 && $role != 25) {
             $titre = 'LISTE DES POINTAGES';
-            $fullName = $this->userModel->findUserByIdContact($idContact)[0]->fullName;
+            $fullName = $this->userModel->findUserById($idContact)->fullName;
             $titre .= ' DE ' . $fullName;
         }
 
@@ -378,26 +460,37 @@ class GestionInterneCtrl extends Controller
             $totalMinuteRetardById += $pointage->nbMinuteRetard;
         }
 
-        if ($Motifjustification == "" && $etat == "" && $site == "" && $periode == "" && $dateOne == "" && $dateDebut == "" && $dateFin == "" && $matricule == "" && $idUtilisateur == "") {
-            $pointages =  $this->pointageModel->getAllWithFullName($idContact);
-            foreach ($pointages as $index => $pointage) {
-                $totalMinuteRetard += $pointage->nbMinuteRetard;
-            }
-        } else {
-            $pointages = $this->pointageModel->getFilteredPointage($Motifjustification, $etat, $site, $periode, $dateOne, $dateDebut, $dateFin, $matricule, $idUtilisateur);
-            foreach ($pointages as $index => $pointage) {
-                $totalMinuteRetard += $pointage->nbMinuteRetard;
-            }
+if($role ==1 || $role == 2) {
+    if ($Motifjustification == "" && $etat == "" && $site == "" && $periode == "" && $dateOne == "" && $dateDebut == "" && $dateFin == "" && $matricule == "" && $idUtilisateur == "") {
+        $pointages =  $this->pointageModel->getAllWithFullName($idContact);
+        foreach ($pointages as $index => $pointage) {
+            $totalMinuteRetard += $pointage->nbMinuteRetard;
         }
+    } else {
+        $pointages = $this->pointageModel->getFilteredPointage($Motifjustification, $etat, $site, $periode, $dateOne, $dateDebut, $dateFin, $matricule, $idUtilisateur);
+        foreach ($pointages as $index => $pointage) {
+            $totalMinuteRetard += $pointage->nbMinuteRetard;
+        }
+    }
+}
 
-
+if($role == 25) {
+    $pointages = $this->pointageModel->getFilteredPointage($Motifjustification, $etat, $managerNomSite, $periode, $dateOne, $dateDebut, $dateFin, $matricule, $idUtilisateur);
+    foreach ($pointages as $index => $pointage) {
+        $totalMinuteRetard += $pointage->nbMinuteRetard;
+    }
+}
         $data = [
             "idUtilisateur" => $idUtilisateur,
             "titre" => $titre,
             "site" => $site,
+            "sites" => $sites,
             "etat" => $etat,
             "Motifjustification" => $Motifjustification,
             "periode" => $periode,
+            "dateOne"=> $dateOne,
+            "dateFin"=> $dateFin,
+            "dateDebut"=> $dateDebut,
             "contacts"  => $contacts,
             "contactById" => $contactById,
             "matricules"  => $matricules,
