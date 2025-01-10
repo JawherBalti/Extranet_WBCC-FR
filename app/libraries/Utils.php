@@ -1784,7 +1784,6 @@ function formatPeriod($startDate, $endDate, $selectedPeriod, $isPrevious = false
 {
     $currentMonth = date('n');
     $currentYear = date('Y');
-
     switch ($selectedPeriod) {
         case 'today':
             return date('d-m-Y', strtotime($startDate));
@@ -1908,27 +1907,27 @@ function calculerDifferenceHeures($heure1, $heure2) {
     // Retourne le résultat formaté
     return "{$signe}{$heures} heures {$minutes} minutes";
 }
-
+//**************************************************************** */
 function timeStringToMinutes($timeStr) {
 
     $parts = explode(':', $timeStr);
     
     if (count($parts) < 2 || count($parts) > 3) {
-return;
+        return;
     }
     
     $hours = trim($parts[0]);
     $minutes = trim($parts[1]);
     
     if (!ctype_digit($hours) || !ctype_digit($minutes)) {
-        throw new InvalidArgumentException('Time values must be numeric');
+        return;
     }
     
     $hours = intval($hours);
     $minutes = intval($minutes);
     
     if ($hours < 0 || $hours > 23 || $minutes < 0 || $minutes > 59) {
-        throw new OutOfRangeException('Invalid time range');
+        return;
     }
     
     return ($hours * 60) + $minutes;
