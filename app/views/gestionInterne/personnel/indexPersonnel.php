@@ -11,7 +11,7 @@ $role = $user->idRole;
             </span> GESTION PERSONNEL
         </h2>
     </div>
-    <div class="<?= $role != 1 && $role != 2 ? "main-content " : "main-content hidden" ?>">
+    <div class="<?= $role != 1 && $role != 2 && $role !=25 ? "main-content " : "main-content hidden" ?>">
         <div class="container-fluid">
             <div class="row justify-content-center text-center flex-wrap">
                 <div class="col-6 col-md-3 mb-3 mb-md-2">
@@ -43,7 +43,7 @@ $role = $user->idRole;
 
     </div>
 
-    <div class="<?= $role == 1 || $role == 2 ? "" : "main-content hidden" ?>">
+    <div class="<?= $role == 1 || $role == 2 || $role ==25 ? "" : "main-content hidden" ?>">
         <div class="d-flex justify-content-between">
             <span class="col-md-2 ml-2 "><a href="<?= $data['tbdPresence'] ?>" type="button"
                     class="w-100 btn btn-primary btn-round waves-effect btn-sm">1- Tableau de bord</a></span>
@@ -60,7 +60,7 @@ $role = $user->idRole;
 </div>
 
 <?php
-if ($role == "1" || $role == "2") {
+if ($role == "1" || $role == "2" || $role =="25") {
 ?>
     <!-- DataTales Example -->
     <div class="card shadow mt-3">
