@@ -27,7 +27,7 @@ $role = $user->idRole;
                     </a>
                 </div>
                 <div class="col-6 col-md-3 mb-3 mb-md-2">
-                    <a href="<?= $data['DemanderConge'] ?>" type="button"
+                    <a href="<?= $data['gererConges'] ?>" type="button"
                         class="emp-btn btn btn-primary btn-round waves-effect btn-block">
                         3- Congés
                     </a>
