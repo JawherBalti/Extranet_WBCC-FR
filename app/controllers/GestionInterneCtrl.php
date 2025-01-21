@@ -18,7 +18,7 @@ class GestionInterneCtrl extends Controller
         $this->roleModel = $this->model('Roles');
         $this->projetModel = $this->model('Projet');
         $this->immeubleModel = $this->model('Immeuble');
-        // $this->congeModel = $this->model('Conge');
+        $this->congeModel = $this->model('Conge');
     }
 
     public function index()
@@ -258,7 +258,7 @@ class GestionInterneCtrl extends Controller
         $type = "wbcc";
         $idContact = Role::connectedUser()->idUtilisateur;
         if($role==25) {
-            $personnels = $this->userModel->getUsersBySite(($_SESSION['connectedUser'])->idSiteF, 1);
+            $personnels = $this->userModel->getUsersByManagerSiteId(($_SESSION['connectedUser'])->idSiteF, 1);
         } else {
             $personnels = $this->userModel->getUsersByType($type);
         }
@@ -378,8 +378,6 @@ class GestionInterneCtrl extends Controller
         $fullName = '';
         $role = $_SESSION['connectedUser']->role;
 
-
-
         if (isset($_GET)) {
             extract($_GET);
         }
@@ -480,6 +478,7 @@ if($role == 25) {
         $totalMinuteRetard += $pointage->nbMinuteRetard;
     }
 }
+
         $data = [
             "idUtilisateur" => $idUtilisateur,
             "titre" => $titre,
@@ -514,35 +513,110 @@ if($role == 25) {
         $this->view("gestionInterne/espaceAdmin/paie", $data);
     }
 
+    //****************************************************************** */
     public function gererConges()
     {
+        // $idContact = Role::connectedUser()->idUtilisateur;
+        // $contacts =  $this->contactModel->getAllContacts();
+        // $matricules =  $this->userModel->getAll();
+        // $conges =  $this->congeModel->getAllWithFullName($idContact);
+
+
+
+        // if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+        //     $id = intval($_GET['id']);
+
+        //     $congeDetails = $conge->findById($id);
+
+
+        //     header('Content-Type: application/json');
+        //     echo json_encode($congeDetails);
+        //     exit();
+        // }
+
+
+        // $data = [
+        //     "contacts"  => $contacts,
+        //     "matricules"  => $matricules,
+        //     "conges" =>  $conges
+
+        // ];
+        $typeConge = "";
+        $statut = "";
+        $periode = "";
+        $dateOne = "";
+        $dateDebut = "";
+        $dateFin = "";
+        $idUtilisateur = "";
+        $idSite = "";
+
+        extract($_GET);
+
         $idContact = Role::connectedUser()->idUtilisateur;
         $contacts =  $this->contactModel->getAllContacts();
         $matricules =  $this->userModel->getAll();
-        $conges =  $this->congeModel->getAllWithFullName($idContact);
+        $typesConge = $this->congeModel->getAllTypesConge();
+        $role = $_SESSION['connectedUser']->role;
+        $sites = $this->siteModel->getAllSites();
 
+        if($role == 1 || $role == 2) {
 
+            $conges =  $this->congeModel->getFilteredConge($typeConge, $statut, $idSite, $periode, $dateOne, $dateDebut, $dateFin, $idUtilisateur);
+        } elseif($role == 25) {
 
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-            $id = intval($_GET['id']);
-
-            $congeDetails = $conge->findById($id);
-
-
-            header('Content-Type: application/json');
-            echo json_encode($congeDetails);
-            exit();
+            $managerSiteId = $_SESSION['connectedUser']->idSiteF;
+            $conges =  $this->congeModel->getFilteredConge($typeConge, $statut, $managerSiteId, $periode, $dateOne, $dateDebut, $dateFin, $idUtilisateur);
+        } else {
+            $idEmploye = $_SESSION['connectedUser']->idContact;
+            $conges =  $this->congeModel->getFilteredConge($typeConge, $statut, $idSite, $periode, $dateOne, $dateDebut, $dateFin, $idEmploye);
         }
+
+        $contacts = [];
+        $matricules = "";
+        if ($role == 1 || $role == 2) {
+            $contacts =   $this->userModel->getUsersByType("wbcc", 1);
+            $matricules =  $this->userModel->getUsersByType("wbcc", 1);
+        } elseif ($role == 25) {
+                $contacts =   $this->userModel->getUsersBySite($_SESSION['connectedUser']->idSiteF, 1);
+                $matricules =  $this->userModel->getUsersBySite($_SESSION['connectedUser']->idSiteF, 1);
+            }
 
 
         $data = [
+            "typeConge" => $typeConge,
+            "statut" => $statut,
+            "typesConge" => $typesConge,
             "contacts"  => $contacts,
             "matricules"  => $matricules,
-            "conges" =>  $conges
-
+            "conges" =>  $conges,
+            "sites" => $sites,
         ];
-        $this->view("gestionInterne/espaceAdmin/conge", $data);
+
+        $this->view("gestionInterne/personnel/conge", $data);
     }
+
+    //****************************************************************** */
+    public function ajouterTypeConge() {
+        $typesConge = $this->congeModel->getAllTypesConge();
+        
+        $data = [
+            "typesConge" => $typesConge,
+        ];
+
+        $this->view("gestionInterne/personnel/ajouterConge", $data);
+    }
+
+
+
+    public function createTypeConge() {
+        $typeConge = "";
+        $quotaConge = "";
+        $politiqueConge="";
+        extract($_GET);
+        $this->congeModel->createConge($typeConge, $quotaConge, $politiqueConge);
+        $this->view("gestionInterne/personnel/ajouterConge", $data);
+    }
+    
     public function tbdPresence()
     {
         $data = [];
@@ -579,7 +653,7 @@ if($role == 25) {
         $data = [
             "conges" =>  $conges
         ];
-        $this->view("gestionInterne/espaceSalarie/espaceConge", $data);
+        $this->view("gestionInterne/personnel/conge", $data);
     }
     public function Avertir()
     {
