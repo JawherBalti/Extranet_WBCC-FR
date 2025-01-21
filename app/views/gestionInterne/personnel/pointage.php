@@ -223,7 +223,7 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
         <div class="card-header bg-light text-white">
             <div class="row">
                 <div <?= sizeof($pointageListe) != 0 ? "" : "hidden"  ?>
-                    class="row  <?= $viewAdmin != "" ? "" : "col-md-2" ?> " <?= $viewAdmin ?>>
+                    class="row  <?= $viewAdmin2 != "" ? "" : "col-md-2" ?> " <?= $viewAdmin2 ?>>
                     <div class="col-md-4 text-left float-left">
                         <input onclick="onCheckAll()" type="checkbox" class="form-control float-left" name="allChecked"
                             id="allChecked" value="all">
@@ -254,7 +254,7 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
             <table id="dataTable16" class="table table-bordered" width="100%" cellspacing="0">
                 <thead class="thead">
                     <tr>
-                        <th></th>
+                        <th class="<?=$viewAdmin2?>"></th>
                         <th>#</th>
                         <th>Actions</th>
                         <th>Date</th>
@@ -272,6 +272,7 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                         <th>Détails pointage du départ</th>
                         <th>Justificatif du départ</th>
                         <th>État du départ</th>
+                        <th>Justificatif d'absence'</th>
                         <th>État d'absence</th>
                     </tr>
                 </thead>
@@ -415,6 +416,17 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                             </td>
                             <td>
                                 <?php
+                                if ($pointage->absent == 0) {
+                                    echo '-';
+                                } elseif ($pointage->motifAbsent != null) {
+                                    echo 'oui';
+                                } else  {
+                                    echo 'non';
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <?php
                                 if ($pointage->resultatTraiteAbsent === null) {
                                     echo '-';
                                 } elseif ($pointage->resultatTraiteAbsent === 'Accepté') {
@@ -543,7 +555,6 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                 </div>
                 <hr>
 
-                <!-- //*********************************************************************** */ -->
                 <span class="justif-arrivee-text"></span>
                 <div class="arrivee-section">
                 <p><i class="fas fa-comment"></i> <strong>État d'arrivée:</strong> <span id="modalMotifRetard"></span></p>
@@ -555,11 +566,24 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                         <p>
                             <strong>Ajouter une pièce justificative</strong>
                         </p>
+
                         <form method="post" action="" id="justificationFormArrivee" enctype="multipart/form-data">
-                            <input type="hidden" id="pointage_id" name="pointage_id">
-                            <input type="text" id="nomDocumentArrivee" name="nomDocument" placeholder="nom document">
-                            <input type="file" name="file[]" id="file" multiple required>
-                            <button class="emp-btn btn btn-red btn-round" type="submit" name="submit">Ajouter</button>
+                            <div class="d-flex flex-column">
+                                <input type="hidden" id="pointage_id" name="pointage_id">
+                                <div class="d-flex flex-column w-50">
+                                    <label for="nomDocument">Nom du document</label>
+                                    <input type="text" id="nomDocumentArrivee" name="nomDocument" placeholder="nom document">
+                                </div>
+                                <div class="d-flex flex-column w-50">
+                                    <label for="commentaire">Commentaire</label>
+                                    <input type="text" id="commentaireArrivee" name="commentaire" placeholder="commentaire">
+                                </div>
+                                <div class="d-flex flex-column w-50">
+                                    <label for="commentaire">Selectionner un fichier</label>
+                                    <input type="file" name="attachments[]" id="attachments" multiple>
+                                </div>
+                                <button class="emp-btn btn btn-red btn-round mt-2 w-25" type="submit" name="submit">Ajouter</button>
+                            </div>
                         </form>
                     </div>
                 </p>
@@ -567,7 +591,8 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                     <span id="modalurlJustification"></span>
                 </div>
                 <p><i class="fas fa-comment"></i> <strong>Motif d'arrivée:</strong></p>
-                <input class=" <?=$viewAdmin2 == "" ? "d-none" :""?>" type="text" name="motif" id="motif-arrivee" placeholder="Ajouter un motif">
+                <input class=" <?=$viewAdmin2 == "" ? "d-none" :""?>" type="text" name="motif" id="motif-arrivee" required placeholder="Ajouter un motif">
+                <span id="motifArriveeErreur" class="text-danger">Veuillez entrer le motif</span>
                 <div id="modalJustification" class="motif-container"></div>
 
                 <div class="mt-0">
@@ -601,8 +626,7 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                 </div>
 
 
-                <!-- //*********************************************************************** */ -->
-
+ 
                     <hr id="justif-depart-hr">
                     <span class="justif-depart-text"></span>
 
@@ -614,12 +638,26 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                             <p>
                                 <strong>Ajouter une pièce justificative</strong>
                             </p>
+
                             <form method="post" action="" id="justificationFormDepart" enctype="multipart/form-data">
-                                <input type="hidden" id="pointage_id" name="pointage_id">
-                                <input type="text" id="nomDocumentDepart" name="nomDocument" placeholder="nom document">
-                                <input type="file" name="file[]" id="file" multiple required>
-                                <button class="emp-btn btn btn-red btn-round" type="submit" name="submit">Ajouter</button>
+                                <div class="d-flex flex-column">
+                                    <input type="hidden" id="pointage_id" name="pointage_id">
+                                <div class="d-flex flex-column w-50">
+                                    <label for="nomDocument">Nom du document</label>
+                                    <input type="text" id="nomDocumentDepart" name="nomDocument" placeholder="nom document">
+                                </div>
+                                <div class="d-flex flex-column w-50">
+                                    <label for="commentaire">Commentaire</label>
+                                    <input type="text" id="commentaireDepart" name="commentaire" placeholder="commentaire">
+                                </div>
+                                <div class="d-flex flex-column w-50">
+                                    <label for="commentaire">Selectionner un fichier</label>
+                                    <input type="file" name="attachments[]" id="attachments" multiple>
+                                </div>
+                                    <button class="emp-btn btn btn-red btn-round mt-2 w-25" type="submit" name="submit">Ajouter</button>
+                                </div>
                             </form>
+
                         </div>
                     </p>
                     <div class="scrollable-container mb-3">
@@ -627,7 +665,8 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                         <span id="modalurlJustificationDepart"></span>
                     </div>
                     <p><i class="fas fa-comment"></i> <strong>Motif du départ:</strong></p>
-                    <input class="<?=$viewAdmin2 == "" ? "d-none" :""?>" type="text" name="motif" id="motif-depart" placeholder="Ajouter un motif">
+                    <input class="<?=$viewAdmin2 == "" ? "d-none" :""?>" type="text" name="motif" id="motif-depart" required placeholder="Ajouter un motif">
+                    <span id="motifDepartErreur" class="text-danger">Veuillez entrer le motif</span>
                     <div id="modalJustificationDepart" class="motif-container"></div>
                     <div class="mt-0">
                         <div class="<?= $viewAdmin != '' ? $viewAdmin : 'form-group confirm-justif-depart' ?>">
@@ -658,7 +697,6 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                     </div>
                     </div>
 
-                <!-- //*********************************************************************** */ -->
 
                     <div class="absent-section hidden">
                     <p><i class="fas fa-comment"></i> <strong>État d'absence:</strong> <span id="modalMotifAbsence"></span></p>
@@ -670,10 +708,22 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                             <strong>Ajouter une pièce justificative</strong>
                         </p>
                         <form method="post" action="" id="justificationFormAbsence" enctype="multipart/form-data">
-                            <input type="hidden" id="pointage_id" name="pointage_id">
-                            <input type="text" id="nomDocumentAbsence" name="nomDocument" placeholder="nom document">
-                            <input type="file" name="file[]" id="file" multiple required>
-                            <button class="emp-btn btn btn-red btn-round" type="submit" name="submit">Ajouter</button>
+                            <div class="d-flex flex-column">
+                                <input type="hidden" id="pointage_id" name="pointage_id">
+                                <div class="d-flex flex-column w-50">
+                                    <label for="nomDocument">Nom du document</label>
+                                    <input class="mb-2" type="text" id="nomDocumentAbsence" name="nomDocument" placeholder="ajouter le nom du document">
+                                </div>
+                                <div class="d-flex flex-column w-50">
+                                    <label for="commentaire">Commentaire</label>
+                                    <input class="mb-2" type="text" id="commentaireAbsence" name="commentaire" placeholder="commentaire">
+                                </div>
+                                <div class="d-flex flex-column w-50">
+                                    <label for="commentaire">Selectionner un fichier</label>
+                                    <input class="mb-2" type="file" name="attachments[]" id="attachments" multiple>
+                                </div>
+                                <button class="emp-btn btn btn-red btn-round mt-2 w-25" type="submit" name="submit">Ajouter</button>
+                            </div>
                         </form>
                     </div>
                     </p>
@@ -682,7 +732,8 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                         <span id="modalurlJustificationAbsence"></span>
                     </div>
                     <p><i class="fas fa-comment"></i> <strong>Motif d'absence:</strong></p>
-                    <input class="<?=$viewAdmin2 == "" ? "d-none" :""?>" type="text" name="motif" id="motif-absence"  placeholder="Ajouter un motif">
+                    <input class="<?=$viewAdmin2 == "" ? "d-none" :""?>" type="text" name="motif" id="motif-absence" required placeholder="Ajouter un motif">
+                    <span id="motifAbsenceErreur" class="text-danger">Veuillez entrer le motif</span>
                     <div id="modalJustificationAbsence" class="motif-container"></div>
                         <div class="mt-0">
                             <div class="<?= $viewAdmin != '' ? $viewAdmin : 'form-group confirm-justif-absence' ?>">
@@ -793,7 +844,7 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
         <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 
         <script>
-            // const URLROOT = '<?= URLROOT; ?>';
+            const URLROOT = '<?= URLROOT; ?>';
 
             let selectedPointageId = null;
 
@@ -1380,7 +1431,6 @@ $contactListe = $idRole == 1 || $idRole == 2 || $idRole == 25 ? $contacts : (arr
                 return null; // Aucun choix sélectionné
             }
 
-//********************************************************************* */
 
 // Fonction pour récupérer l'ID du manager
 async function getManagerId() {
@@ -1407,6 +1457,10 @@ async function getManagerId() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+            $('#motifAbsenceErreur').hide();
+            $('#motifDepartErreur').hide();
+            $('#motifArriveeErreur').hide();
+
           $('#justificationFormDepart').on('submit', async function(event) {
             event.preventDefault(); 
             
@@ -1418,20 +1472,25 @@ document.addEventListener('DOMContentLoaded', function () {
             var motif = $('#motif').val();
             var nomDocument = $('#nomDocumentDepart').val();
             var pointage_id = $('#pointage_id').val();
-
+            var commentaire = $('#commentaireDepart').val();
             let motifDepart = $("#motif-depart").val()
 
             console.log(motifDepart)
             // Préparez les données du formulaire
             var formData = new FormData(this);
-            console.log(nomDocument)
+
             formData.append('pointage_id', pointage_id);
             formData.append('motif', motifDepart);
             formData.append('type', justificationType);
             formData.append('nomDocument', nomDocument);
+            formData.append('comments', commentaire);
             
             try {
                 // Envoyez la justification via AJAX
+                if(!motifDepart) {
+                    $('#motifDepartErreur').show()
+                    return
+                }
                 const response = await $.ajax({
                     url: `${URLROOT}/public/json/pointage.php?action=saveJustification`, 
                     type: 'POST',
@@ -1472,7 +1531,9 @@ document.addEventListener('DOMContentLoaded', function () {
             
             var motif = $('#motif').val();
             var nomDocument = $('#nomDocumentArrivee').val();
+            var commentaire =  $('#nomDocumentArrivee').val();
             var pointage_id = $('#pointage_id').val();
+            var commentaire = $('#commentaireArrivee').val();
 
             let motifArrivee = $("#motif-arrivee").val()
             
@@ -1485,7 +1546,13 @@ document.addEventListener('DOMContentLoaded', function () {
             formData.append('motif', motifArrivee);
             formData.append('type', justificationType);
             formData.append('nomDocument', nomDocument);
+            formData.append('comments', commentaire);
             
+            
+            if(!motifArrivee) {
+                    $('#motifDepartErreur').show()
+                    return
+                }
             try {
                 // Envoyez la justification via AJAX
                 const response = await $.ajax({
@@ -1530,16 +1597,22 @@ document.addEventListener('DOMContentLoaded', function () {
             var motif = $('#motif').val();
             var nomDocument = $('#nomDocumentAbsence').val();
             var pointage_id = $('#pointage_id').val();
-
+            var commentaire = $('#commentaireAbsence').val();
             let motifAbsence = $("#motif-absence").val()
             // Préparez les données du formulaire
             var formData = new FormData(this);
-            console.log(nomDocument)
+            console.log(commentaire)
+
             formData.append('pointage_id', pointage_id);
             formData.append('motif', motifAbsence);
             formData.append('type', justificationType);
             formData.append('nomDocument', nomDocument);
-            
+            formData.append('comments', commentaire);
+
+            if(!motifAbsence) {
+                $('#motifAbsenceErreur').show();
+                return
+            }
             try {
                 // Envoyez la justification via AJAX
                 const response = await $.ajax({
@@ -1551,7 +1624,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     processData: false,
                 });
 
-                console.log(response);
                 $('#justificationModal').modal('hide'); 
                 //  window.location.reload();
                 const fullNameUser = '<?php echo $_SESSION['connectedUser']->fullName ?? 'undefined'; ?>';
@@ -1567,7 +1639,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 //         : `${fullNameUser} a soumis une justification pour son départ. Veuillez la consulter.`;
 
                 //     // await createNotification(managerId, titleNotification, notificationMessage);
-                    window.location.reload();
+                     window.location.reload();
                 // }
             } catch (error) {
                 console.error('Erreur AJAX ou notification :', error);
@@ -1580,7 +1652,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     $('#errorOperation').modal('show');
                     return;
                 }
-//************************************************ */
                 $('#pointage_id').val(id);
 
                 $.ajax({
@@ -1895,7 +1966,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('modalMotifRetard').innerHTML = `<span class="badge ${badgeClass}">${resultatTraiteText}</span>`;
 
 
-                        //*************************************************************** */
                         let etatElement = document.getElementById('modalEtat');
                         
                         if (etatElement) {
@@ -1957,7 +2027,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('modalMotifRetarddepart').innerHTML =
                             `<span class="badge ${badgeClassDepart}">${resultatTraiteDepartText}</span>`;
 
-                        //******************************************************************** */
                         justificationAbsenceLinkElement = document.getElementById('modalurlJustificationAbsence');
                         let justificationAbsenceLinks = '-'; // Default value
                         if (response.documents && response.documents.length > 0) {
@@ -1968,7 +2037,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 // Map the filtered documents to create HTML links
                                 justificationAbsenceLinks = filteredDocs
                                     .map(doc =>
-                                        `<a style="color:#13058f; text-decoration: none; font-size:16px; font-weight:bold; margin-left:20px;" href="${URLROOT}/public/documents/justification/${doc.urlDocument}" target="_blank">${doc.nomDocument}</a>`
+                                        `<a style="color:#13058f; text-decoration: none; font-size:16px; font-weight:bold; margin-left:20px;" href="${URLROOT}/public/documents/pointage/justification/${doc.urlDocument}" target="_blank">${doc.nomDocument}</a>`
                                     )
                                     .join('<br>'); // Add an HTML line break between the links
                             } else {
@@ -1998,7 +2067,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 // Map the filtered documents to create HTML links
                                 justificationLinks = filteredDocs
                                     .map(doc =>
-                                        `<a style="color:#13058f; text-decoration: none; font-size:16px; font-weight:bold; margin-left:20px;" href="${URLROOT}/public/documents/justification/${doc.urlDocument}" target="_blank">${doc.nomDocument}</a>`
+                                        `<a style="color:#13058f; text-decoration: none; font-size:16px; font-weight:bold; margin-left:20px;" href="${URLROOT}/public/documents/pointage/justification/${doc.urlDocument}" target="_blank">${doc.nomDocument}</a>`
                                     )
                                     .join('<br>'); // Add an HTML line break between the links
                             } else {
@@ -2027,7 +2096,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     // Map the filtered documents to create HTML links
                                     justificationDepartLinks = filteredDocsDepart
                                         .map(doc =>
-                                            `<a style="color:#13058f; text-decoration: none;  font-size:16px; font-weight:bold; margin-left:20px;" href="${URLROOT}/public/documents/justification/${doc.urlDocument}" target="_blank">${doc.nomDocument}</a>`
+                                            `<a style="color:#13058f; text-decoration: none;  font-size:16px; font-weight:bold; margin-left:20px;" href="${URLROOT}/public/documents/pointage/justification/${doc.urlDocument}" target="_blank">${doc.nomDocument}</a>`
                                         )
                                         .join('<br>'); // Add an HTML line break between the links
                                 } else {
