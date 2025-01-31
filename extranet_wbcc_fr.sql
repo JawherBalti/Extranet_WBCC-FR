@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 24 jan. 2025 à 17:35
+-- Généré le : ven. 31 jan. 2025 à 16:38
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -278,9 +278,9 @@ CREATE TABLE `wbcc_contact` (
 --
 
 INSERT INTO `wbcc_contact` (`idContact`, `numeroContact`, `nomContact`, `prenomContact`, `fullName`, `telContact`, `emailContact`, `dateNaissance`, `adresseContact`, `codePostalContact`, `villeContact`, `statutContact`, `etatContact`, `civiliteContact`, `copieCNI`, `copieCA`, `copieTP`, `commentaireCNI`, `commentaireCA`, `commentaireTP`, `lienParente`, `age`, `fiscalementCharge`, `fileJustificatifOcc`, `idContactFContact`, `codeFiche`, `skype`, `whatsapp`, `commentaire`, `category`, `companyName`, `departement`, `mobilePhone`, `faxPhone`, `emailCollaboratif`, `businessLine2`, `businessState`, `businessCountryName`, `digicode1`, `codePorte`, `batiment`, `etage`, `source`, `referredBy`, `createDate`, `editDate`, `jobTitle`, `service`, `motifSuppressionCompte`, `isUser`, `isPersonnel`) VALUES
-(1, 'vdfgsdfsddfhdffgd', 'BALTI', 'Jawher', 'Jawher BALTI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'current_timestamp()', 'current_timestamp()', NULL, NULL, NULL, 0, 0),
-(2, 'CON_05050404', 'nc1', 'pc1', 'npc1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'current_timestamp()', 'current_timestamp()', NULL, NULL, NULL, 1, 1),
-(100, 'CON_1', 'nabila', 'nabila', 'nabila nabila', NULL, 'nabila.nabila@gmail.com', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'current_timestamp()', 'current_timestamp()', NULL, NULL, NULL, 0, 0),
+(1, 'vdfgsdfsddfhdffgd', 'BALTI', 'Jawher', 'Jawher BALTI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-01 11:50:34', '2024-12-16 11:50:34', NULL, NULL, NULL, 0, 0),
+(2, 'CON_05050404', 'nc1', 'pc1', 'npc1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-10-01 11:50:34', '2024-10-01 11:50:34', NULL, NULL, NULL, 1, 1),
+(100, 'CON_1', 'nabila', 'nabila', 'nabila nabila', NULL, 'nabila.nabila@gmail.com', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-10-01 11:50:34', '2024-10-01 11:50:34', NULL, NULL, NULL, 0, 0),
 (1998, 'CON_05050404202420242024115034', 'DRIDI', 'Hamza', 'Hamza DRIDI', '0766596464', 'jeanmarc.d@wbcc.fr', NULL, '', '', '', NULL, 1, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, '', '', '', '', 'jeanmarc.d@wbcc.fr', '', '', NULL, NULL, '', '', '', NULL, 'Extranet WBCC', '2024-04-05 11:50:34', '2024-08-30 08:50:33', '', '', NULL, 1, 0),
 (8462, 'CON_05050404202420242024115035', 'admin', 'admin', 'admin admin', NULL, 'admin.admin@wbcc.fr', NULL, '', '', '', 'Commercial', 1, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, '', '', '', '', NULL, '', '', NULL, NULL, '', '', '', NULL, 'Extranet WBCC', '', '', '', '', NULL, 1, 0),
 (8464, 'CON_05050404202420242024115034', 'MEHERZI', 'Mohamed Achref', 'Mohamed Achref MEHERZI', '0766596464', 'achref@wbcc.fr', NULL, '', '', '', NULL, 1, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', NULL, NULL, '', '', '', '', 'achref@wbcc.fr', '', '', NULL, NULL, '', '', '', NULL, 'Extranet WBCC', '2024-04-05 11:50:34', '2024-08-30 08:50:33', '', '', NULL, 1, 0),
@@ -370,30 +370,69 @@ CREATE TABLE `wbcc_demandesconge` (
   `quotasRestant` int(11) NOT NULL,
   `dateCreation` datetime DEFAULT NULL,
   `dateModification` datetime DEFAULT NULL,
-  `idTraiteF` int(11) DEFAULT NULL
+  `idTraiteF` int(11) DEFAULT NULL,
+  `jours` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `wbcc_demandesconge`
 --
 
-INSERT INTO `wbcc_demandesconge` (`idDemande`, `idUtilisateurF`, `idTypeCongeF`, `motif`, `dateDebutDeCongeSouhaite`, `dateFinDeCongeSouhaite`, `dateDebutDeCongePropose`, `dateFinDeCongePropose`, `dateDebutDeCongeReelle`, `dateFinDeCongeReelle`, `commentaire`, `statut`, `quotasRestant`, `dateCreation`, `dateModification`, `idTraiteF`) VALUES
-(1, 609, 1, 'motif123123', '2024-08-08', '2024-08-16', NULL, NULL, '2024-08-07', '2024-08-10', '', '1', 0, NULL, '2025-01-23 17:51:16', 1),
-(2, 611, 1, 'bb', '2024-09-11', '2024-09-28', NULL, NULL, NULL, NULL, 'vvv', '0', 0, '2024-09-17 02:38:50', '2025-01-23 17:48:50', 2),
-(8, 609, 3, 'ttt', '2024-09-20', '2024-09-28', '2025-01-25', '2025-01-26', NULL, NULL, 'azer', '2', 0, '2024-09-17 02:38:50', '2025-01-24 14:14:38', 1),
-(9, 609, 3, 'sddssd', '2024-09-01', '2024-09-30', NULL, NULL, NULL, NULL, NULL, '2', 0, '2024-09-27 01:32:49', '2025-01-22 14:08:25', 1998),
-(10, 611, 1, '', '2024-09-07', '2024-09-29', NULL, NULL, '2024-08-21', '2024-08-23', NULL, '1', 0, '2024-09-27 01:33:49', '2025-01-23 17:49:15', 1),
-(31, 609, 2, 'azeazeazeazeazeazeqqqqqqqqqqqqqqqqqqqqqqq', '2025-01-22', '2025-01-24', '2025-01-25', '2025-01-31', '2025-01-25', '2025-01-31', 'zzzzzzzzzzzzzzzzzzzzzz', '1', 0, '2025-01-21 15:57:20', '2025-01-23 10:57:24', 1),
-(32, 1, 3, 'pppppppppppppppppppppppp', '2025-01-24', '2025-01-26', NULL, NULL, NULL, NULL, NULL, '2', 0, '2025-01-21 15:57:56', '2025-01-23 17:49:46', 1),
-(33, 1, 2, 'qsdqsdqsdqs', '2025-01-23', '2025-01-28', NULL, NULL, '2025-01-23', '2025-01-28', NULL, '1', 0, '2025-01-21 15:58:56', '2025-01-23 17:35:27', 1),
-(34, 1, 3, '1231234564', '2025-01-30', '2025-01-31', '2025-01-25', '2025-01-26', NULL, NULL, 'commentaire', '0', 0, '2025-01-21 15:59:56', '2025-01-24 14:13:27', 1),
-(41, 609, 2, '111111111111111', '2025-01-24', '2025-01-25', NULL, NULL, NULL, NULL, NULL, '2', 0, '2025-01-23 11:07:14', '2025-01-23 11:16:36', 1),
-(42, 609, 1, 'azeazeaze', '2025-01-29', '2025-01-31', NULL, NULL, '2025-01-29', '2025-01-31', NULL, '1', 0, '2025-01-23 11:12:39', '2025-01-23 11:17:09', 1),
-(43, 609, 3, '4\r\n45\r\n4', '2025-01-25', '2025-01-27', '2025-01-30', '2025-01-31', '2025-01-22', '2025-01-31', 'azeaze', '1', 0, '2025-01-23 11:17:37', '2025-01-23 11:18:49', 1),
-(44, 609, 1, 'sdfgsdfg', '2025-01-23', '2025-01-26', '2025-01-24', '2025-01-26', NULL, NULL, '456', '3', 0, '2025-01-23 11:19:25', '2025-01-24 14:15:14', 1),
-(45, 609, 2, '123456789', '2025-01-24', '2025-01-28', NULL, NULL, '2025-01-24', '2025-01-28', NULL, '1', 0, '2025-01-23 14:53:51', '2025-01-23 17:49:39', 1),
-(46, 609, 2, '1111111111111111111111', '2025-01-24', '2025-01-27', '2025-01-24', '2025-01-25', '2025-01-24', '2025-01-25', 'azeaze', '1', 0, '2025-01-24 12:25:52', '2025-01-24 12:36:37', 1),
-(47, 609, 1, 'motif2', '2025-01-25', '2025-01-28', NULL, NULL, NULL, NULL, NULL, '0', 0, '2025-01-24 14:15:59', '2025-01-24 14:16:18', NULL);
+INSERT INTO `wbcc_demandesconge` (`idDemande`, `idUtilisateurF`, `idTypeCongeF`, `motif`, `dateDebutDeCongeSouhaite`, `dateFinDeCongeSouhaite`, `dateDebutDeCongePropose`, `dateFinDeCongePropose`, `dateDebutDeCongeReelle`, `dateFinDeCongeReelle`, `commentaire`, `statut`, `quotasRestant`, `dateCreation`, `dateModification`, `idTraiteF`, `jours`) VALUES
+(1, 609, 1, 'motif123123', '2024-08-08', '2024-08-16', NULL, NULL, '2024-08-07', '2024-08-10', '', '1', 0, NULL, '2025-01-23 17:51:16', 1, NULL),
+(2, 611, 1, 'bb', '2024-09-11', '2024-09-28', NULL, NULL, NULL, NULL, 'vvv', '0', 0, '2024-09-17 02:38:50', '2025-01-23 17:48:50', 2, NULL),
+(8, 609, 3, 'ttt', '2024-09-20', '2024-09-28', '2025-01-25', '2025-01-26', NULL, NULL, 'azer', '2', 0, '2024-09-17 02:38:50', '2025-01-24 14:14:38', 1, NULL),
+(9, 609, 3, 'sddssd', '2024-09-01', '2024-09-30', NULL, NULL, NULL, NULL, NULL, '1', 0, '2024-09-27 01:32:49', '2025-01-22 14:08:25', 609, NULL),
+(10, 611, 1, '', '2024-09-07', '2024-09-29', NULL, NULL, '2024-08-21', '2024-08-23', NULL, '1', 0, '2024-09-27 01:33:49', '2025-01-23 17:49:15', 1, NULL),
+(31, 609, 2, 'azeazeazeazeazeazeqqqqqqqqqqqqqqqqqqqqqqq', '2025-01-22', '2025-01-24', '2025-01-25', '2025-01-31', '2025-01-25', '2025-01-31', 'zzzzzzzzzzzzzzzzzzzzzz', '1', 0, '2025-01-21 15:57:20', '2025-01-23 10:57:24', 1, NULL),
+(32, 1, 3, 'pppppppppppppppppppppppp', '2025-01-24', '2025-01-26', NULL, NULL, NULL, NULL, NULL, '2', 0, '2025-01-21 15:57:56', '2025-01-23 17:49:46', 1, NULL),
+(33, 1, 2, 'qsdqsdqsdqs', '2025-01-23', '2025-01-28', NULL, NULL, '2025-01-23', '2025-01-28', NULL, '1', 0, '2025-01-21 15:58:56', '2025-01-23 17:35:27', 1, NULL),
+(34, 1, 3, '1231234564', '2025-01-30', '2025-01-31', '2025-01-25', '2025-01-26', NULL, NULL, 'commentaire', '0', 0, '2025-01-21 15:59:56', '2025-01-24 14:13:27', 1, NULL),
+(41, 609, 2, '111111111111111', '2025-01-24', '2025-01-25', NULL, NULL, NULL, NULL, NULL, '2', 0, '2025-01-23 11:07:14', '2025-01-23 11:16:36', 1, NULL),
+(42, 609, 1, 'azeazeaze', '2025-01-29', '2025-01-31', NULL, NULL, '2025-01-29', '2025-01-31', NULL, '1', 0, '2025-01-23 11:12:39', '2025-01-23 11:17:09', 1, NULL),
+(43, 609, 3, '4\r\n45\r\n4', '2025-01-25', '2025-01-27', '2025-01-30', '2025-01-31', '2025-01-22', '2025-01-31', 'azeaze', '1', 0, '2025-01-23 11:17:37', '2025-01-23 11:18:49', 1, NULL),
+(44, 609, 1, 'sdfgsdfg', '2025-01-23', '2025-01-26', '2025-01-24', '2025-01-26', NULL, NULL, '456', '3', 0, '2025-01-23 11:19:25', '2025-01-24 14:15:14', 1, NULL),
+(45, 609, 2, '123456789', '2025-01-24', '2025-01-28', NULL, NULL, '2025-01-24', '2025-01-28', NULL, '1', 0, '2025-01-23 14:53:51', '2025-01-23 17:49:39', 1, NULL),
+(46, 609, 2, '1111111111111111111111', '2025-01-24', '2025-01-27', '2025-01-24', '2025-01-25', '2025-01-24', '2025-01-25', 'azeaze', '1', 0, '2025-01-24 12:25:52', '2025-01-24 12:36:37', 1, NULL),
+(47, 609, 1, 'motif2', '2025-01-25', '2025-01-28', NULL, NULL, NULL, NULL, 'Raison rejet: azerazerazer', '2', 0, '2025-01-24 14:15:59', '2025-01-27 09:38:54', 1, NULL),
+(48, 609, 2, 'azeqsdwxc', '2025-01-28', '2025-01-29', '2025-01-29', '2025-01-30', '2025-01-29', '2025-01-30', 'commentaire proposition', '1', 0, '2025-01-27 10:19:32', '2025-01-27 10:31:39', 1, NULL),
+(49, 609, 1, 'qsdwxc', '2025-01-30', '2025-01-31', NULL, NULL, '2025-01-30', '2025-01-31', NULL, '1', 0, '2025-01-27 10:28:09', '2025-01-27 10:31:18', 1, NULL),
+(50, 609, 1, 'qqqqqqqqqqqq', '2025-01-30', '2025-01-31', '2025-01-29', '2025-01-30', NULL, NULL, '456', '2', 0, '2025-01-27 10:32:12', '2025-01-27 10:32:51', 1, NULL),
+(53, 609, 2, 'aaaaaaaaaaaaa', '2025-01-28', '2025-01-30', NULL, NULL, '2025-01-28', '2025-01-30', NULL, '1', 0, '2025-01-28 16:39:16', '2025-01-28 16:56:18', 1, 3),
+(54, 609, 2, 'qwwwwwwwwwwwwwwwwwwwwwwwww', '2025-01-28', '2025-01-29', '2025-01-29', '2025-01-30', '2025-01-29', '2025-01-30', 'aazeaze', '1', 0, '2025-01-28 16:55:33', '2025-01-28 17:05:44', 1, 2),
+(55, 609, 3, 'xxxxxxxxxxxxxxxxxxxxx', '2025-01-28', '2025-01-31', '2025-01-28', '2025-01-30', '2025-01-28', '2025-01-30', 'zzzzzzzzzzzzzzzzzzzzzz', '1', 0, '2025-01-28 16:55:53', '2025-01-28 17:03:53', 1, 3),
+(56, 609, 2, '', '2025-01-30', '2025-01-31', '2025-01-29', '2025-01-30', '2025-01-29', '2025-01-30', '', '1', 0, '2025-01-28 17:07:39', '2025-01-28 17:09:05', 1, 2),
+(57, 609, 2, 'aaaaaaaaaaaaa', '2025-01-28', '2025-01-31', NULL, NULL, '2025-01-28', '2025-01-31', NULL, '1', 0, '2025-01-28 17:15:28', '2025-01-28 17:15:45', 1, 4),
+(58, 609, 2, 'aaaaaaaaaaaaaa', '2025-01-28', '2025-01-31', '2025-01-28', '2025-01-30', '2025-01-28', '2025-01-30', 'aaaaaaaaaaaaa', '1', 0, '2025-01-28 17:16:05', '2025-01-28 17:16:51', 1, 3),
+(59, 609, 2, 'ssssssssssssssssss', '2025-01-28', '2025-01-29', '2025-01-29', '2025-01-30', '2025-01-29', '2025-01-30', 'sssssssss', '1', 0, '2025-01-28 17:17:11', '2025-01-28 17:17:51', 1, 2),
+(60, 609, 3, 'qqqqqqqqqqqqqq', '2025-01-30', '2025-01-31', '2025-02-10', '2025-02-11', '2025-02-10', '2025-02-11', '', '3', 0, '2025-01-29 14:15:06', '2025-01-30 15:37:31', 1, 2),
+(61, 609, 3, 'qqqqqqqqqqqqqq', '2025-01-29', '2025-01-31', '2025-02-19', '2025-02-20', '2025-02-19', '2025-02-20', '', '1', 0, '2025-01-29 14:16:22', '2025-01-30 13:37:34', 1, 2),
+(62, 609, 2, 'aaaaaaaaaaaaaaaaaaaaaaaa', '2025-02-06', '2025-02-17', NULL, NULL, '2025-02-06', '2025-02-17', NULL, '1', 0, '2025-01-29 17:27:37', '2025-01-30 16:45:22', 1, 8),
+(63, 609, 2, 'aaaaaaaaaaaaaaaaaaaaaaaa', '2025-02-06', '2025-02-17', NULL, NULL, '2025-02-06', '2025-02-17', NULL, '1', 0, '2025-01-29 17:27:37', '2025-01-30 15:35:08', 1, 8),
+(64, 609, 1, 'aaaaaaaaaaaaaaaa', '2025-02-07', '2025-02-11', NULL, NULL, '2025-02-07', '2025-02-11', NULL, '3', 0, '2025-01-30 10:06:26', '2025-01-30 16:57:26', 1, 3),
+(65, 609, 1, 'aaaaaaaaaaaaaaaa', '2025-02-07', '2025-02-11', NULL, NULL, NULL, NULL, NULL, '3', 0, '2025-01-30 10:06:26', '2025-01-30 15:38:15', NULL, 3),
+(66, 609, 2, 'aaaaaaaa', '2025-02-07', '2025-02-13', NULL, NULL, '2025-02-07', '2025-02-13', NULL, '1', 0, '2025-01-30 16:58:10', '2025-01-30 16:58:20', 1, 5),
+(67, 609, 2, '', '2025-02-07', '2025-02-13', NULL, NULL, '2025-02-07', '2025-02-13', NULL, '1', 0, '2025-01-30 16:59:55', '2025-01-30 17:00:02', 1, 5),
+(68, 609, 2, 'aaaaaaaaaaaaa', '2025-02-10', '2025-02-11', NULL, NULL, '2025-02-10', '2025-02-11', NULL, '3', 0, '2025-01-31 08:18:25', '2025-01-31 09:44:54', 1, 2),
+(69, 609, 2, 'aaaaaaaaaaaaaaaaaa', '2025-02-10', '2025-02-12', NULL, NULL, '2025-02-10', '2025-02-12', NULL, '1', 0, '2025-01-31 09:48:59', '2025-01-31 09:49:26', 1, 3),
+(70, 609, 2, 'aaaaaaaaaaaaaaa', '2025-02-10', '2025-02-12', NULL, NULL, '2025-02-10', '2025-02-12', NULL, '1', 0, '2025-01-31 09:58:52', '2025-01-31 09:59:11', 1, 3),
+(71, 609, 2, 'aaaaaaaaaaaaaaaaaaaa', '2025-02-10', '2025-02-11', NULL, NULL, '2025-02-10', '2025-02-11', NULL, '1', 0, '2025-01-31 10:01:42', '2025-01-31 10:01:52', 1, 2),
+(72, 609, 2, 'aaaaaaaaaaaa', '2025-02-10', '2025-02-11', NULL, NULL, '2025-02-10', '2025-02-11', NULL, '1', 0, '2025-01-31 10:02:19', '2025-01-31 10:02:32', 1, 2),
+(73, 609, 2, 'aaaaaaaaaaaaaaaaaaaa', '2025-02-10', '2025-02-11', NULL, NULL, '2025-02-10', '2025-02-11', NULL, '1', 0, '2025-01-31 10:04:37', '2025-01-31 10:04:51', 1, 2),
+(74, 609, 2, 'qqqqqqqqqqqqqqqqqqqqqq', '2025-02-10', '2025-02-11', NULL, NULL, '2025-02-10', '2025-02-11', NULL, '1', 0, '2025-01-31 10:08:08', '2025-01-31 10:08:26', 1, 2),
+(75, 609, 2, 'aaaaaaaaaaaaaaaaaaaaaaaa', '2025-02-20', '2025-02-21', NULL, NULL, '2025-02-20', '2025-02-21', NULL, '1', 0, '2025-01-31 10:10:24', '2025-01-31 10:10:34', 1, 2),
+(76, 609, 2, 'aaaaaaaaaaaaaaaaaaa', '2025-02-10', '2025-02-11', NULL, NULL, '2025-02-10', '2025-02-11', NULL, '1', 0, '2025-01-31 10:11:23', '2025-01-31 10:11:39', 1, 2),
+(77, 609, 2, 'fffffffffffffffffff', '2025-02-10', '2025-02-12', NULL, NULL, '2025-02-10', '2025-02-12', NULL, '1', 0, '2025-01-31 10:14:28', '2025-01-31 10:14:43', 1, 3),
+(78, 1, 2, 'qqqqqqqqqqqqqq', '2025-02-10', '2025-02-12', NULL, NULL, '2025-02-10', '2025-02-12', NULL, '1', 0, '2025-01-31 10:23:28', '2025-01-31 10:25:44', 609, 3),
+(79, 1, 2, 'ccccccccccccccc', '2025-02-10', '2025-02-12', '2025-02-10', '2025-02-11', NULL, NULL, 'xxxxxxxxxxxxxxx', '0', 0, '2025-01-31 10:28:25', '2025-01-31 10:28:40', 609, 3),
+(80, 609, 2, 'wwwwwwwwwwwwwwww', '2025-02-10', '2025-02-11', NULL, NULL, NULL, NULL, NULL, '0', 0, '2025-01-31 10:45:21', '2025-01-31 10:45:21', NULL, 2),
+(81, 609, 2, 'wwwwwwwwwwwwwwwwww', '2025-02-10', '2025-02-12', NULL, NULL, NULL, NULL, NULL, '0', 0, '2025-01-31 10:46:27', '2025-01-31 10:46:27', NULL, 3),
+(82, 609, 2, 'wwwwwwwwwwwwwwwwwwww', '2025-02-10', '2025-02-11', NULL, NULL, NULL, NULL, NULL, '0', 0, '2025-01-31 10:47:17', '2025-01-31 10:47:17', NULL, 2),
+(83, 609, 2, 'wwwwwwwwwwwwwwwww', '2025-02-10', '2025-02-11', NULL, NULL, NULL, NULL, NULL, '0', 0, '2025-01-31 11:13:33', '2025-01-31 11:13:33', NULL, 2),
+(84, 609, 2, 'wwwwwwwwwwwwwwwwwffffffffffwwwwwwwwww', '2025-02-10', '2025-02-11', NULL, NULL, NULL, NULL, NULL, '0', 0, '2025-01-31 11:13:53', '2025-01-31 11:35:41', NULL, 2),
+(85, 609, 2, 'wwwwwwwwwwwwwwww', '2025-02-10', '2025-02-11', NULL, NULL, NULL, NULL, NULL, '0', 0, '2025-01-31 12:25:30', '2025-01-31 12:25:30', NULL, 2),
+(86, 609, 2, 'ccccccccccccccccccccc', '2025-02-10', '2025-02-11', NULL, NULL, NULL, NULL, NULL, '0', 0, '2025-01-31 12:29:37', '2025-01-31 12:29:37', NULL, 2),
+(87, 609, 2, 'xxxxxxxxxxxxxxxxaaaa', '2025-02-10', '2025-03-05', NULL, NULL, NULL, NULL, NULL, '0', 0, '2025-01-31 12:34:58', '2025-01-31 14:33:59', NULL, 18);
 
 -- --------------------------------------------------------
 
@@ -464,7 +503,46 @@ INSERT INTO `wbcc_document` (`idDocument`, `numeroDocument`, `nomDocument`, `url
 (49875, 'DOC200120251011514870', 'AZE', 'Pj_487A20250120101151.png', NULL, '2025-01-20 10:11:51', '2025-01-20 10:11:51', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0),
 (49885, 'DOC200120251154314870', 'eeeeeeee', 'Pj_487_e_20250120115431.png', 'zzzzzzzzz', '2025-01-20 11:54:31', '2025-01-20 11:54:31', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0),
 (49886, 'DOC200120251206424870', 'aaaaaaaaaaaaaa', 'Pj_487_a_20250120120642.png', 'zzzzzzzzzzzzzzzzz', '2025-01-20 12:06:42', '2025-01-20 12:06:42', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0),
-(49887, 'DOC200120251209513250', '111111111111111', 'Pj_325_1_20250120120951.png', '222222222222', '2025-01-20 12:09:51', '2025-01-20 12:09:51', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0);
+(49887, 'DOC200120251209513250', '111111111111111', 'Pj_325_1_20250120120951.png', '222222222222', '2025-01-20 12:09:51', '2025-01-20 12:09:51', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0),
+(49888, 'DOC29012025141506600', 'a', 'Pj_60a20250129141506.png', 'z', '2025-01-29 14:15:06', '2025-01-29 14:15:06', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0),
+(49889, 'DOC31012025104521800', 'q', 'Pj_80q20250131104521.png', 'c', '2025-01-31 10:45:21', '2025-01-31 10:45:21', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0),
+(49890, 'DOC31012025104627810', 'a', 'Pj_81a20250131104627.png', 'c', '2025-01-31 10:46:27', '2025-01-31 10:46:27', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0),
+(49891, 'DOC31012025104717820', 'a', 'Pj_82a20250131104717.png', 'c', '2025-01-31 10:47:17', '2025-01-31 10:47:17', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0),
+(49892, 'DOC31012025122530850', 'a', 'Pj_85a20250131122530.png', 'z', '2025-01-31 12:25:30', '2025-01-31 12:25:30', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0),
+(49893, 'DOC31012025122937860', '[', 'Pj_8620250131122937.png', '[', '2025-01-31 12:29:37', '2025-01-31 12:29:37', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0),
+(49894, 'DOC31012025123458870', 'n', 'Pj_87n20250131123458.png', 'c', '2025-01-31 12:34:58', '2025-01-31 12:34:58', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0),
+(49895, 'DOC31012025141514870', 'Unnamed_Document_0', 'Pj_87UnnamedDocument020250131141514.png', NULL, '2025-01-31 14:15:14', '2025-01-31 14:15:14', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'EXTRANET', NULL, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `wbcc_document_conge`
+--
+
+CREATE TABLE `wbcc_document_conge` (
+  `idDocumentConge` int(11) NOT NULL,
+  `idDocumentF` int(11) NOT NULL,
+  `idDemandeF` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `wbcc_document_conge`
+--
+
+INSERT INTO `wbcc_document_conge` (`idDocumentConge`, `idDocumentF`, `idDemandeF`) VALUES
+(3, 49887, 59),
+(4, 49886, 59),
+(5, 49885, 58),
+(6, 49875, 57),
+(7, 49872, 56),
+(18, 49888, 60),
+(19, 49889, 80),
+(20, 49890, 81),
+(21, 49891, 82),
+(22, 49892, 85),
+(23, 49893, 86),
+(24, 49894, 87),
+(25, 49895, 87);
 
 -- --------------------------------------------------------
 
@@ -1117,7 +1195,23 @@ INSERT INTO `wbcc_historique` (`idHistorique`, `action`, `nomComplet`, `dateActi
 (319, 'Déconnexion', 'Jawher BALTI', '2025-01-24 14:01:42', NULL, 1, NULL),
 (320, 'Connexion', 'Hamza DRIDI', '2025-01-24 14:01:48', NULL, 609, NULL),
 (321, 'Déconnexion', 'Hamza DRIDI', '2025-01-24 14:08:54', NULL, 609, NULL),
-(322, 'Connexion', 'Jawher BALTI', '2025-01-24 14:09:02', NULL, 1, NULL);
+(322, 'Connexion', 'Jawher BALTI', '2025-01-24 14:09:02', NULL, 1, NULL),
+(323, 'Connexion', 'Jawher BALTI', '2025-01-27 07:59:47', NULL, 1, NULL),
+(324, 'Connexion', 'Hamza DRIDI', '2025-01-27 08:00:29', NULL, 609, NULL),
+(325, 'Connexion', 'Jawher BALTI', '2025-01-28 14:37:00', NULL, 1, NULL),
+(326, 'Connexion', 'Hamza DRIDI', '2025-01-28 15:21:36', NULL, 609, NULL),
+(327, 'Déconnexion', 'Jawher BALTI', '2025-01-29 10:53:20', NULL, 1, NULL),
+(328, 'Connexion', 'Jawher BALTI', '2025-01-29 10:53:25', NULL, 1, NULL),
+(329, 'Déconnexion', 'Jawher BALTI', '2025-01-29 11:28:39', NULL, 1, NULL),
+(330, 'Connexion', 'Jawher BALTI', '2025-01-29 11:28:44', NULL, 1, NULL),
+(331, 'Déconnexion', 'Jawher BALTI', '2025-01-31 09:22:01', NULL, 1, NULL),
+(332, 'Connexion', 'Jawher BALTI', '2025-01-31 09:22:05', NULL, 1, NULL),
+(333, 'Déconnexion', 'Hamza DRIDI', '2025-01-31 09:22:10', NULL, 609, NULL),
+(334, 'Connexion', 'Hamza DRIDI', '2025-01-31 09:22:17', NULL, 609, NULL),
+(335, 'Déconnexion', 'Jawher BALTI', '2025-01-31 09:29:58', NULL, 1, NULL),
+(336, 'Connexion', 'Jawher BALTI', '2025-01-31 09:30:03', NULL, 1, NULL),
+(337, 'Déconnexion', 'Hamza DRIDI', '2025-01-31 09:30:07', NULL, 609, NULL),
+(338, 'Connexion', 'Hamza DRIDI', '2025-01-31 09:30:13', NULL, 609, NULL);
 
 -- --------------------------------------------------------
 
@@ -3285,6 +3379,35 @@ INSERT INTO `wbcc_site` (`idSite`, `numeroSite`, `nomSite`, `etatSite`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `wbcc_solde_conge`
+--
+
+CREATE TABLE `wbcc_solde_conge` (
+  `idSoldeConge` int(11) NOT NULL,
+  `idUtilisateurF` int(11) DEFAULT NULL,
+  `annee` int(11) DEFAULT NULL,
+  `soldeCumule` int(11) DEFAULT NULL,
+  `soldeRestant` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `wbcc_solde_conge`
+--
+
+INSERT INTO `wbcc_solde_conge` (`idSoldeConge`, `idUtilisateurF`, `annee`, `soldeCumule`, `soldeRestant`) VALUES
+(1, 1, 2025, 10, 10),
+(2, 2, 2025, 6, 6),
+(3, 605, 2025, 6, 6),
+(4, 609, 2025, 20, 20),
+(5, 611, 2025, 6, 6),
+(6, 3, 2025, 6, 6),
+(7, 613, 2025, 6, 6),
+(8, 614, 2025, 6, 6),
+(9, 607, 2025, 6, 6);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `wbcc_sous_module`
 --
 
@@ -3409,19 +3532,20 @@ CREATE TABLE `wbcc_type_conge` (
   `idTypeConge` int(11) NOT NULL,
   `type` varchar(255) NOT NULL,
   `quotas` int(11) DEFAULT NULL,
-  `politique` varchar(255) DEFAULT NULL
+  `politique` varchar(255) DEFAULT NULL,
+  `createDate` varchar(25) DEFAULT NULL,
+  `editDate` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `wbcc_type_conge`
 --
 
-INSERT INTO `wbcc_type_conge` (`idTypeConge`, `type`, `quotas`, `politique`) VALUES
-(1, 'Congé maladie', 6, 'politique1aze'),
-(2, 'Congé payé', 22, 'politique2'),
-(3, 'Congé de paternité', 2, 'politique3'),
-(7, 'Congé de maternité', 30, 'politique4'),
-(17, 'type', 4, 'politique');
+INSERT INTO `wbcc_type_conge` (`idTypeConge`, `type`, `quotas`, `politique`, `createDate`, `editDate`) VALUES
+(1, 'Congé maladie', 3, 'politique1aze', '2025-01-26 14:53:32', '2025-01-27 14:53:32'),
+(2, 'Congé payé', 22, 'politique23', '2025-01-23 14:53:32', '2025-01-31 12:19:18'),
+(3, 'Congé de paternité', 2, 'politique3', '2025-01-27 14:53:32', '2025-01-27 16:04:39'),
+(7, 'Congé de maternité', 30, 'politique4', '2025-01-27 14:53:32', '2025-01-27 14:53:32');
 
 -- --------------------------------------------------------
 
@@ -3607,6 +3731,14 @@ ALTER TABLE `wbcc_document`
   ADD KEY `idUserF` (`idUtilisateurF`);
 
 --
+-- Index pour la table `wbcc_document_conge`
+--
+ALTER TABLE `wbcc_document_conge`
+  ADD PRIMARY KEY (`idDocumentConge`),
+  ADD KEY `idDocumentF` (`idDocumentF`),
+  ADD KEY `idDemandeF` (`idDemandeF`);
+
+--
 -- Index pour la table `wbcc_document_requis`
 --
 ALTER TABLE `wbcc_document_requis`
@@ -3688,6 +3820,14 @@ ALTER TABLE `wbcc_role_sous_module`
 --
 ALTER TABLE `wbcc_site`
   ADD PRIMARY KEY (`idSite`);
+
+--
+-- Index pour la table `wbcc_solde_conge`
+--
+ALTER TABLE `wbcc_solde_conge`
+  ADD PRIMARY KEY (`idSoldeConge`),
+  ADD KEY `idUtilisateurF` (`idUtilisateurF`),
+  ADD KEY `idSoldeConge` (`idSoldeConge`,`idUtilisateurF`,`annee`,`soldeCumule`,`soldeRestant`);
 
 --
 -- Index pour la table `wbcc_sous_module`
@@ -3794,13 +3934,19 @@ ALTER TABLE `wbcc_critere_subvention`
 -- AUTO_INCREMENT pour la table `wbcc_demandesconge`
 --
 ALTER TABLE `wbcc_demandesconge`
-  MODIFY `idDemande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `idDemande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT pour la table `wbcc_document`
 --
 ALTER TABLE `wbcc_document`
-  MODIFY `idDocument` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49888;
+  MODIFY `idDocument` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49896;
+
+--
+-- AUTO_INCREMENT pour la table `wbcc_document_conge`
+--
+ALTER TABLE `wbcc_document_conge`
+  MODIFY `idDocumentConge` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT pour la table `wbcc_document_requis`
@@ -3818,7 +3964,7 @@ ALTER TABLE `wbcc_document_requis_subvention`
 -- AUTO_INCREMENT pour la table `wbcc_historique`
 --
 ALTER TABLE `wbcc_historique`
-  MODIFY `idHistorique` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=323;
+  MODIFY `idHistorique` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=339;
 
 --
 -- AUTO_INCREMENT pour la table `wbcc_immeuble`
@@ -3875,6 +4021,12 @@ ALTER TABLE `wbcc_site`
   MODIFY `idSite` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT pour la table `wbcc_solde_conge`
+--
+ALTER TABLE `wbcc_solde_conge`
+  MODIFY `idSoldeConge` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT pour la table `wbcc_sous_module`
 --
 ALTER TABLE `wbcc_sous_module`
@@ -3896,7 +4048,7 @@ ALTER TABLE `wbcc_type_condition`
 -- AUTO_INCREMENT pour la table `wbcc_type_conge`
 --
 ALTER TABLE `wbcc_type_conge`
-  MODIFY `idTypeConge` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idTypeConge` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT pour la table `wbcc_user_access`
@@ -3968,6 +4120,13 @@ ALTER TABLE `wbcc_document`
   ADD CONSTRAINT `wbcc_document_ibfk_1` FOREIGN KEY (`idUtilisateurF`) REFERENCES `wbcc_utilisateur` (`idUtilisateur`);
 
 --
+-- Contraintes pour la table `wbcc_document_conge`
+--
+ALTER TABLE `wbcc_document_conge`
+  ADD CONSTRAINT `wbcc_document_conge_ibfk_1` FOREIGN KEY (`idDocumentF`) REFERENCES `wbcc_document` (`idDocument`) ON DELETE CASCADE,
+  ADD CONSTRAINT `wbcc_document_conge_ibfk_2` FOREIGN KEY (`idDemandeF`) REFERENCES `wbcc_demandesconge` (`idDemande`) ON DELETE CASCADE;
+
+--
 -- Contraintes pour la table `wbcc_document_requis_subvention`
 --
 ALTER TABLE `wbcc_document_requis_subvention`
@@ -3999,6 +4158,12 @@ ALTER TABLE `wbcc_projet`
 ALTER TABLE `wbcc_role_sous_module`
   ADD CONSTRAINT `wbcc_role_sous_module_ibfk_1` FOREIGN KEY (`idRoleF`) REFERENCES `wbcc_roles` (`idRole`),
   ADD CONSTRAINT `wbcc_role_sous_module_ibfk_2` FOREIGN KEY (`idSousModuleF`) REFERENCES `wbcc_sous_module` (`idSousModule`);
+
+--
+-- Contraintes pour la table `wbcc_solde_conge`
+--
+ALTER TABLE `wbcc_solde_conge`
+  ADD CONSTRAINT `wbcc_solde_conge_ibfk_1` FOREIGN KEY (`idUtilisateurF`) REFERENCES `wbcc_utilisateur` (`idUtilisateur`);
 
 --
 -- Contraintes pour la table `wbcc_sous_module`
